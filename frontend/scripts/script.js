@@ -55,10 +55,20 @@ function generateNewGUI(firstname, lastname) {
 
     var redirectUrl = "/result.html";
 
-    //window.location.replace(redirectUrl); //TODO redirect to result page without losing received json-data
+    //AJAX Request for async loading of html-pages
+    var xhttp = new XMLHttpRequest();
+    xhttp.onreadystatechange = function() {
+        if (this.readyState == 4 && this.status == 200) {
 
-    console.log("redirect to " + redirectUrl);
+            console.log("redirect to " + redirectUrl);
 
-    var jsonResult = document.createTextNode("JSON-Data from the backend: " + firstname + ", " + lastname);
-    document.getElementById("json-result").appendChild(jsonResult);
+            document.body.innerHTML = this.responseText; //replace html-body with content from result.html
+
+            //insert JSON-Data
+            var jsonResult = document.createTextNode("JSON-Data from the backend: " + firstname + ", " + lastname);
+            document.getElementById("json-result").appendChild(jsonResult);
+        }
+    };
+    xhttp.open("GET", "result.html", true);
+    xhttp.send();
 }

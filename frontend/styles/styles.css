@@ -2,3 +2,7 @@ body {
     background-color: lightgray;
     font-family: sans-serif;
 }
+
+#json-result {
+    color: red;
+}

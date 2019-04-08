@@ -55,7 +55,14 @@ Handler for delivering http-requests
 */
 func viewHandler(w http.ResponseWriter, r *http.Request) {
 
-	filePath := "frontend" + r.URL.Path
+	filePath := "frontend"
+
+	//error handling for request to root-level
+	if r.URL.Path == "/" {
+		filePath += "/index.html"
+	} else {
+		filePath += r.URL.Path
+	}
 
 	fmt.Println(">>>> Requesting: " + r.URL.Path)
 

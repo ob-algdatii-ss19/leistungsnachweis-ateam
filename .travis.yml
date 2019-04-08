@@ -6,4 +6,4 @@ before_script:
 script:
   - echo go test -v
   - echo go test -bench=.
-  - golangci-lint run --enable-all
+  - golangci-lint run --disable-all

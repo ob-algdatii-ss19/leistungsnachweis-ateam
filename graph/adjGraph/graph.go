@@ -1,4 +1,4 @@
-package graph
+package adjGraph
 
 type Node int
 

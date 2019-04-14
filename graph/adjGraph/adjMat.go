@@ -1,4 +1,4 @@
-package graph
+package adjGraph
 
 type AdjMat [][]bool
 

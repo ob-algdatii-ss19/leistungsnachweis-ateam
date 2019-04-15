@@ -9,6 +9,6 @@ install:
 
 script:
   - echo go test ./... -coverpkg=./... -v -coverprofile=coverage.out
-  - $HOME/gopath/bin/goveralls -coverprofile=coverage.out -service=travis-ci -repotoken $COVERALLS_TOKEN
+  - $HOME/gopath/bin/goveralls -coverprofile=coverage.out -repotoken $COVERALLS_TOKEN
   - echo go test ./... -bench=.
   - golangci-lint run --disable-all -E errcheck

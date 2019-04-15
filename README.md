@@ -2,6 +2,13 @@
 
 Group: ateam
 
+**Build status**
+
+develop:
+[![Build Status](https://travis-ci.com/ob-algdatii-ss19/leistungsnachweis-ateam.svg?token=4zw9EzexndWUV9DTxZpz&branch=develop)](https://travis-ci.com/ob-algdatii-ss19/leistungsnachweis-ateam)
+master:
+[![Build Status](https://travis-ci.com/ob-algdatii-ss19/leistungsnachweis-ateam.svg?token=4zw9EzexndWUV9DTxZpz&branch=master)](https://travis-ci.com/ob-algdatii-ss19/leistungsnachweis-ateam)
+
 ### Getting started
 
 * download github-Projekt

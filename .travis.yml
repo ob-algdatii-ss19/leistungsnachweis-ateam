@@ -5,5 +5,5 @@ before_script:
 
 script:
   - echo go test ./... -coverpkg=./... -v
-  - echo go test ./... -bench=.'
+  - echo go test ./... -bench=.
   - golangci-lint run --disable-all -E errcheck

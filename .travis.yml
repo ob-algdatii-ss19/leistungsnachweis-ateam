@@ -8,7 +8,7 @@ install:
     - go get github.com/mattn/goveralls
 
 script:
-  - echo go test ./... -coverpkg=./... -v -coverprofile=coverage.out
+  - go test ./... -coverpkg=./... -v -coverprofile=coverage.out
   - $HOME/gopath/bin/goveralls -coverprofile=coverage.out -repotoken $COVERALLS_TOKEN
   - echo go test ./... -bench=.
   - golangci-lint run --disable-all -E errcheck

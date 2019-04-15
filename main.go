@@ -86,7 +86,7 @@ func viewHandler(w http.ResponseWriter, r *http.Request) {
 	t := fileStat.ModTime()
 
 	fmt.Println("\t\t > Serving: " + filePath + " with filetype " + fileType)
-	fmt.Println("\t\t%s -- last modified-time:  %+v\n", filename, t)
+	fmt.Printf("\t\t%v -- last modified-time:  %+v\n", filename, t)
 
 	//change mime-type for css-files
 	if fileType == "css" {

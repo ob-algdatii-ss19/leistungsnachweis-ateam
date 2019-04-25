@@ -1,2 +1,0 @@
-service_name: travis-pro
-repotoken: $COVERALLS_TOKEN

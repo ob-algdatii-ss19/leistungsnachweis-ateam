@@ -2,7 +2,7 @@
 
 Group: ateam
 
-**Build status**
+### Build status / Test-Coverage
 
 develop:
 [![Build Status](https://travis-ci.com/ob-algdatii-ss19/leistungsnachweis-ateam.svg?token=4zw9EzexndWUV9DTxZpz&branch=develop)](https://travis-ci.com/ob-algdatii-ss19/leistungsnachweis-ateam)

@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Ampelschaltungen</title>
+    <link rel="stylesheet" type="text/css" href="styles/intersection-styles.css">
+    <script src="scripts/intersectionManipulation.js"></script>
+</head>
+<body>
+
+<div id="nav-bar"></div>
+
+<div id="intersection-image-container">
+    <object id="intersection-svg" data="images/traffic_intersection.svg" type="image/svg+xml">
+        <!-- Fallback for older browser -->
+        Traffic Intersection: No SVG-Rendering supported
+    </object>
+</div>
+
+<div id="intersection-form">
+    <form>
+        <div id="intersection">
+            <div id="intersection-top">
+                <ul class="nodes-horizontal">
+                    <li><input type="checkbox" id="node-O" name="node-O" value="O">O</li>
+                    <li><input type="checkbox" id="node-N" name="node-N" value="N">N</li>
+                    <li><input type="checkbox" id="node-M" name="node-M" value="M">M</li>
+                </ul>
+            </div>
+            <div id="intersection-center">
+                <div id="intersection-left">
+                    <ul class="nodes-vertical">
+                        <li><input type="checkbox" id="node-A" name="node-A" value="A">A</li>
+                        <li><input type="checkbox" id="node-B" name="node-B" value="B">B</li>
+                        <li><input type="checkbox" id="node-C" name="node-C" value="C">C</li>
+                    </ul>
+                </div>
+                <div id="intersection-middle">
+                </div>
+                <div id="intersection-right">
+                    <ul class="nodes-vertical">
+                        <li><input type="checkbox" id="node-K" name="node-K" value="K">K</li>
+                        <li><input type="checkbox" id="node-J" name="node-J" value="J">J</li>
+                        <li><input type="checkbox" id="node-I" name="node-I" value="I">I</li>
+                    </ul>
+                </div>
+            </div>
+            <div id="intersection-bottom">
+                <ul class="nodes-horizontal">
+                    <li><input type="checkbox" id="node-E" name="node-E" value="E">E</li>
+                    <li><input type="checkbox" id="node-F" name="node-F" value="F">F</li>
+                    <li><input type="checkbox" id="node-G" name="node-G" value="G">G</li>
+                </ul>
+            </div>
+            <div id="intersection-pedestrians">
+                <ul class="nodes-pedestrians">
+                <li><input type="checkbox" id="pedestrians-top" name="pedestrians-top">Enable Pedestrians Top</li>
+                <li><input type="checkbox" id="pedestrians-bottom" name="pedestrians-bottom">Enable Pedestrians Bottom</li>
+                <li><input type="checkbox" id="pedestrians-right" name="pedestrians-right">Enable Pedestrians Right</li>
+                <li><input type="checkbox" id="pedestrians-left" name="pedestrians-top">Enable Pedestrians Left</li>
+                </ul>
+            </div>
+                <button type="button" id="Evaluate" name="evaluate">Evaluate</button>
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

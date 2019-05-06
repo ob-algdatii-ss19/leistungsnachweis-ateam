@@ -6,7 +6,7 @@ pipeline {
                 docker { image 'obraun/vss-jenkins' }
             }
             steps {
-                sh 'go test ./... -v -coverpkg=./...’
+                sh 'go test ./... -v -coverpkg=./...'
                 sh 'go test ./... -bench=.'
             }
         }

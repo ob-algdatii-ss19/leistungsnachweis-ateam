@@ -22,11 +22,11 @@ func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) AdjMat{
 			var diff2 = connections[j].to - connections[i].to
 			if diff1!= 1 &&diff2 != 1 {
 				//Linksabbieger abfangen:
-				if(linksabbieger()) {
+				//if(linksabbieger()) {
 					if (connections[i].from != connections[j].from) && (connections[i].to != connections[j].to) {
 						conflictGraph.AddEdge(Node(i), Node(j))
 					}
-				}
+				//}
 			}
 		}
 	}

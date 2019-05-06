@@ -16,6 +16,10 @@ func (g AdjMat) AddEdge(from Node, to Node) {
 	g[from][to] = true
 }
 
+func (g AdjMat) RemoveEdge(from Node, to Node){
+	g[from][to] = false
+}
+
 func (g AdjMat) Edges() []Edge {
 	es := make([]Edge, 0)
 	for i, row := range g {

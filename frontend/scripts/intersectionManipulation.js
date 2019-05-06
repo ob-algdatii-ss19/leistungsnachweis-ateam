@@ -21,19 +21,50 @@ window.onload=function() {
     TODO change visibility of all traffic lights and refactor method
  */
 function addCheckboxListener(){
-    nodeList = ['node-A', 'node-B','node-C', 'node-E', 'node-F', 'node-G','node-I','node-J','node-K','node-M','node-N','node-O','pedestrians-right','pedestrians-bottom','pedestrians-left','pedestrians-top'];
-    elementList = ["A-left-left","B-left-straight","C-left-right","E-bottom-left","F-bottom-straight","G-bottom-right","I-right-left","J-right-straight","K-right-right","M-top-left","N-top-straight","O-top-right","L-right-pedestrian","H-bottom-pedestrian","D-left-pedestrian","P-top-pedestrian"];
-    for(i= 0; i<nodeList.length;i++) {
+    nodeList = ['node-A', 'node-B','node-C', 'node-E', 'node-F', 'node-G','node-I','node-J','node-K','node-M','node-N','node-O'];
+    elementList = ["A-left-left","B-left-straight","C-left-right","E-bottom-left","F-bottom-straight","G-bottom-right","I-right-left","J-right-straight","K-right-right","M-top-left","N-top-straight","O-top-right"];
+    for(let i= 0; i<nodeList.length;i++) {
+        //alert(nodeList.length);
         document.getElementById(nodeList[i]).addEventListener('change', e => {
+
             if (e.target.checked) {
-                svgDoc.getElementById(elementList[i]).setAttribute("style", "visibility:visible");
                 svgDoc.getElementById(elementList[i]).setAttribute("style", "visibility:visible");
             } else {
                 svgDoc.getElementById(elementList[i]).setAttribute("style", "visibility:hidden");
-                svgDoc.getElementById(elementList[i]).setAttribute("style", "visibility:visible");
             }
         });
     }
+    nodeListPedestrians =['pedestrians-right','pedestrians-bottom','pedestrians-left','pedestrians-top'];
+    nodeListIslandPedestrians =['pedestrians-island-right','pedestrians-island-bottom','pedestrians-island-left','pedestrians-island-top'];
+    elementListPedestrians = ["L-right-pedestrian","H-bottom-pedestrian","D-left-pedestrian","P-top-pedestrian"];
+    elementListPedestriansIsland = ["pi-right","pi-bottom","pi-left","pi-top"];
+
+    //svgDoc.getElementById("pi-left").setAttribute("style", "visibility:hidden");
+    //svgDoc.getElementById(elementListPedestriansIsland[0]+"-short").setAttribute("style", "visibility:hidden");
+
+    for(let i= 0; i<nodeListPedestrians.length;i++) {
+        //alert(nodeListPedestrians[i]+" "+elementListPedestrians[i]);
+        svgDoc.getElementById(elementListPedestriansIsland[i]).setAttribute("style", "visibility:hidden");
+        document.getElementById(nodeListPedestrians[i]).addEventListener('change', e => {
+            if (e.target.checked) {
+                svgDoc.getElementById(elementListPedestrians[i]).setAttribute("style", "visibility:visible");
+                document.getElementById(nodeListIslandPedestrians[i]).setAttribute("style", "visibility:visible");
+                    document.getElementById(nodeListIslandPedestrians[i]).addEventListener('change', e=>{
+                        if(e.target.checked){
+                            svgDoc.getElementById(elementListPedestriansIsland[i]).setAttribute("style", "visibility:visible");
+                            svgDoc.getElementById(elementListPedestriansIsland[i]).setAttribute("style", "visibility:visible");
+                        }else {
+                            svgDoc.getElementById(elementListPedestriansIsland[i]).setAttribute("style", "visibility:hidden");
+                            svgDoc.getElementById(elementListPedestriansIsland[i]).setAttribute("style", "visibility:hidden");
+                        }
+                    });
+            } else {
+                svgDoc.getElementById(elementListPedestrians[i]).setAttribute("style", "visibility:hidden");
+                document.getElementById(nodeListIslandPedestrians[i]).setAttribute("style", "visibility:hidden");
+            }
+        });
+    }
+
 }
 function switchLightTo( trafficLightID,  color){
 

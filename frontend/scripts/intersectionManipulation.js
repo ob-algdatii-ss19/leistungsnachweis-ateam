@@ -20,137 +20,21 @@ window.onload=function() {
     Checkbox-Listener to display and hide traffic-lights
     TODO change visibility of all traffic lights and refactor method
  */
-function addCheckboxListener() {
-    document.getElementById('node-A').addEventListener('change', e => {
-        if(e.target.checked){
-            svgDoc.getElementById("A-left-left").setAttribute("style", "visibility:visible");
-            svgDoc.getElementById("top_1_").setAttribute("style", "visibility:visible");
-        } else {
-            svgDoc.getElementById("A-left-left").setAttribute("style", "visibility:hidden");
-            svgDoc.getElementById("left_1_").setAttribute("style", "visibility:visible");
-        }
-    });
-
-    document.getElementById('node-B').addEventListener('change', e => {
-        if(e.target.checked){
-            svgDoc.getElementById("B-left-straight").setAttribute("style", "visibility:visible");
-        } else {
-            svgDoc.getElementById("B-left-straight").setAttribute("style", "visibility:hidden");
-        }
-    });
-
-    document.getElementById('node-C').addEventListener('change', e => {
-        if(e.target.checked){
-            svgDoc.getElementById("C-left-right").setAttribute("style", "visibility:visible");
-        } else {
-            svgDoc.getElementById("C-left-right").setAttribute("style", "visibility:hidden");
-        }
-    });
-
-    document.getElementById('node-E').addEventListener('change', e => {
-        if(e.target.checked){
-            svgDoc.getElementById("E-bottom-left").setAttribute("style", "visibility:visible");
-        } else {
-            svgDoc.getElementById("E-bottom-left").setAttribute("style", "visibility:hidden");
-        }
-    });
-
-    document.getElementById('node-F').addEventListener('change', e => {
-        if(e.target.checked){
-            svgDoc.getElementById("F-bottom-straight").setAttribute("style", "visibility:visible");
-        } else {
-            svgDoc.getElementById("F-bottom-straight").setAttribute("style", "visibility:hidden");
-        }
-    });
-
-    document.getElementById('node-G').addEventListener('change', e => {
-        if(e.target.checked){
-            svgDoc.getElementById("G-bottom-right").setAttribute("style", "visibility:visible");
-        } else {
-            svgDoc.getElementById("G-bottom-right").setAttribute("style", "visibility:hidden");
-        }
-    });
-
-    document.getElementById('node-I').addEventListener('change', e => {
-        if(e.target.checked){
-            svgDoc.getElementById("I-right-left").setAttribute("style", "visibility:visible");
-        } else {
-            svgDoc.getElementById("I-right-left").setAttribute("style", "visibility:hidden");
-        }
-    });
-
-    document.getElementById('node-J').addEventListener('change', e => {
-        if(e.target.checked){
-            svgDoc.getElementById("J-right-straight").setAttribute("style", "visibility:visible");
-        } else {
-            svgDoc.getElementById("J-right-straight").setAttribute("style", "visibility:hidden");
-        }
-    });
-
-    document.getElementById('node-K').addEventListener('change', e => {
-        if(e.target.checked){
-            svgDoc.getElementById("K-right-right").setAttribute("style", "visibility:visible");
-        } else {
-            svgDoc.getElementById("K-right-right").setAttribute("style", "visibility:hidden");
-        }
-    });
-
-    document.getElementById('node-M').addEventListener('change', e => {
-        if(e.target.checked){
-            svgDoc.getElementById("M-top-left").setAttribute("style", "visibility:visible");
-        } else {
-            svgDoc.getElementById("M-top-left").setAttribute("style", "visibility:hidden");
-        }
-    });
-
-    document.getElementById('node-N').addEventListener('change', e => {
-        if(e.target.checked){
-            svgDoc.getElementById("N-top-straight").setAttribute("style", "visibility:visible");
-        } else {
-            svgDoc.getElementById("N-top-straight").setAttribute("style", "visibility:hidden");
-        }
-    });
-
-    document.getElementById('node-O').addEventListener('change', e => {
-        if(e.target.checked){
-            svgDoc.getElementById("O-top-right").setAttribute("style", "visibility:visible");
-        } else {
-            svgDoc.getElementById("O-top-right").setAttribute("style", "visibility:hidden");
-        }
-    });
-
-    document.getElementById('pedestrians-right').addEventListener('change', e => {
-        if(e.target.checked){
-            svgDoc.getElementById("L-right-pedestrian").setAttribute("style", "visibility:visible");
-        }else {
-            svgDoc.getElementById("L-right-pedestrian").setAttribute("style", "visibility:hidden");
-        }
-    });
-
-    document.getElementById('pedestrians-bottom').addEventListener('change',e => {
-        if(e.target.checked){
-            svgDoc.getElementById("H-bottom-pedestrian").setAttribute("style", "visibility:visible");
-        }else {
-            svgDoc.getElementById("H-bottom-pedestrian").setAttribute("style", "visibility:hidden");
-        }
-    });
-
-    document.getElementById('pedestrians-left').addEventListener('change',e => {
-        if(e.target.checked){
-            svgDoc.getElementById("D-left-pedestrian").setAttribute("style", "visibility:visible");
-        }else {
-            svgDoc.getElementById("D-left-pedestrian").setAttribute("style", "visibility:hidden");
-        }
-    });
-    document.getElementById('pedestrians-top').addEventListener('change',e => {
-        if(e.target.checked){
-            svgDoc.getElementById("P-top-pedestrian").setAttribute("style", "visibility:visible");
-        }else {
-            svgDoc.getElementById("P-top-pedestrian").setAttribute("style", "visibility:hidden");
-        }
-    });
+function addCheckboxListener(){
+    nodeList = ['node-A', 'node-B','node-C', 'node-E', 'node-F', 'node-G','node-I','node-J','node-K','node-M','node-N','node-O','pedestrians-right','pedestrians-bottom','pedestrians-left','pedestrians-top'];
+    elementList = ["A-left-left","B-left-straight","C-left-right","E-bottom-left","F-bottom-straight","G-bottom-right","I-right-left","J-right-straight","K-right-right","M-top-left","N-top-straight","O-top-right","L-right-pedestrian","H-bottom-pedestrian","D-left-pedestrian","P-top-pedestrian"];
+    for(i= 0; i<nodeList.length;i++) {
+        document.getElementById(nodeList[i]).addEventListener('change', e => {
+            if (e.target.checked) {
+                svgDoc.getElementById(elementList[i]).setAttribute("style", "visibility:visible");
+                svgDoc.getElementById(elementList[i]).setAttribute("style", "visibility:visible");
+            } else {
+                svgDoc.getElementById(elementList[i]).setAttribute("style", "visibility:hidden");
+                svgDoc.getElementById(elementList[i]).setAttribute("style", "visibility:visible");
+            }
+        });
+    }
 }
-
 function switchLightTo( trafficLightID,  color){
 
     var trafficLight = svgDoc.getElementById(trafficLightID);
@@ -171,14 +55,6 @@ function switchLightTo( trafficLightID,  color){
             trafficLight.children[0].children[2]  .setAttribute("style","visibility:hidden");
             trafficLight.children[0].children[3]  .setAttribute("style","visibility:visible");
     }
-}
-
-function blendInActiveGreenLines(){
-    var carCheckBoxes = ["node-A","node-B","node-C","node-E","node-F","node-G","node-I","node-J","node-K","node-M","node-N","node-O"];
-    var pedestriansTrafficLights = ["D-left-pedestrian","H-bottom-pedestrian","L-right-pedestrian","P-top-pedestrian"];
-    var carTrafficLights = ["A-left-left","B-left-straight","C-left-right","E-bottom-left","F-bottom-straight","G-bottom-right"];
-    var pedestriansCheckbox = [];
-
 }
 
 function blendInGreenLines(trafficLightLetter,on_or_off){

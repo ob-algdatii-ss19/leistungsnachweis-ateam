@@ -6,8 +6,17 @@ Group: ateam
 
 develop:
 [![Build Status](https://travis-ci.com/ob-algdatii-ss19/leistungsnachweis-ateam.svg?token=4zw9EzexndWUV9DTxZpz&branch=develop)](https://travis-ci.com/ob-algdatii-ss19/leistungsnachweis-ateam)
+
 master:
 [![Build Status](https://travis-ci.com/ob-algdatii-ss19/leistungsnachweis-ateam.svg?token=4zw9EzexndWUV9DTxZpz&branch=master)](https://travis-ci.com/ob-algdatii-ss19/leistungsnachweis-ateam)
+
+### Heroku
+
+The develop- and master-branch will be automatically deployed to heroku.
+
+[master](https://leistungsnachweis-ateam.herokuapp.com): [![Heroku](https://heroku-badge.herokuapp.com/?app=leistungsnachweis-ateam)]
+
+[develop](https://leistungsnachweis-ateam-dev.herokuapp.com): [![Heroku](https://heroku-badge.herokuapp.com/?app=leistungsnachweis-ateam-dev)]
 
 ### Getting started
 

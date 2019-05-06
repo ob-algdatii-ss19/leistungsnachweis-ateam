@@ -13,4 +13,4 @@ deploy:
     api_key:
         secure: $HEROKU_TOKEN
     app:
-        develop: leistungsnachweis-ateam
+        feature/testcoverage-buildstatus-badges: leistungsnachweis-ateam

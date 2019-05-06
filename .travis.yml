@@ -7,3 +7,10 @@ script:
     - echo go test -v
     - echo go test -bench=.
     - golangci-lint run --disable-all -E errcheck
+
+deploy:
+    provider: heroku
+    api_key:
+        secure: $HEROKU_TOKEN
+    app:
+        develop: leistungsnachweis-ateam

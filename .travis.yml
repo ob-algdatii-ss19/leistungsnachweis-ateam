@@ -14,3 +14,4 @@ deploy:
         secure: $HEROKU_TOKEN
     app:
         feature/testcoverage-buildstatus-badges: leistungsnachweis-ateam
+    skip_cleanup: true

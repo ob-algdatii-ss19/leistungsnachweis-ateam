@@ -6,11 +6,8 @@ pipeline {
                 docker { image 'obraun/vss-jenkins' }
             }
             steps {
-                sh 'go get github.com/t-yuki/gocover-cobertura' // install Code Coverage Tool
-                sh 'go test ./... -v -coverpkg=./... -coverprofile=cover.out’ // save coverage info to file
-                sh 'gocover-cobertura < cover.out > coverage.xml’ // transform coverage info to jenkins readable format
+                sh 'go test ./... -v -coverpkg=./...’
                 sh 'go test ./... -bench=.'
-                publishCoverage adapters: [coberturaAdapter('coverage.xml’)] // publish report on Jenkins
             }
         }
         stage('Lint') {

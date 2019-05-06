@@ -14,9 +14,9 @@ master:
 
 The develop- and master-branch will be automatically deployed to heroku.
 
-[master](https://leistungsnachweis-ateam.herokuapp.com): [![Heroku](https://heroku-badge.herokuapp.com/?app=leistungsnachweis-ateam)]
+[heroku-master](https://leistungsnachweis-ateam.herokuapp.com): ![Heroku](https://heroku-badge.herokuapp.com/?app=leistungsnachweis-ateam)
 
-[develop](https://leistungsnachweis-ateam-dev.herokuapp.com): [![Heroku](https://heroku-badge.herokuapp.com/?app=leistungsnachweis-ateam-dev)]
+[heroku-develop](https://leistungsnachweis-ateam-dev.herokuapp.com): ![Heroku](https://heroku-badge.herokuapp.com/?app=leistungsnachweis-ateam-dev)
 
 ### Getting started
 

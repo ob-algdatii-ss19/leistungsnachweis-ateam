@@ -101,7 +101,13 @@ func main() {
 	http.HandleFunc("/", viewHandler)
 	http.HandleFunc("/json", jsonInterfaceHandler)
 
+	//retrieve port for heroku
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
 	//start server
-	fmt.Println("Server started on port 8080 ...")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	fmt.Println("Server started on port " + port + " ...")
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }

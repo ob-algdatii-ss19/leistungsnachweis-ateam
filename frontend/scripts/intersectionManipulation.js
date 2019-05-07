@@ -36,7 +36,8 @@ function addCheckboxListener(){
     }
     nodeListPedestrians =['pedestrians-right','pedestrians-bottom','pedestrians-left','pedestrians-top'];
     nodeListIslandPedestrians =['pedestrians-island-right','pedestrians-island-bottom','pedestrians-island-left','pedestrians-island-top'];
-    elementListPedestrians = ["L-right-pedestrian","H-bottom-pedestrian","D-left-pedestrian","P-top-pedestrian"];
+    elementListPedestriansOutterLights = ["L-outter","H-outter","D-outter","P-outter"];
+    elementListPedestriansInnerLights = ["L-inner","H-inner","D-inner","P-inner"];
     elementListPedestriansIsland = ["pi-right","pi-bottom","pi-left","pi-top"];
 
     //svgDoc.getElementById("pi-left").setAttribute("style", "visibility:hidden");
@@ -47,20 +48,37 @@ function addCheckboxListener(){
         svgDoc.getElementById(elementListPedestriansIsland[i]).setAttribute("style", "visibility:hidden");
         document.getElementById(nodeListPedestrians[i]).addEventListener('change', e => {
             if (e.target.checked) {
-                svgDoc.getElementById(elementListPedestrians[i]).setAttribute("style", "visibility:visible");
-                document.getElementById(nodeListIslandPedestrians[i]).setAttribute("style", "visibility:visible");
-                    document.getElementById(nodeListIslandPedestrians[i]).addEventListener('change', e=>{
-                        if(e.target.checked){
-                            svgDoc.getElementById(elementListPedestriansIsland[i]).setAttribute("style", "visibility:visible");
-                            svgDoc.getElementById(elementListPedestriansIsland[i]).setAttribute("style", "visibility:visible");
-                        }else {
-                            svgDoc.getElementById(elementListPedestriansIsland[i]).setAttribute("style", "visibility:hidden");
-                            svgDoc.getElementById(elementListPedestriansIsland[i]).setAttribute("style", "visibility:hidden");
-                        }
-                    });
+                svgDoc.getElementById(elementListPedestriansOutterLights[i]).setAttribute("style", "visibility:visible");
+
+                //show checkbox and text for pedestrian islands
+                document.getElementById(nodeListIslandPedestrians[i]).disabled = false;
+                document.getElementById(nodeListIslandPedestrians[i]).parentElement.classList.remove("inactive-checkbox-text");
+
+                document.getElementById(nodeListIslandPedestrians[i]).addEventListener('change', e=>{
+                    if(e.target.checked){
+                        svgDoc.getElementById(elementListPedestriansIsland[i]).setAttribute("style", "visibility:visible");
+                        svgDoc.getElementById(elementListPedestriansIsland[i]).setAttribute("style", "visibility:visible");
+                        svgDoc.getElementById(elementListPedestriansInnerLights[i]).setAttribute("style", "visibility:visible");
+                    }else {
+                        svgDoc.getElementById(elementListPedestriansIsland[i]).setAttribute("style", "visibility:hidden");
+                        svgDoc.getElementById(elementListPedestriansIsland[i]).setAttribute("style", "visibility:hidden");
+                        svgDoc.getElementById(elementListPedestriansInnerLights[i]).setAttribute("style", "visibility:hidden");
+                    }
+                });
             } else {
-                svgDoc.getElementById(elementListPedestrians[i]).setAttribute("style", "visibility:hidden");
-                document.getElementById(nodeListIslandPedestrians[i]).setAttribute("style", "visibility:hidden");
+                //hide pedestrian-traffic-lights
+                svgDoc.getElementById(elementListPedestriansOutterLights[i]).setAttribute("style", "visibility:hidden");
+                svgDoc.getElementById(elementListPedestriansInnerLights[i]).setAttribute("style", "visibility:hidden");
+
+                //hide checkbox for pedestrian islands and gray out
+                var checkbox = document.getElementById(nodeListIslandPedestrians[i]);
+                checkbox.disabled = true;
+                checkbox.checked = false;
+                document.getElementById(nodeListIslandPedestrians[i]).parentElement.classList.add("inactive-checkbox-text");
+
+                //hide pedestrian islands
+                svgDoc.getElementById(elementListPedestriansIsland[i]).setAttribute("style", "visibility:hidden");
+                svgDoc.getElementById(elementListPedestriansIsland[i]).setAttribute("style", "visibility:hidden");
             }
         });
     }

@@ -86,7 +86,7 @@ func viewHandler(w http.ResponseWriter, r *http.Request) {
 	t := fileStat.ModTime()
 
 	fmt.Println("\t\t > Serving: " + filePath + " with filetype " + fileType)
-	fmt.Println("\t\t%s -- last modified-time:  %+v\n", filename, t)
+	fmt.Printf("\t\t%v -- last modified-time:  %+v\n", filename, t)
 
 	//change mime-type for css-files
 	if fileType == "css" {
@@ -101,7 +101,13 @@ func main() {
 	http.HandleFunc("/", viewHandler)
 	http.HandleFunc("/json", jsonInterfaceHandler)
 
+	//retrieve port for heroku
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
 	//start server
-	fmt.Println("Server started on port 8080 ...")
-	log.Fatal(http.ListenAndServe(":8080", nil))
+	fmt.Println("Server started on port " + port + " ...")
+	log.Fatal(http.ListenAndServe(":"+port, nil))
 }

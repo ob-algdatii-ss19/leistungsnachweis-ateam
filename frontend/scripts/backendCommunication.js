@@ -63,18 +63,29 @@ function generateNewGUI(responseData) {
  * Collect all relevant Data from the intersection and build JSON object
  */
 function collectDataFromIntersection() {
-    const ALGORITHM_BASIC_GREEDY = 0;
-    const ALGORITHM_WELSH_POWELL = 1;
-    const ALGORITHM_BRON_KERBOSCH = 2;
-    const PEDESTRIAN_NORMAL = 0;
-    const PEDESTRIAN_WITH_ISLAND = 1;
 
-    let settings = {Algorithm: ALGORITHM_BASIC_GREEDY};
+    let settings = {Algorithm: parseInt(document.getElementById("algorithm-type").value, 10)};
 
-    let intersection_part_top = {RightLane: true, StraightLane: true, LeftLane: true, Pedestrian: PEDESTRIAN_NORMAL};
-    let intersection_part_right = {RightLane: true, StraightLane: true, LeftLane: true, Pedestrian: PEDESTRIAN_NORMAL};
-    let intersection_part_buttom = {RightLane: true, StraightLane: true, LeftLane: true, Pedestrian: PEDESTRIAN_NORMAL};
-    let intersection_part_left = {RightLane: true, StraightLane: true, LeftLane: true, Pedestrian: PEDESTRIAN_NORMAL};
+    let intersection_part_top = {
+        RightLane: document.getElementById("node-O").checked,
+        StraightLane: document.getElementById("node-N").checked,
+        LeftLane: document.getElementById("node-M").checked,
+        Pedestrian: pedestrianType("top")};
+    let intersection_part_right = {
+        RightLane: document.getElementById("node-K").checked,
+        StraightLane: document.getElementById("node-J").checked,
+        LeftLane: document.getElementById("node-I").checked,
+        Pedestrian: pedestrianType("right")};
+    let intersection_part_buttom = {
+        RightLane: document.getElementById("node-G").checked,
+        StraightLane: document.getElementById("node-F").checked,
+        LeftLane: document.getElementById("node-E").checked,
+        Pedestrian: pedestrianType("bottom")};
+    let intersection_part_left = {
+        RightLane: document.getElementById("node-C").checked,
+        StraightLane: document.getElementById("node-B").checked,
+        LeftLane: document.getElementById("node-A").checked,
+        Pedestrian: pedestrianType("left")};
 
     let intersection = {
         Top: intersection_part_top,
@@ -88,4 +99,33 @@ function collectDataFromIntersection() {
     jsonData.Intersection = intersection;
 
     return jsonData;
+}
+
+/**
+ * Evaluate the the type of the pedestrian crossing
+ */
+function pedestrianType(intersectionPart) {
+
+    const PEDESTRIAN_OFF = 0;
+    const PEDESTRIAN_NORMAL = 1;
+    const PEDESTRIAN_WITH_ISLAND = 2;
+
+    let pedestrianType;
+    let pedestrianId = "pedestrians-" + intersectionPart;
+    let pedestrianIslandId = "pedestrians-island-" + intersectionPart;
+
+    console.log("[DEBUG] evaluate pedestrian type for " + intersectionPart);
+
+    if(document.getElementById(pedestrianId).checked) {
+
+        if(document.getElementById(pedestrianIslandId).checked){
+            pedestrianType = PEDESTRIAN_WITH_ISLAND;
+        } else {
+            pedestrianType = PEDESTRIAN_NORMAL;
+        }
+    } else {
+        pedestrianType = PEDESTRIAN_OFF;
+    }
+
+    return pedestrianType;
 }

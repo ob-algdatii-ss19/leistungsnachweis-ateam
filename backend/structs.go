@@ -47,6 +47,7 @@ const (
 type Pedestrian int
 
 const (
-	NORMAL      Pedestrian = 0
-	WITH_ISLAND Pedestrian = 1
+	OFF         Pedestrian = 0
+	NORMAL      Pedestrian = 1
+	WITH_ISLAND Pedestrian = 2
 )

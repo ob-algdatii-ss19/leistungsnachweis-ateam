@@ -18,9 +18,9 @@ func HandleAlgorithmCalls(receivedData GuiRequestData) JsonResponse {
 		resultGraph := algorithms.BasicGreedy(graphObject)
 		fmt.Println("[DEBUG] generated result graph with Basic Greedy Algorithmn ", resultGraph)
 
-		return JsonResponse{true} //TODO return graph object
+		return JsonResponse{true, resultGraph}
 	} else {
-		return JsonResponse{false}
+		return JsonResponse{false, nil}
 	}
 }
 

@@ -83,7 +83,7 @@ func viewHandler(w http.ResponseWriter, r *http.Request) {
 
 	//error handling for request to root-level
 	if r.URL.Path == "/" {
-		filePath += "/intersection.html"
+		filePath += "/index.html"
 	} else {
 		filePath += r.URL.Path
 	}

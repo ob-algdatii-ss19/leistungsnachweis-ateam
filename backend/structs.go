@@ -1,10 +1,13 @@
 package backend
 
+import "github.com/mountainflo/leistungsnachweis-ateam/backend/adjGraph"
+
 /**
 structs for JSON response
 */
 type JsonResponse struct {
 	ReceivedDataSuccessful bool
+	Graph                  adjGraph.Graph
 }
 
 /**

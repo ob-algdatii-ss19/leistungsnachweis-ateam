@@ -1,10 +1,10 @@
 package main
 
 import (
+	"./backend"
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/mountainflo/leistungsnachweis-ateam/backend"
 	"log"
 	"net/http"
 	"os"
@@ -25,25 +25,25 @@ Detailed description of the interface:
 			"RightLane": boolean,
 			"StraightLane": boolean,
 			"LeftLane": boolean,
-			"Pedestrian": enum //NORMAL=0, WITH_ISLAND=1
+			"Pedestrian": enum //OFF=0, NORMAL= 1, WITH_ISLAND=2
 		},
 		"Right": {
 			"RightLane": boolean,
 			"StraightLane": boolean,
 			"LeftLane": boolean,
-			"Pedestrian": enum //NORMAL=0, WITH_ISLAND=1
+			"Pedestrian": enum //OFF=0, NORMAL= 1, WITH_ISLAND=
 		},
 		"Buttom": {
 			"RightLane": boolean,
 			"StraightLane": boolean,
 			"LeftLane": boolean,
-			"Pedestrian": enum //NORMAL=0, WITH_ISLAND=1
+			"Pedestrian": enum //OFF=0, NORMAL= 1, WITH_ISLAND=
 		},
 		"Left": {
 			"RightLane": boolean,
 			"StraightLane": boolean,
 			"LeftLane": boolean,
-			"Pedestrian": enum //NORMAL=0, WITH_ISLAND=1
+			"Pedestrian": enum //OFF=0, NORMAL= 1, WITH_ISLAND=
 		}
 	}
 }

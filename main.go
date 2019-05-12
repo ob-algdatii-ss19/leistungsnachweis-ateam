@@ -31,19 +31,19 @@ Detailed description of the interface:
 			"RightLane": boolean,
 			"StraightLane": boolean,
 			"LeftLane": boolean,
-			"Pedestrian": enum //OFF=0, NORMAL= 1, WITH_ISLAND=
+			"Pedestrian": enum //OFF=0, NORMAL= 1, WITH_ISLAND=2
 		},
 		"Buttom": {
 			"RightLane": boolean,
 			"StraightLane": boolean,
 			"LeftLane": boolean,
-			"Pedestrian": enum //OFF=0, NORMAL= 1, WITH_ISLAND=
+			"Pedestrian": enum //OFF=0, NORMAL= 1, WITH_ISLAND=2
 		},
 		"Left": {
 			"RightLane": boolean,
 			"StraightLane": boolean,
 			"LeftLane": boolean,
-			"Pedestrian": enum //OFF=0, NORMAL= 1, WITH_ISLAND=
+			"Pedestrian": enum //OFF=0, NORMAL= 1, WITH_ISLAND=2
 		}
 	}
 }

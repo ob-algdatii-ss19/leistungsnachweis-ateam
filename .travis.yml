@@ -16,3 +16,6 @@ deploy:
         develop: leistungsnachweis-ateam-dev
         master: leistungsnachweis-ateam
     skip_cleanup: true
+
+env:
+    - GO111MODULE=on

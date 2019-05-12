@@ -1,9 +1,9 @@
 package backend
 
 import (
-	"./adjGraph"
-	"./algorithms"
 	"fmt"
+	"github.com/mountainflo/leistungsnachweis-ateam/backend/adjGraph"
+	"github.com/mountainflo/leistungsnachweis-ateam/backend/algorithms"
 )
 
 /*

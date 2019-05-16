@@ -1,4 +1,4 @@
-module github.com/mountainflo/leistungsnachweis-ateam
+module leistungsnachweis-ateam
 
 go 1.12
 

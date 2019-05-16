@@ -1,10 +1,10 @@
 package main
 
 import (
+	"../leistungsnachweis-ateam/backend"
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/mountainflo/leistungsnachweis-ateam/backend"
 	"log"
 	"net/http"
 	"os"

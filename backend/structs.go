@@ -1,6 +1,6 @@
 package backend
 
-import "github.com/mountainflo/leistungsnachweis-ateam/backend/adjGraph"
+import "../backend/adjGraph"
 
 /**
 structs for JSON response

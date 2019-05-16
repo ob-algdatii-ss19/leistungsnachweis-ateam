@@ -1,9 +1,9 @@
 package backend
 
 import (
-	"../backend/adjGraph"
-	"../backend/algorithms"
 	"fmt"
+	"github.com/ob-algdatii-ss19/leistungsnachweis-ateam/backend/adjGraph"
+	"github.com/ob-algdatii-ss19/leistungsnachweis-ateam/backend/algorithms"
 )
 
 /*

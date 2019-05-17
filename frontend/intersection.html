@@ -4,7 +4,8 @@
     <meta charset="UTF-8">
     <title>Ampelschaltungen</title>
     <link rel="stylesheet" type="text/css" href="styles/intersection-styles.css">
-    <script src="scripts/intersectionManipulation.js"></script>
+    <script type="module" src="scripts/intersectionManipulation.js"></script>
+    <script type="module" src="scripts/backendCommunication.js"></script>
 </head>
 <body>
 
@@ -55,12 +56,19 @@
 
             <div id="intersection-settings">
                 <h3>Settings</h3>
+                <p><label>Algorithm:
+                    <select id="algorithm-type">
+                        <option value="0">Basic Greedy</option>
+                        <option value="1">Welsh Powell</option>
+                        <option value="2">Bron Kerbosch</option>
+                    </select>
+                </label></p>
                 <div id="intersection-pedestrians">
                     <ul class="nodes-pedestrians">
-                    <li><input type="checkbox" id="pedestrians-top" name="pedestrians-top">Enable Pedestrians Top</li>
-                    <li><input type="checkbox" id="pedestrians-bottom" name="pedestrians-bottom">Enable Pedestrians Bottom</li>
-                    <li><input type="checkbox" id="pedestrians-right" name="pedestrians-right">Enable Pedestrians Right</li>
-                    <li><input type="checkbox" id="pedestrians-left" name="pedestrians-top">Enable Pedestrians Left</li>
+                        <li><input type="checkbox" id="pedestrians-top" name="pedestrians-top">Enable Pedestrians Top</li>
+                        <li><input type="checkbox" id="pedestrians-bottom" name="pedestrians-bottom">Enable Pedestrians Bottom</li>
+                        <li><input type="checkbox" id="pedestrians-right" name="pedestrians-right">Enable Pedestrians Right</li>
+                        <li><input type="checkbox" id="pedestrians-left" name="pedestrians-left">Enable Pedestrians Left</li>
                     </ul>
                 </div>
                 <div id="intersection-pedestrians-island">
@@ -68,7 +76,7 @@
                         <li class="inactive-checkbox-text"><input type="checkbox" id="pedestrians-island-top" name="pedestrians-island-top" disabled>Enable Pedestrians Island Top</li>
                         <li class="inactive-checkbox-text"><input type="checkbox" id="pedestrians-island-bottom" name="pedestrians-island-bottom" disabled>Enable Pedestrians Island Bottom</li>
                         <li class="inactive-checkbox-text"><input type="checkbox" id="pedestrians-island-right" name="pedestrians-island-right" disabled>Enable Pedestrians Island Right</li>
-                        <li class="inactive-checkbox-text"><input type="checkbox" id="pedestrians-island-left" name="pedestrians-island-top" disabled>Enable Pedestrians Island Left</li>
+                        <li class="inactive-checkbox-text"><input type="checkbox" id="pedestrians-island-left" name="pedestrians-island-left" disabled>Enable Pedestrians Island Left</li>
                     </ul>
                 </div>
                 <button type="button" id="Evaluate" name="evaluate">Evaluate</button>

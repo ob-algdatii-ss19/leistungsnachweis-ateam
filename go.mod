@@ -1,4 +1,4 @@
-module github.com/mountainflo/leistungsnachweis-ateam
+module github.com/ob-algdatii-ss19/leistungsnachweis-ateam
 
 go 1.12
 

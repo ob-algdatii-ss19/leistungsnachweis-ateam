@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"github.com/ob-algdatii-ss19/leistungsnachweis-ateam/backend"
 	"log"
 	"net/http"
 	"os"
@@ -12,36 +13,59 @@ import (
 )
 
 /**
-struct for parsing JSON-objects
-*/
-type json_struct struct {
-	Firstname string
-	Lastname  string
-}
+Interface for JSON-Requests.
 
-/**
-Interface for JSON-Requests
+Detailed description of the interface:
+{
+	"Settings": {
+		"Algorithm": enum //BASIC_GREEDY=0, WELSH_POWELL=1, BRON_KERBOSCH=2
+	},
+	"Intersection": {
+		"Top": {
+			"RightLane": boolean,
+			"StraightLane": boolean,
+			"LeftLane": boolean,
+			"Pedestrian": enum //OFF=0, NORMAL= 1, WITH_ISLAND=2
+		},
+		"Right": {
+			"RightLane": boolean,
+			"StraightLane": boolean,
+			"LeftLane": boolean,
+			"Pedestrian": enum //OFF=0, NORMAL= 1, WITH_ISLAND=2
+		},
+		"Buttom": {
+			"RightLane": boolean,
+			"StraightLane": boolean,
+			"LeftLane": boolean,
+			"Pedestrian": enum //OFF=0, NORMAL= 1, WITH_ISLAND=2
+		},
+		"Left": {
+			"RightLane": boolean,
+			"StraightLane": boolean,
+			"LeftLane": boolean,
+			"Pedestrian": enum //OFF=0, NORMAL= 1, WITH_ISLAND=2
+		}
+	}
+}
 */
 func jsonInterfaceHandler(w http.ResponseWriter, req *http.Request) {
 
 	//read json-data from request
 	decoder := json.NewDecoder(req.Body)
-	var receivedData json_struct
+	var receivedData backend.GuiRequestData
 	err := decoder.Decode(&receivedData)
 	if err != nil {
 		panic(err)
 	}
 
-	fmt.Println("[INFO] Received JSON-Data: " + receivedData.Firstname + ", " + receivedData.Lastname)
+	fmt.Println("[INFO] Received JSON-Data: ", receivedData)
 
-	//TODO call go-method with received json (e.g. go-method with any graph-algorithms)
+	responseData := backend.HandleAlgorithmCalls(receivedData)
 
 	//build json-data for response
-	responseData := json_struct{"Max", "Huber"}
 	responseDataString, err := json.Marshal(responseData)
 
-	fmt.Print("[INFO] send JSON to frontend: ")
-	fmt.Println(bytes.NewBuffer(responseDataString))
+	fmt.Println("[INFO] Send JSON to frontend: ", responseData)
 
 	if err != nil {
 		panic(err)
@@ -108,6 +132,6 @@ func main() {
 	}
 
 	//start server
-	fmt.Println("Server started on port " + port + " ...")
+	fmt.Println("[INFO] Server started on port " + port + " ...")
 	log.Fatal(http.ListenAndServe(":"+port, nil))
 }

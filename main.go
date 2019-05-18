@@ -1,10 +1,10 @@
 package main
 
 import (
+	"./backend"
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/ob-algdatii-ss19/leistungsnachweis-ateam/backend"
 	"log"
 	"net/http"
 	"os"

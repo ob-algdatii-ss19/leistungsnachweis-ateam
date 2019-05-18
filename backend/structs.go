@@ -1,6 +1,6 @@
 package backend
 
-import "github.com/ob-algdatii-ss19/leistungsnachweis-ateam/backend/adjGraph"
+import "../backend/adjGraph"
 
 /**
 structs for JSON response

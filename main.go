@@ -4,7 +4,7 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
-	"github.com/ob-algdatii-ss19/leistungsnachweis-ateam/backend"
+	"../leistungsnachweis-ateam/backend"
 	"log"
 	"net/http"
 	"os"

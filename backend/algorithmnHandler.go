@@ -34,5 +34,113 @@ func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.Graph {
 
 	//TODO @mike-la build graph object here (for details see issue #20)
 
+	var countNodes int=getCountOfNodes(data);
+
+
+	fmt.Println("count Nodes", countNodes)
+
+
+	/*graph :=adjGraph.NewGraphAdjMat(countNodes);
+
+	//top=1, right=2, bottom=3, left=4
+	//Lanes: right, middle, left
+	if(data.Intersection.Top.RightLane){
+		graph.AddEdge(1, 4);
+	}
+	if(data.Intersection.Top.StraightLane){
+		graph.AddEdge(1, 3);
+	}
+	if(data.Intersection.Top.RightLane){
+		graph.AddEdge(1, 2);
+	}
+*/
+
+
+	fmt.Println("[DEBUG] buildGraphObjectFromJSON", data)
 	return adjGraph.NewGraphAdjMat(2)
+}
+
+
+//returns the count of nodes (int-value between 0 and 8)
+func getCountOfNodes(data GuiRequestData) int{
+	var countNodes int=0;
+
+	var top bool=false;
+	//from top away
+	if(data.Intersection.Top.RightLane ||
+		data.Intersection.Top.StraightLane ||
+		data.Intersection.Top.LeftLane){
+			fmt.Println("from Top away", 1)
+			top=true;
+			countNodes++;
+	}
+	//inside top
+	if(data.Intersection.Right.RightLane ||
+		data.Intersection.Buttom.StraightLane||
+		data.Intersection.Left.LeftLane){
+		if(!top || data.Intersection.Top.Pedestrian == WITH_ISLAND){
+			fmt.Println("inside Top", 1)
+			countNodes++;
+		}
+	}
+
+	var right bool=false;
+	//from right away
+	if(data.Intersection.Right.RightLane ||
+		data.Intersection.Right.StraightLane ||
+		data.Intersection.Right.LeftLane){
+			fmt.Println("from Right way", 1)
+			right=true;
+			countNodes++;
+	}
+	//inside right
+	if(data.Intersection.Top.LeftLane ||
+		data.Intersection.Buttom.RightLane||
+		data.Intersection.Left.StraightLane){
+		if(!right || data.Intersection.Right.Pedestrian == WITH_ISLAND){
+			fmt.Println("inside right", 1)
+			countNodes++;
+		}
+	}
+
+	var bottom bool=false;
+	//from bottom away
+	if(data.Intersection.Buttom.RightLane ||
+		data.Intersection.Buttom.StraightLane ||
+		data.Intersection.Buttom.LeftLane){
+		fmt.Println("from bottom away", 1)
+		bottom=true;
+		countNodes++;
+	}
+	//inside bottom
+	if(data.Intersection.Top.StraightLane ||
+		data.Intersection.Right.LeftLane||
+		data.Intersection.Left.RightLane){
+		if(!bottom || data.Intersection.Buttom.Pedestrian == WITH_ISLAND){
+			fmt.Println("inside bottom", 1)
+			countNodes++;
+		}
+	}
+
+	var left bool=false;
+	//from left away
+	if(data.Intersection.Left.RightLane ||
+		data.Intersection.Left.StraightLane ||
+		data.Intersection.Left.LeftLane){
+			fmt.Println("from left away", 1)
+			left=true;
+			countNodes++;
+	}
+	//inside left
+	if(data.Intersection.Top.RightLane ||
+		data.Intersection.Right.StraightLane||
+		data.Intersection.Buttom.LeftLane){
+		if(!left || data.Intersection.Left.Pedestrian == WITH_ISLAND){
+			fmt.Println("inside left", 1)
+			countNodes++;
+		}
+	}
+
+
+	return countNodes;
 }

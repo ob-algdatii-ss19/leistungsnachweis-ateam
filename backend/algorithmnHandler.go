@@ -63,10 +63,11 @@ func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.Graph {
 		graph.AddEdge(startNode, startNode-1);
 	}
 
-	endNode++;
 	if(data.Intersection.Left.LeftLane){
+		endNode++;
 		if(data.Intersection.Buttom.Pedestrian==WITH_ISLAND) {
 			endNode++; //with island at top
+			startNode++;
 		}
 		graph.AddEdge(startNode, endNode); //with island
 	}
@@ -85,18 +86,46 @@ func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.Graph {
 		}
 		graph.AddEdge(startNode, eN);
 	}
-	 // top, right and bottom has left and stright
 
-
-
-
-
-
-	if(data.Intersection.Top.StraightLane){
-		graph.AddEdge(1, 3);
+	if(data.Intersection.Buttom.LeftLane){
+		endNode++;
+		if(data.Intersection.Left.Pedestrian==WITH_ISLAND) {
+			endNode++; //with island at top
+			startNode++;
+		}
+		graph.AddEdge(startNode, endNode); //with island
 	}
+
+	var right adjGraph.Node =2;
+	if(data.Intersection.Right.StraightLane){
+		if(data.Intersection.Top.Pedestrian==WITH_ISLAND) {
+			right++;
+		}
+		graph.AddEdge(right, endNode); //with island
+	}
+
+	startNode++;
+	if(data.Intersection.Left.RightLane){
+		graph.AddEdge(startNode, startNode-1);
+	}
+
+	if(data.Intersection.Left.StraightLane){
+		if(data.Intersection.Right.Pedestrian==WITH_ISLAND) {
+			right++; //with island at top
+		}
+		graph.AddEdge(startNode, right);
+	}
+
+	if(data.Intersection.Left.LeftLane){
+		var eN adjGraph.Node =1;
+		if(data.Intersection.Top.Pedestrian==WITH_ISLAND) {
+			eN++; //with island at top
+		}
+		graph.AddEdge(startNode, endNode); //with island
+	}
+
 	if(data.Intersection.Top.RightLane){
-		graph.AddEdge(1, 2);
+		graph.AddEdge(1, endNode); //with island
 	}
 
 

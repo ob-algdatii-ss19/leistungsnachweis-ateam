@@ -40,24 +40,68 @@ func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.Graph {
 	fmt.Println("count Nodes", countNodes)
 
 
-	/*graph :=adjGraph.NewGraphAdjMat(countNodes);
+	graph :=adjGraph.NewGraphAdjMat(countNodes);
 
 	//top=1, right=2, bottom=3, left=4
 	//Lanes: right, middle, left
-	if(data.Intersection.Top.RightLane){
-		graph.AddEdge(1, 4);
+
+	var startNode adjGraph.Node=1;
+	var endNode adjGraph.Node=startNode+1;
+	if(data.Intersection.Top.LeftLane){
+		if(data.Intersection.Top.Pedestrian==WITH_ISLAND) {
+			endNode++; //with island at top
+			startNode++;
+		}
+		if(data.Intersection.Left.Pedestrian==WITH_ISLAND) {
+			endNode++; //with island at top
+		}
+		graph.AddEdge(startNode, endNode); //with island
 	}
+
+	startNode++;
+	if(data.Intersection.Left.RightLane){
+		graph.AddEdge(startNode, startNode-1);
+	}
+
+	endNode++;
+	if(data.Intersection.Left.LeftLane){
+		if(data.Intersection.Buttom.Pedestrian==WITH_ISLAND) {
+			endNode++; //with island at top
+		}
+		graph.AddEdge(startNode, endNode); //with island
+	}
+	if(data.Intersection.Top.StraightLane){
+		graph.AddEdge(1, endNode); //with island
+	}
+
+	startNode++;
+	if(data.Intersection.Buttom.RightLane){
+		graph.AddEdge(startNode, startNode-1);
+	}
+	if(data.Intersection.Buttom.StraightLane){
+		var eN adjGraph.Node =1;
+		if(data.Intersection.Top.Pedestrian==WITH_ISLAND) {
+			eN++; //with island at top
+		}
+		graph.AddEdge(startNode, eN);
+	}
+	 // top, right and bottom has left and stright
+
+
+
+
+
+
 	if(data.Intersection.Top.StraightLane){
 		graph.AddEdge(1, 3);
 	}
 	if(data.Intersection.Top.RightLane){
 		graph.AddEdge(1, 2);
 	}
-*/
 
 
-	fmt.Println("[DEBUG] buildGraphObjectFromJSON", data)
-	return adjGraph.NewGraphAdjMat(2)
+	fmt.Println("[DEBUG] buildGraphObjectFromJSON graphExport", graph)
+	return graph
 }
 
 

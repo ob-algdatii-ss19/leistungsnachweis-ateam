@@ -61,11 +61,11 @@ func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.Graph {
 		startNode++; //with island at top
 	}
 	startNode++;
-	if(data.Intersection.Right.LeftLane){
+	if(data.Intersection.Right.RightLane){
 		graph.AddEdge(startNode, startNode-1);
 	}
 
-	if(data.Intersection.Left.LeftLane){
+	if(data.Intersection.Right.LeftLane){
 		endNode++;
 		if(data.Intersection.Buttom.Pedestrian==WITH_ISLAND) {
 			endNode++; //with island at top
@@ -78,7 +78,7 @@ func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.Graph {
 	}
 
 	startNode++;
-	if(data.Intersection.Left.Pedestrian==WITH_ISLAND) {
+	if(data.Intersection.Right.Pedestrian==WITH_ISLAND) {
 		startNode++; //with island at top
 	}
 	if(data.Intersection.Buttom.RightLane){
@@ -110,6 +110,9 @@ func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.Graph {
 	}
 
 	startNode++;
+	if(data.Intersection.Left.Pedestrian==WITH_ISLAND) {
+		startNode++; //with island at top
+	}
 	if(data.Intersection.Left.RightLane){
 		graph.AddEdge(startNode, startNode-1);
 	}

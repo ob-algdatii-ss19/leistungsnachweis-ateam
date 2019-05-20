@@ -1,9 +1,9 @@
 package backend
 
 import (
-	"../backend/adjGraph"
-	"../backend/algorithms"
 	"fmt"
+	"github.com/ob-algdatii-ss19/leistungsnachweis-ateam/backend/adjGraph"
+	"github.com/ob-algdatii-ss19/leistungsnachweis-ateam/backend/algorithms"
 )
 
 /*
@@ -30,11 +30,9 @@ func HandleAlgorithmCalls(receivedData GuiRequestData) JsonResponse {
 /*
 Build a Graph-Object from the received JSON-Data
 */
-func buildGraphObjectFromJSON(receivedData GuiRequestData) adjGraph.Graph {
+func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.Graph {
 
 	//TODO @mike-la build graph object here (for details see issue #20)
-	fmt.Println("[INFO] buildGraphObjectFromJSON: ", receivedData)
-
 
 	return adjGraph.NewGraphAdjMat(2)
 }

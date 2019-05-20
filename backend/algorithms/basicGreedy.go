@@ -1,8 +1,8 @@
 package algorithms
 
 import (
-	"../../backend/adjGraph"
 	"fmt"
+	"github.com/ob-algdatii-ss19/leistungsnachweis-ateam/backend/adjGraph"
 )
 
 /*

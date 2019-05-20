@@ -1,0 +1,168 @@
+/*
+    Stylesheet for the intersection
+ */
+body {
+    background-color: ghostwhite;
+    margin: 1em;
+    font-family: sans-serif;
+}
+
+
+/*
+##################################
+        Intersection image
+##################################
+ */
+
+#intersection-image-container {
+    width: 35em;
+    height: 35em;
+    left: 4em;
+    top: 3em;
+    z-index: -10;
+    position: absolute;
+}
+#intersection-svg {
+    width: 35em;
+    height: 35em;
+    margin: auto;
+    z-index: -10;
+}
+
+
+
+/*
+##################################
+        Intersection divs
+##################################
+ */
+#intersection-form{
+}
+#intersection {
+    width: 50em;
+    /*margin: auto;*/
+}
+#intersection > div  {
+    /*background-color: silver;*/
+}
+#intersection-top {
+    /*background-color: red;*/
+    width: 20em;
+    height: 13em;
+    margin: auto;
+}
+#intersection-center {
+    margin: 0;
+    height: 15em;
+    width: 100%;
+    float: none;
+}
+#intersection-left {
+    /*background-color: blue;*/
+    width: 15em;
+    height: 15em;
+    margin: 0;
+    float: left;
+}
+#intersection-middle {
+    /*background-color: greenyellow;*/
+    width: 24em;
+    height: 15em;
+    margin: 0;
+    float: left;
+}
+#intersection-right {
+    /*background-color: yellow;*/
+    width: 11em;
+    height: 15em;
+    margin: 0;
+    float: left;
+}
+#intersection-bottom {
+    /*background-color: pink;*/
+    width: 20em;
+    height: 1em;
+    margin: auto;
+    float: none;
+}
+
+
+/*
+##################################
+  Intersection lists and forms
+##################################
+ */
+
+fieldset {
+    border: none;
+}
+.nodes-horizontal > li > input, .nodes-vertical > li > input {
+    margin-right: 0.5em;
+}
+.nodes-horizontal {
+    list-style-type:none;
+    padding-left:0;
+    margin:0;
+}
+.nodes-vertical {
+    list-style-type:none;
+    padding-left:0;
+    margin:0;
+}
+.nodes-horizontal > li {
+    float: left;
+    margin-right: 1em;
+}
+.nodes-vertical > li {
+    margin-bottom: 1em;
+}
+.intersection-pedestrians > li{
+    padding-top: 13em;
+}
+
+#intersection-left .nodes-vertical {
+    margin-top: 7em;
+}
+#intersection-left .nodes-vertical {
+    margin-top: 7em;
+}
+#intersection-bottom .nodes-horizontal {
+    margin-top: 10em;
+    margin-left: 3em;
+}
+
+/*
+##################################
+  Intersection settings
+##################################
+ */
+#intersection-settings {
+    background-color: #f5f5f5;
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 350px;
+    height: 100%;
+    padding-left: 1em;
+}
+.nodes-pedestrians {
+    list-style-type:none;
+    padding-left:0;
+    margin:0;
+}
+.nodes-pedestrians > li > input, .nodes-pedestrians-island > li > input {
+    margin-right: 0.5em;
+}
+.nodes-pedestrians-island {
+    list-style-type:none;
+    padding-left:0;
+    margin:0;
+    margin-top: 1em;
+
+}
+.inactive-checkbox-text {
+    color:#aaaaaa;
+}
+#Evaluate {
+    margin-top: 2em;
+}

@@ -6,8 +6,8 @@ pipeline {
                 docker { image 'obraun/vss-jenkins' }
             }
             steps {
-                sh 'echo go test -v'
-                sh 'echo go test -bench=.'
+                sh 'echo go test ./... -v -coverpkg=./...'
+                sh 'echo go test ./... -bench=.'
             }
         }
         stage('Lint') {
@@ -15,7 +15,7 @@ pipeline {
                 docker { image 'obraun/vss-jenkins' }
             }   
             steps {
-                sh 'golangci-lint run --enable-all'
+                sh 'golangci-lint run --disable-all -E errcheck'
             }
         }
         stage('Build Docker Image') {

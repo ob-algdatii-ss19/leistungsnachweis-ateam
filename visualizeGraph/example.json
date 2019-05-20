@@ -1,0 +1,33 @@
+[
+    {
+        "id": "item7",
+        "text": "Test",
+        "position": {
+            "left": "531.328px",
+            "top": "406px"
+        },
+        "neighbors": [
+            "item8"
+        ]
+    },
+    {
+        "id": "item8",
+        "text": "Deployment",
+        "position": {
+            "left": "3.328px",
+            "top": "463px"
+        },
+        "neighbors": [
+            "item9"
+        ]
+    },
+    {
+        "id": "item9",
+        "text": "Test",
+        "position": {
+            "left": "239.328px",
+            "top": "515px"
+        },
+        "neighbors": ""
+    }
+]

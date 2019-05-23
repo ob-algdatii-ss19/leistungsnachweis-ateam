@@ -7,7 +7,7 @@ structs for JSON response
 */
 type JsonResponse struct {
 	ReceivedDataSuccessful bool
-	Graph                  adjGraph.Graph
+	TrafficLightPhases     [][]adjGraph.Node
 }
 
 /**

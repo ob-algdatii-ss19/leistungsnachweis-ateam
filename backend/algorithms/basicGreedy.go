@@ -8,7 +8,7 @@ import (
 /*
 Calculate the optimization of the traffic lights with basic Greedy algorithm
 */
-func BasicGreedy(graphData adjGraph.Graph) adjGraph.Graph {
+func BasicGreedy(graphData adjGraph.Graph) [][]adjGraph.Node {
 	fmt.Println("[INFO] Called BasicGreedy Algorithm")
 
 	//TODO implement basic greedy algorithm. (for details see issue #12 and issue #3)
@@ -17,5 +17,9 @@ func BasicGreedy(graphData adjGraph.Graph) adjGraph.Graph {
 		fmt.Println(edge)
 	}
 
-	return adjGraph.NewGraphAdjMat(2)
+	return [][]adjGraph.Node{
+		{adjGraph.Node(1)},
+		{adjGraph.Node(2), adjGraph.Node(4)},
+		{adjGraph.Node(3)},
+	}
 }

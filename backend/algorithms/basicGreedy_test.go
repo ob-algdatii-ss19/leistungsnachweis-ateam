@@ -11,21 +11,24 @@ func TestBasicGreedy(t *testing.T) {
 	type args struct {
 		graphData adjGraph.Graph
 	}
+	testAdjMat01 := adjGraph.NewGraphAdjMat(9)
+	testAdjMat01.AddEdge(1, 2)
+	testAdjMat01.AddEdge(3, 2)
+	testAdjMat01.AddEdge(4, 3)
+
 	tests := []struct {
 		name string
 		args args
-		want adjGraph.Graph
+		want [][]adjGraph.Node
 	}{
-		// TODO: Add test cases.
 		{
 			"simple first test",
-			args{adjGraph.NewGraphAdjMat(2)},
-			adjGraph.NewGraphAdjMat(2),
-		},
-		{
-			"simple first test",
-			args{adjGraph.NewGraphAdjMat(2)},
-			adjGraph.NewGraphAdjMat(2),
+			args{adjGraph.NewGraphAdjMat(3)},
+			[][]adjGraph.Node{
+				{adjGraph.Node(1)},
+				{adjGraph.Node(2), adjGraph.Node(4)},
+				{adjGraph.Node(3)},
+			},
 		},
 	}
 	for _, tt := range tests {

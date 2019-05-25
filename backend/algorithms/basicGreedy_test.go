@@ -9,7 +9,7 @@ import (
 
 func TestBasicGreedy(t *testing.T) {
 	type args struct {
-		graphData adjGraph.Graph
+		graphData adjGraph.UGraph
 	}
 	testAdjMat01 := adjGraph.NewGraphAdjMat(9)
 	testAdjMat01.AddEdge(1, 2)
@@ -23,7 +23,7 @@ func TestBasicGreedy(t *testing.T) {
 	}{
 		{
 			"simple first test",
-			args{adjGraph.NewGraphAdjMat(3)},
+			args{adjGraph.NewUGraph(3)},
 			[][]adjGraph.Node{
 				{adjGraph.Node(1)},
 				{adjGraph.Node(2), adjGraph.Node(4)},

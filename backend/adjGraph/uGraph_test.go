@@ -21,7 +21,7 @@ func ExampleUGraphMat_UAddEdge() {
 	for _, edge := range edges {
 		g.UAddEdge(edge.from, edge.to)
 	}
-	fmt.Printf("%v\n", g.Edges())
+	fmt.Printf("%v\n", g.UEdges())
 	// Output:
 	// [{1 2} {1 3} {1 6} {1 7} {2 1} {3 1} {4 5} {4 6} {5 4} {5 6} {5 7} {6 1} {6 4} {6 5} {6 6} {7 1} {7 5} {8 9} {9 8}]
 }

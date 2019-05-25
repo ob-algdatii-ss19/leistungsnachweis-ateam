@@ -8,7 +8,7 @@ type UGraph interface {
 }
 
 type UGraphMat struct {
-	Graph
+	GraphObject Graph
 }
 
 func NewUGraph(nodes int) UGraphMat {
@@ -16,16 +16,16 @@ func NewUGraph(nodes int) UGraphMat {
 }
 
 func (g UGraphMat) UAddEdge(from Node, to Node) {
-	g.Graph.AddEdge(from, to)
-	g.Graph.AddEdge(to, from)
+	g.GraphObject.AddEdge(from, to)
+	g.GraphObject.AddEdge(to, from)
 }
 
 // all edges of the graph
 func (g UGraphMat) UEdges() []Edge {
-	return g.Graph.Edges()
+	return g.GraphObject.Edges()
 }
 
 // all edges which are adjacent to Node n
 func (g UGraphMat) UAdj(n Node) []Node {
-	return g.Graph.Adj(n)
+	return g.GraphObject.Adj(n)
 }

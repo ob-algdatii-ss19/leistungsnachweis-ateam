@@ -1,5 +1,7 @@
 package adjGraph
 
+// interface for directed graphs
+
 type Node int
 
 type Edge struct {
@@ -10,4 +12,5 @@ type Edge struct {
 type Graph interface {
 	AddEdge(from Node, to Node)
 	Edges() []Edge
+	Adj(n Node) []Node
 }

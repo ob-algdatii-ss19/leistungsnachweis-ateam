@@ -73,6 +73,28 @@ func mkExampleGraph(g Graph) {
 	}
 }
 
+func ExampleGraphAdjMat_Adj() {
+	g := NewGraphAdjMat(9)
+	edges := []Edge{
+		{1, 2},
+		{1, 3},
+		{1, 7},
+		{4, 6},
+		{5, 4},
+		{6, 1},
+		{6, 5},
+		{6, 6},
+		{7, 5},
+		{9, 8},
+	}
+	for _, edge := range edges {
+		g.AddEdge(edge.from, edge.to)
+	}
+	fmt.Printf("%v\n", g.Adj(1))
+	// Output:
+	// [2 3 7]
+}
+
 func BenchmarkAdjMatEdges(b *testing.B) {
 	g := NewGraphAdjMat(9)
 	benchmarkHelper(b, g)

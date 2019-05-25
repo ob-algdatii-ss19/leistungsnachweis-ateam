@@ -122,3 +122,39 @@ func benchmarkHelper(b *testing.B, g Graph) {
 		g.Edges()
 	}
 }
+
+func TestAdjMat_NumberOfNodes(t *testing.T) {
+
+	sut := NewGraphAdjMat(4)
+	edges := []Edge{
+		{1, 2},
+		{1, 4},
+	}
+	for _, edge := range edges {
+		sut.AddEdge(edge.from, edge.to)
+	}
+
+	tests := []struct {
+		name string
+		g    AdjMat
+		want int
+	}{
+		{
+			name: "test number of nodes",
+			g:    sut,
+			want: 4,
+		},
+		{
+			name: "test number of nodes: with empty matrix",
+			g:    NewGraphAdjMat(0),
+			want: 0,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.g.NumberOfNodes(); got != tt.want {
+				t.Errorf("AdjMat.NumberOfNodes() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}

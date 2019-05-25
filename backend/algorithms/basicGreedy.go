@@ -12,6 +12,10 @@ Calculate the optimization of the traffic lights with basic Greedy algorithm
 func BasicGreedy(graphData adjGraph.UGraph) [][]adjGraph.Node {
 	fmt.Println("[INFO] Called BasicGreedy Algorithm")
 
+	if graphData == nil {
+		return [][]adjGraph.Node{}
+	}
+
 	numberOfNodes := graphData.UNumberOfNodes()
 	coloredNodes := make([]int, numberOfNodes+1)
 	listOfColorsAndNodes := make([][]adjGraph.Node, numberOfNodes+1)

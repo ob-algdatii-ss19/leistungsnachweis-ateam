@@ -45,30 +45,37 @@ func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.Graph {
 
 	var startNode adjGraph.Node = 1
 	var endNode adjGraph.Node = startNode + 1
+
+	//endNode fro right
+	if data.Intersection.Left.Pedestrian == WITH_ISLAND {
+		endNode++ //with island at top
+	}
+	if data.Intersection.Top.Pedestrian == WITH_ISLAND {
+		endNode++ //with island at top
+	}
+
 	if data.Intersection.Top.LeftLane {
-		if data.Intersection.Top.Pedestrian == WITH_ISLAND {
-			endNode++ //with island at top
-		}
-		if data.Intersection.Left.Pedestrian == WITH_ISLAND {
-			endNode++ //with island at top
-		}
 		graph.AddEdge(startNode, endNode) //with island
 	}
 
 	if data.Intersection.Top.Pedestrian == WITH_ISLAND {
 		startNode++ //with island at top
 	}
-	startNode++
+	startNode++ //no startNode at right
+
+
+	//backw way to top
 	if data.Intersection.Right.RightLane {
 		graph.AddEdge(startNode, startNode-1)
 	}
 
+	//now for bottom End Node
+	endNode++;
+	if data.Intersection.Buttom.Pedestrian == WITH_ISLAND {
+		endNode++ //with island at top
+	}
+
 	if data.Intersection.Right.LeftLane {
-		endNode++
-		if data.Intersection.Buttom.Pedestrian == WITH_ISLAND {
-			endNode++ //with island at top
-			startNode++
-		}
 		graph.AddEdge(startNode, endNode) //with island
 	}
 	if data.Intersection.Top.StraightLane {
@@ -90,12 +97,14 @@ func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.Graph {
 		graph.AddEdge(startNode, eN)
 	}
 
+
+	//for endNode Left
+	endNode++
+	if data.Intersection.Left.Pedestrian == WITH_ISLAND {
+		endNode++ //with island at top
+	}
+
 	if data.Intersection.Buttom.LeftLane {
-		endNode++
-		if data.Intersection.Left.Pedestrian == WITH_ISLAND {
-			endNode++ //with island at top
-			startNode++
-		}
 		graph.AddEdge(startNode, endNode) //with island
 	}
 
@@ -107,10 +116,13 @@ func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.Graph {
 		graph.AddEdge(right, endNode) //with island
 	}
 
+	//startNide for left
 	startNode++
-	if data.Intersection.Left.Pedestrian == WITH_ISLAND {
+	if data.Intersection.Buttom.Pedestrian == WITH_ISLAND {
 		startNode++ //with island at top
 	}
+
+
 	if data.Intersection.Left.RightLane {
 		graph.AddEdge(startNode, startNode-1)
 	}

@@ -18,12 +18,11 @@ func TestAdjMat(t *testing.T) {
 
 	decoder := json.NewDecoder(r)
 	var receivedData GuiRequestData
-	err := decoder.Decode(&receivedData)
-	if err != nil {
-		panic(err)
-	}
+	decoder.Decode(&receivedData)
 	graphObject := buildGraphObjectFromJSON(receivedData)
+
 	//graphObject="[[] [false false false false false] [false false false true false] [false true true false false] [false false false false false]]";
 
+	fmt.Println("test output SHOULD BE", "[[] [false false false false false] [false false false true false] [false true true false false] [false false false false false]]")
 	fmt.Println("test output in TestAdjMat", graphObject)
 }

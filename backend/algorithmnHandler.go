@@ -49,28 +49,31 @@ func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.Graph {
 		topIn++
 	}
 
-	var rightOut adjGraph.Node = topIn+1;
-	var rightIn adjGraph.Node = rightOut
-	if (data.Intersection.Right.Pedestrian == WITH_ISLAND){
-		rightIn++
-	}
-
-	var bottomOut adjGraph.Node = rightIn+1;
-	var bottomIn adjGraph.Node = bottomOut
-	if (data.Intersection.Buttom.Pedestrian == WITH_ISLAND){
-		bottomIn++
-	}
-
-	var leftOut adjGraph.Node = bottomIn +1;
+	var leftOut adjGraph.Node = topIn +1;
 	var leftIn adjGraph.Node =leftOut
 	if (data.Intersection.Left.Pedestrian == WITH_ISLAND){
 		leftIn++
 	}
 
+	var bottomOut adjGraph.Node = leftIn+1;
+	var bottomIn adjGraph.Node = bottomOut
+	if (data.Intersection.Buttom.Pedestrian == WITH_ISLAND){
+		bottomIn++
+	}
+
+	var rightOut adjGraph.Node = bottomIn+1;
+	var rightIn adjGraph.Node = rightOut
+	if (data.Intersection.Right.Pedestrian == WITH_ISLAND){
+		rightIn++
+	}
+
 	fmt.Println("[DEBUG] node Top", topOut, topIn);
-	fmt.Println("[DEBUG] node Right", rightOut, rightIn);
-	fmt.Println("[DEBUG] node Bottom", bottomOut, bottomIn);
 	fmt.Println("[DEBUG] node left", leftOut, leftIn);
+	fmt.Println("[DEBUG] node Bottom", bottomOut, bottomIn);
+	fmt.Println("[DEBUG] node Right", rightOut, rightIn);
+
+
+
 
 
 	//Top Node

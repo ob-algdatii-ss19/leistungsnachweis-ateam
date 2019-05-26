@@ -33,6 +33,9 @@ Build a Graph-Object from the received JSON-Data
 func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.Graph {
 
 	//TODO @mike-la build graph object here (for details see issue #20)
+	fmt.Println("[DEBUG] GuiRequestData", data);
+
+
 
 	var countNodes int = getCountOfNodes(data)
 

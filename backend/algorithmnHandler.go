@@ -43,108 +43,81 @@ func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.Graph {
 	//top=1, right=2, bottom=3, left=4
 	//Lanes: right, middle, left
 
-	var startNode adjGraph.Node = 1
-	var endNode adjGraph.Node = startNode + 1
-
-	//endNode fro right
-	if data.Intersection.Left.Pedestrian == WITH_ISLAND {
-		endNode++ //with island at top
-	}
-	if data.Intersection.Top.Pedestrian == WITH_ISLAND {
-		endNode++ //with island at top
+	var topOut adjGraph.Node = 1
+	var topIn adjGraph.Node = topOut
+	if (data.Intersection.Top.Pedestrian == WITH_ISLAND){
+		topIn++
 	}
 
-	if data.Intersection.Top.LeftLane {
-		graph.AddEdge(startNode, endNode) //with island
+	var rightOut adjGraph.Node = topIn+1;
+	var rightIn adjGraph.Node = rightOut
+	if (data.Intersection.Right.Pedestrian == WITH_ISLAND){
+		rightIn++
 	}
 
-	if data.Intersection.Top.Pedestrian == WITH_ISLAND {
-		startNode++ //with island at top
-	}
-	startNode++ //no startNode at right
-
-
-	//backw way to top
-	if data.Intersection.Right.RightLane {
-		graph.AddEdge(startNode, startNode-1)
+	var bottomOut adjGraph.Node = rightIn+1;
+	var bottomIn adjGraph.Node = bottomOut
+	if (data.Intersection.Buttom.Pedestrian == WITH_ISLAND){
+		bottomIn++
 	}
 
-	//now for bottom End Node
-	endNode++;
-	if data.Intersection.Buttom.Pedestrian == WITH_ISLAND {
-		endNode++ //with island at top
+	var leftOut adjGraph.Node = bottomIn +1;
+	var leftIn adjGraph.Node =leftOut
+	if (data.Intersection.Left.Pedestrian == WITH_ISLAND){
+		leftIn++
 	}
 
-	if data.Intersection.Right.LeftLane {
-		graph.AddEdge(startNode, endNode) //with island
+	fmt.Println("[DEBUG] node Top", topOut, topIn);
+	fmt.Println("[DEBUG] node Right", rightOut, rightIn);
+	fmt.Println("[DEBUG] node Bottom", bottomOut, bottomIn);
+	fmt.Println("[DEBUG] node left", leftOut, leftIn);
+
+
+	//Top Node
+	if data.Intersection.Top.RightLane {
+		graph.AddEdge(topOut, rightIn)
 	}
 	if data.Intersection.Top.StraightLane {
-		graph.AddEdge(1, endNode) //with island
+		graph.AddEdge(topOut, bottomIn)
+	}
+	if data.Intersection.Top.LeftLane {
+		graph.AddEdge(topOut, leftIn)
 	}
 
-	startNode++
-	if data.Intersection.Right.Pedestrian == WITH_ISLAND {
-		startNode++ //with island at top
+	//right Node
+	if data.Intersection.Right.RightLane {
+		graph.AddEdge(rightOut, bottomIn)
 	}
+	if data.Intersection.Right.StraightLane {
+		graph.AddEdge(rightOut, leftIn)
+	}
+	if data.Intersection.Right.LeftLane {
+		graph.AddEdge(rightOut, topIn)
+	}
+
+	//bottom Node
 	if data.Intersection.Buttom.RightLane {
-		graph.AddEdge(startNode, startNode-1)
+		graph.AddEdge(bottomOut, leftIn)
 	}
 	if data.Intersection.Buttom.StraightLane {
-		var eN adjGraph.Node = 1
-		if data.Intersection.Top.Pedestrian == WITH_ISLAND {
-			eN++ //with island at top
-		}
-		graph.AddEdge(startNode, eN)
+		graph.AddEdge(bottomOut, topIn)
 	}
-
-
-	//for endNode Left
-	endNode++
-	if data.Intersection.Left.Pedestrian == WITH_ISLAND {
-		endNode++ //with island at top
-	}
-
 	if data.Intersection.Buttom.LeftLane {
-		graph.AddEdge(startNode, endNode) //with island
+		graph.AddEdge(bottomOut, rightIn)
 	}
 
-	var right adjGraph.Node = 2
-	if data.Intersection.Right.StraightLane {
-		if data.Intersection.Top.Pedestrian == WITH_ISLAND {
-			right++
-		}
-		graph.AddEdge(right, endNode) //with island
-	}
-
-	//startNide for left
-	startNode++
-	if data.Intersection.Buttom.Pedestrian == WITH_ISLAND {
-		startNode++ //with island at top
-	}
-
-
+	//left Node
 	if data.Intersection.Left.RightLane {
-		graph.AddEdge(startNode, startNode-1)
+		graph.AddEdge(leftOut, bottomIn)
 	}
-
 	if data.Intersection.Left.StraightLane {
-		if data.Intersection.Right.Pedestrian == WITH_ISLAND {
-			right++ //with island at top
-		}
-		graph.AddEdge(startNode, right)
+		graph.AddEdge(bottomOut, rightIn)
 	}
-
 	if data.Intersection.Left.LeftLane {
-		var eN adjGraph.Node = 1
-		if data.Intersection.Top.Pedestrian == WITH_ISLAND {
-			eN++ //with island at top
-		}
-		graph.AddEdge(startNode, endNode) //with island
+		graph.AddEdge(bottomOut, topIn)
 	}
 
-	if data.Intersection.Top.RightLane {
-		graph.AddEdge(1, endNode) //with island
-	}
+
 
 	fmt.Println("[DEBUG] buildGraphObjectFromJSON graphExport", graph)
 	return graph

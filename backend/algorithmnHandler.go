@@ -34,7 +34,7 @@ func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.Graph {
 
 	//TODO @mike-la build graph object here (for details see issue #20)
 
-	var countNodes int = getCountOfNodes(data)
+	var countNodes int = 6 // second last = with pedestrian, last: with island
 
 	fmt.Println("count Nodes", countNodes)
 
@@ -43,167 +43,90 @@ func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.Graph {
 	//top=1, right=2, bottom=3, left=4
 	//Lanes: right, middle, left
 
-	var topOut adjGraph.Node = 1
-	var topIn adjGraph.Node = topOut
-	if (data.Intersection.Top.Pedestrian == WITH_ISLAND){
-		topIn++
-	}
+	var top adjGraph.Node = 1
 
-	var leftOut adjGraph.Node = topIn +1;
-	var leftIn adjGraph.Node =leftOut
-	if (data.Intersection.Left.Pedestrian == WITH_ISLAND){
-		leftIn++
-	}
+	var left adjGraph.Node = 2
 
-	var bottomOut adjGraph.Node = leftIn+1;
-	var bottomIn adjGraph.Node = bottomOut
-	if (data.Intersection.Buttom.Pedestrian == WITH_ISLAND){
-		bottomIn++
-	}
+	var bottom adjGraph.Node = 3
 
-	var rightOut adjGraph.Node = bottomIn+1;
-	var rightIn adjGraph.Node = rightOut
-	if (data.Intersection.Right.Pedestrian == WITH_ISLAND){
-		rightIn++
-	}
+	var right adjGraph.Node = 4
 
+	var pedestrian adjGraph.Node = 5
 
-
-	fmt.Println("[DEBUG] node Top", topOut, topIn);
-	fmt.Println("[DEBUG] node left", leftOut, leftIn);
-	fmt.Println("[DEBUG] node Bottom", bottomOut, bottomIn);
-	fmt.Println("[DEBUG] node Right", rightOut, rightIn);
-
+	var pedestrianWithIsland adjGraph.Node = 5
 
 	//Top Node
 	if data.Intersection.Top.RightLane {
-		graph.AddEdge(topOut, rightIn)
+		graph.AddEdge(top, right)
 	}
 	if data.Intersection.Top.StraightLane {
-		graph.AddEdge(topOut, bottomIn)
+		graph.AddEdge(top, bottom)
 	}
 	if data.Intersection.Top.LeftLane {
-		graph.AddEdge(topOut, leftIn)
+		graph.AddEdge(top, left)
+	}
+	if data.Intersection.Top.Pedestrian == NORMAL {
+		graph.AddEdge(top, pedestrian)
+	}
+	if data.Intersection.Top.Pedestrian == WITH_ISLAND {
+		graph.AddEdge(top, pedestrian)
+		graph.AddEdge(top, pedestrianWithIsland)
 	}
 
 	//right Node
-	if data.Intersection.Right.RightLane {
-		graph.AddEdge(rightOut, bottomIn)
+	if data.Intersection.Right.LeftLane {
+		graph.AddEdge(right, top)
 	}
 	if data.Intersection.Right.StraightLane {
-		graph.AddEdge(rightOut, leftIn)
+		graph.AddEdge(right, left)
 	}
 	if data.Intersection.Right.LeftLane {
-		graph.AddEdge(rightOut, topIn)
+		graph.AddEdge(right, bottom)
+	}
+	if data.Intersection.Right.Pedestrian == NORMAL {
+		graph.AddEdge(right, pedestrian)
+	}
+	if data.Intersection.Right.Pedestrian == WITH_ISLAND {
+		graph.AddEdge(right, pedestrian)
+		graph.AddEdge(right, pedestrianWithIsland)
 	}
 
 	//bottom Node
 	if data.Intersection.Buttom.RightLane {
-		graph.AddEdge(bottomOut, leftIn)
+		graph.AddEdge(bottom, left)
 	}
 	if data.Intersection.Buttom.StraightLane {
-		graph.AddEdge(bottomOut, topIn)
+		graph.AddEdge(bottom, top)
 	}
 	if data.Intersection.Buttom.LeftLane {
-		graph.AddEdge(bottomOut, rightIn)
+		graph.AddEdge(bottom, right)
+	}
+	if data.Intersection.Buttom.Pedestrian == NORMAL {
+		graph.AddEdge(bottom, pedestrian)
+	}
+	if data.Intersection.Buttom.Pedestrian == WITH_ISLAND {
+		graph.AddEdge(bottom, pedestrian)
+		graph.AddEdge(bottom, pedestrianWithIsland)
 	}
 
 	//left Node
 	if data.Intersection.Left.RightLane {
-		graph.AddEdge(leftOut, bottomIn)
+		graph.AddEdge(left, bottom)
 	}
 	if data.Intersection.Left.StraightLane {
-		graph.AddEdge(bottomOut, rightIn)
+		graph.AddEdge(left, right)
 	}
 	if data.Intersection.Left.LeftLane {
-		graph.AddEdge(bottomOut, topIn)
+		graph.AddEdge(left, top)
 	}
-
-
+	if data.Intersection.Left.Pedestrian == NORMAL {
+		graph.AddEdge(left, pedestrian)
+	}
+	if data.Intersection.Left.Pedestrian == WITH_ISLAND {
+		graph.AddEdge(left, pedestrian)
+		graph.AddEdge(left, pedestrianWithIsland)
+	}
 
 	fmt.Println("[DEBUG] buildGraphObjectFromJSON graphExport", graph)
 	return graph
-}
-
-//returns the count of nodes (int-value between 0 and 8)
-func getCountOfNodes(data GuiRequestData) int {
-	var countNodes int = 0
-
-	var top bool = false
-	//from top away
-	if data.Intersection.Top.RightLane ||
-		data.Intersection.Top.StraightLane ||
-		data.Intersection.Top.LeftLane {
-		fmt.Println("from Top away", 1)
-		top = true
-		countNodes++
-	}
-	//inside top
-	if data.Intersection.Right.RightLane ||
-		data.Intersection.Buttom.StraightLane ||
-		data.Intersection.Left.LeftLane {
-		if !top || data.Intersection.Top.Pedestrian == WITH_ISLAND {
-			fmt.Println("inside Top", 1)
-			countNodes++
-		}
-	}
-
-	var right bool = false
-	//from right away
-	if data.Intersection.Right.RightLane ||
-		data.Intersection.Right.StraightLane ||
-		data.Intersection.Right.LeftLane {
-		fmt.Println("from Right way", 1)
-		right = true
-		countNodes++
-	}
-	//inside right
-	if data.Intersection.Top.LeftLane ||
-		data.Intersection.Buttom.RightLane ||
-		data.Intersection.Left.StraightLane {
-		if !right || data.Intersection.Right.Pedestrian == WITH_ISLAND {
-			fmt.Println("inside right", 1)
-			countNodes++
-		}
-	}
-
-	var bottom bool = false
-	//from bottom away
-	if data.Intersection.Buttom.RightLane ||
-		data.Intersection.Buttom.StraightLane ||
-		data.Intersection.Buttom.LeftLane {
-		fmt.Println("from bottom away", 1)
-		bottom = true
-		countNodes++
-	}
-	//inside bottom
-	if data.Intersection.Top.StraightLane ||
-		data.Intersection.Right.LeftLane ||
-		data.Intersection.Left.RightLane {
-		if !bottom || data.Intersection.Buttom.Pedestrian == WITH_ISLAND {
-			fmt.Println("inside bottom", 1)
-			countNodes++
-		}
-	}
-
-	var left bool = false
-	//from left away
-	if data.Intersection.Left.RightLane ||
-		data.Intersection.Left.StraightLane ||
-		data.Intersection.Left.LeftLane {
-		fmt.Println("from left away", 1)
-		left = true
-		countNodes++
-	}
-	//inside left
-	if data.Intersection.Top.RightLane ||
-		data.Intersection.Right.StraightLane ||
-		data.Intersection.Buttom.LeftLane {
-		if !left || data.Intersection.Left.Pedestrian == WITH_ISLAND {
-			fmt.Println("inside left", 1)
-			countNodes++
-		}
-	}
-
-	return countNodes
 }

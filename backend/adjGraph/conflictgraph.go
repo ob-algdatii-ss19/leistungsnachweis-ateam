@@ -8,9 +8,9 @@ type trafficEntry struct {
 	isTrue bool
 }
 
-func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) AdjMat {
+func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) UGraph {
 	var Entries []trafficEntry = makeList(connectionGraph)
-	var conflictGraph AdjMat = NewGraphAdjMat(20)
+	var conflictGraph UGraph = NewUGraph(20)
 	for i := 0; i < 20; i++ {
 		for j := i + 1; j < 20; j++ {
 			if Entries[i].isTrue && Entries[j].isTrue {
@@ -18,11 +18,11 @@ func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) AdjMat {
 					if j%5 != 3 && j%5 != 4 { //Pruefung auf weiteren Fussgaenger- zwei Fussgaenger koennen zueinander nicht im Konflikt stehen
 						if Entries[i+1].isTrue { //mit Fussgaengerinsel
 							if Entries[i].from == Entries[j].from {
-								conflictGraph.AddEdge(Node(i+1), Node(j+1))
+								conflictGraph.UAddEdge(Node(i+1), Node(j+1))
 							}
 						} else { //ohne Fu-g'nger Insel
 							if Entries[i].from == Entries[j].to {
-								conflictGraph.AddEdge(Node(i+1), Node(j+1))
+								conflictGraph.UAddEdge(Node(i+1), Node(j+1))
 							}
 						}
 					}
@@ -30,11 +30,11 @@ func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) AdjMat {
 					if i%5 != 3 && i%5 != 4 { //Pruefung auf weiteren Fussgaenger- zwei Fussgaenger koennen zueinander nicht im Konflikt stehen
 						if Entries[j+1].isTrue { //mit Fussgaengerinsel
 							if Entries[i].from == Entries[j].from {
-								conflictGraph.AddEdge(Node(i+1), Node(j+1))
+								conflictGraph.UAddEdge(Node(i+1), Node(j+1))
 							}
 						} else { //Ohne Fussgaengerinsel
 							if Entries[j].from == Entries[i].to {
-								conflictGraph.AddEdge(Node(j+1), Node(i+1))
+								conflictGraph.UAddEdge(Node(j+1), Node(i+1))
 							}
 						}
 					}
@@ -42,7 +42,7 @@ func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) AdjMat {
 					if j%5 != 3 && j%5 != 4 { //Pruefung auf weiteren Fussgaenger- zwei Fussgaenger koennen zueinander nicht im Konflikt stehen
 						if Entries[i].isTrue { //Falls Fussgaengerinsel ueberhaupt vorhanden
 							if Entries[i].from == Entries[j].to {
-								conflictGraph.AddEdge(Node(i+1), Node(j+1))
+								conflictGraph.UAddEdge(Node(i+1), Node(j+1))
 							}
 						}
 					}
@@ -50,7 +50,7 @@ func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) AdjMat {
 					if i%5 != 3 && i%5 != 4 { //Pruefung auf weiteren Fussgaenger- zwei Fussgaenger koennen zueinander nicht im Konflikt stehen
 						if Entries[j].isTrue {
 							if Entries[j].from == Entries[i].to {
-								conflictGraph.AddEdge(Node(i+1), Node(j+1))
+								conflictGraph.UAddEdge(Node(i+1), Node(j+1))
 							}
 						}
 					}
@@ -60,7 +60,7 @@ func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) AdjMat {
 						if !((i == 2 && j == 11) || (i == 5 && j == 17)) { //kein Linksabbieger Paar 2&11; 5&17
 							if Entries[i].from != Entries[j].from {
 								if Entries[i].to != Entries[j].to {
-									conflictGraph.AddEdge(Node(i+1), Node(j+1))
+									conflictGraph.UAddEdge(Node(i+1), Node(j+1))
 									//conflictGraph.AddEdge(Node(j),Node(i))  //der Graph ist ja Symmetrisch
 								}
 							}

@@ -1,7 +1,6 @@
 package adjGraph
 
 import (
-	"fmt"
 	"testing"
 )
 
@@ -44,33 +43,6 @@ outerGot:
 			}
 		}
 		t.Errorf("Edge %v found, but not wanted", got)
-	}
-}
-
-func ExampleAdjMat() {
-	g := NewGraphAdjMat(9)
-	mkExampleGraph(&g)
-	fmt.Printf("%v\n", g.Edges())
-	// Output:
-	// [{1 2} {1 3} {1 7} {4 6} {5 4} {6 1} {6 5} {6 6} {7 5} {9 8}]
-}
-
-func mkExampleGraph(g Graph) {
-	edges := []Edge{
-		{0, 1},
-		{1, 2},
-		{1, 3},
-		{1, 7},
-		{4, 6},
-		{5, 4},
-		{6, 1},
-		{6, 5},
-		{6, 6},
-		{7, 5},
-		{9, 8},
-	}
-	for _, edge := range edges {
-		g.AddEdge(edge.from, edge.to)
 	}
 }
 

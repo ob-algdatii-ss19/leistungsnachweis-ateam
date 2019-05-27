@@ -1,7 +1,5 @@
 package adjGraph
 
-import "fmt"
-
 type nodeName string
 
 type trafficEntry struct {
@@ -15,7 +13,6 @@ func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) AdjMat {
 	var conflictGraph AdjMat = NewGraphAdjMat(20)
 	for i := 0; i < 20; i++ {
 		for j := i + 1; j < 20; j++ {
-			fmt.Println("i= ", i, " ,j= ", j)
 			if Entries[i].isTrue && Entries[j].isTrue {
 				if i%5 == 3 { //Pruefung auf Fu-g'nger bei i
 					if j%5 != 3 && j%5 != 4 { //Pruefung auf weiteren Fussgaenger- zwei Fussgaenger koennen zueinander nicht im Konflikt stehen

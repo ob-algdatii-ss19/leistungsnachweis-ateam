@@ -57,6 +57,7 @@ func ExampleAdjMat() {
 
 func mkExampleGraph(g Graph) {
 	edges := []Edge{
+		{0, 1},
 		{1, 2},
 		{1, 3},
 		{1, 7},

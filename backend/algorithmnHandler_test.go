@@ -1,7 +1,6 @@
 package backend
 
 import (
-	"fmt"
 	"reflect"
 	"testing"
 
@@ -40,6 +39,41 @@ func Test_buildGraphObjectFromJSON(t *testing.T) {
 		},
 	}
 
+	//starts with 1, not 0
+	sutResult01 := adjGraph.NewGraphAdjMat(6)
+
+	//top
+	sutResult01.AddEdge(1, 2)
+	sutResult01.AddEdge(1, 3)
+	sutResult01.AddEdge(1, 4)
+	sutResult01.AddEdge(1, 5) //because Pedestrains
+
+
+	//left
+	sutResult01.AddEdge(2, 1)
+	sutResult01.AddEdge(2, 3)
+	sutResult01.AddEdge(2, 4)
+	sutResult01.AddEdge(2, 5) //because Pedestrains
+
+
+	//bottom
+	sutResult01.AddEdge(3, 1)
+	sutResult01.AddEdge(3, 2)
+	sutResult01.AddEdge(3, 4)
+	sutResult01.AddEdge(3, 5) //because Pedestrains
+
+
+	//right
+	sutResult01.AddEdge(4, 1)
+	sutResult01.AddEdge(4, 2)
+	sutResult01.AddEdge(4, 3)
+	sutResult01.AddEdge(4, 5) //because Pedestrains
+
+
+	//fmt.Println("[DEBUG] graph in Test", sutResult01)
+
+
+
 	sut02 := GuiRequestData{
 		Settings{Algorithm: BASIC_GREEDY},
 		Intersection{
@@ -53,47 +87,59 @@ func Test_buildGraphObjectFromJSON(t *testing.T) {
 				RightLane:    true,
 				StraightLane: true,
 				LeftLane:     true,
-				Pedestrian:   NORMAL,
+				Pedestrian:   WITH_ISLAND,
 			},
 			Buttom: Intersection_part{
 				RightLane:    true,
 				StraightLane: true,
 				LeftLane:     true,
-				Pedestrian:   NORMAL,
+				Pedestrian:   WITH_ISLAND,
 			},
 			Right: Intersection_part{
 				RightLane:    true,
 				StraightLane: true,
 				LeftLane:     true,
-				Pedestrian:   NORMAL,
+				Pedestrian:   WITH_ISLAND,
 			},
 		},
 	}
-
 	//starts with 1, not 0
-	sutResult01 := adjGraph.NewGraphAdjMat(4)
+	sutResult02 := adjGraph.NewGraphAdjMat(6)
 
 	//top
-	sutResult01.AddEdge(1, 2)
-	sutResult01.AddEdge(1, 3)
-	sutResult01.AddEdge(1, 4)
+	sutResult02.AddEdge(1, 2)
+	sutResult02.AddEdge(1, 3)
+	sutResult02.AddEdge(1, 4)
+	sutResult02.AddEdge(1, 5) //because Pedestrains
+	sutResult02.AddEdge(1, 6) //because Pedestrain Island
+
 
 	//left
-	sutResult01.AddEdge(2, 1)
-	sutResult01.AddEdge(2, 3)
-	sutResult01.AddEdge(2, 4)
+	sutResult02.AddEdge(2, 1)
+	sutResult02.AddEdge(2, 3)
+	sutResult02.AddEdge(2, 4)
+	sutResult02.AddEdge(2, 5) //because Pedestrains
+	sutResult02.AddEdge(2, 6) //because Pedestrain Island
+
 
 	//bottom
-	sutResult01.AddEdge(3, 1)
-	sutResult01.AddEdge(3, 2)
-	sutResult01.AddEdge(3, 4)
+	sutResult02.AddEdge(3, 1)
+	sutResult02.AddEdge(3, 2)
+	sutResult02.AddEdge(3, 4)
+	sutResult02.AddEdge(3, 5) //because Pedestrains
+	sutResult02.AddEdge(3, 6) //because Pedestrain Island
+
 
 	//right
-	sutResult01.AddEdge(4, 1)
-	sutResult01.AddEdge(4, 2)
-	sutResult01.AddEdge(4, 3)
+	sutResult02.AddEdge(4, 1)
+	sutResult02.AddEdge(4, 2)
+	sutResult02.AddEdge(4, 3)
+	sutResult02.AddEdge(4, 5) //because Pedestrains
+	sutResult02.AddEdge(4, 6) //because Pedestrain Island
 
-	fmt.Println("[DEBUG] graph in Test", sutResult01)
+
+	//fmt.Println("[DEBUG] graph in Test", sutResult02)
+
 
 	type args struct {
 		data GuiRequestData
@@ -111,7 +157,7 @@ func Test_buildGraphObjectFromJSON(t *testing.T) {
 		{
 			"second basic test for build graph object",
 			args{sut02},
-			sutResult01,
+			sutResult02,
 		},
 	}
 	for _, tt := range tests {

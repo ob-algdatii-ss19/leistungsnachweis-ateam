@@ -36,8 +36,6 @@ func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.Graph {
 
 	var countNodes int = 6 // second last = with pedestrian, last: with island
 
-	fmt.Println("count Nodes", countNodes)
-
 	graph := adjGraph.NewGraphAdjMat(countNodes)
 
 	//top=1, right=2, bottom=3, left=4
@@ -53,7 +51,7 @@ func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.Graph {
 
 	var pedestrian adjGraph.Node = 5
 
-	var pedestrianWithIsland adjGraph.Node = 5
+	var pedestrianWithIsland adjGraph.Node = 6
 
 	//Top Node
 	if data.Intersection.Top.RightLane {

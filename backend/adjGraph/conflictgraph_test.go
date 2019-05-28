@@ -49,8 +49,18 @@ func TestMakeConflictGraphOutOfConnectionGraph2(t *testing.T) {
 	m := MakeConflictGraphOutOfConnectionGraph(g)
 	gotEdges := m.UEdges()
 
-	if len(gotEdges) != 2 && len(gotEdges) != 4 {
-		t.Errorf("Linksabbieger sollten keinen Konflikt aufrufen")
+	expected := []Edge{{3, 6},
+		{3, 18},
+		{6, 3},
+		{6, 12},
+		{12, 6},
+		{12, 18},
+		{18, 3},
+		{18, 12}}
+	for index, element := range gotEdges {
+		if expected[index] != element {
+			t.Errorf("Unexpected Node")
+		}
 	}
 }
 
@@ -75,37 +85,7 @@ func TestMakeConflictGraphOutOfConnectionGraph3(t *testing.T) {
 	m := MakeConflictGraphOutOfConnectionGraph(g)
 	gotEdges := m.UEdges()
 
-	expected := []Edge{{2, 6}, {2, 12}, {6, 12}}
-
-	for index, element := range gotEdges {
-		if expected[index] != element {
-			t.Errorf("Wrong Node")
-		}
-	}
-}
-
-func TestMakeConflictGraphOutOfConnectionGraph4(t *testing.T) {
-	//Test3 : keine Fußgänger, zwei Rechtsabbieger,  1 Gerade aus Fahrer, 2 Linksabbieger
-	//Input : E,G,I,B,C
-
-	wantedEdges1 := []Edge{
-		{1, 2},
-		{1, 3},
-		{2, 1},
-		{2, 3},
-		{3, 2},
-	}
-
-	g := NewGraphAdjMat(6)
-	for _, edge := range wantedEdges1 {
-		g.AddEdge(edge.from, edge.to)
-	}
-
-	//	gotEdges := g.Edges()
-	m := MakeConflictGraphOutOfConnectionGraph(g)
-	gotEdges := m.UEdges()
-
-	expected := []Edge{{2, 6}, {2, 12}, {6, 12}}
+	expected := []Edge{{2, 6}, {2, 12}, {6, 2}, {6, 12}, {12, 2}, {12, 6}}
 
 	for index, element := range gotEdges {
 		if expected[index] != element {
@@ -142,9 +122,15 @@ func TestMakeConflictGraphOutOfConnectionGraph5(t *testing.T) {
 	expected := []Edge{{2, 8},
 		{2, 11},
 		{2, 17},
+		{8, 2},
 		{8, 11},
 		{8, 17},
-		{11, 17}}
+		{11, 2},
+		{11, 8},
+		{11, 17},
+		{17, 2},
+		{17, 8},
+		{17, 11}}
 
 	for index, element := range gotEdges {
 		if expected[index] != element {
@@ -177,9 +163,13 @@ func TestMakeConflictGraphOutOfConnectionGraph6(t *testing.T) {
 	m := MakeConflictGraphOutOfConnectionGraph(g)
 	gotEdges := m.UEdges()
 
-	expected := []Edge{{4, 16},
+	expected := []Edge{{1, 9},
+		{4, 16},
+		{7, 14},
 		{9, 1},
+		{13, 19},
 		{14, 7},
+		{16, 4},
 		{19, 13}}
 
 	for index, element := range gotEdges {

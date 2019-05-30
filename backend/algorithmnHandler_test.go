@@ -1,7 +1,6 @@
 package backend
 
 import (
-	"fmt"
 	"reflect"
 	"testing"
 
@@ -202,8 +201,8 @@ func Test_buildGraphObjectFromJSON(t *testing.T) {
 	//sutResult03.AddEdge(4, 5)
 	//sutResult03.AddEdge(4, 6)
 
-	fmt.Println("[DEBUG] guidata3", buildGraphObjectFromJSON(sut03))
-	fmt.Println("[DEBUG] grap03h in Test", sutResult03)
+	//fmt.Println("[DEBUG] guidata3", buildGraphObjectFromJSON(sut03))
+	//fmt.Println("[DEBUG] grap03h in Test", sutResult03)
 
 	type args struct {
 		data GuiRequestData

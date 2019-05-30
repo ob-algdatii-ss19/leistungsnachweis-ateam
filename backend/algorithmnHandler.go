@@ -41,71 +41,14 @@ func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.Graph {
 	//top=1, right=2, bottom=3, left=4
 	//Lanes: right, middle, left
 
-	var top adjGraph.Node = 1
-
-	var left adjGraph.Node = 2
-
-	var bottom adjGraph.Node = 3
-
-	var right adjGraph.Node = 4
+	var left adjGraph.Node = 1
+	var bottom adjGraph.Node = 2
+	var right adjGraph.Node = 3
+	var top adjGraph.Node = 4
 
 	var pedestrian adjGraph.Node = 5
-
 	var pedestrianWithIsland adjGraph.Node = 6
 
-	//Top Node
-	if data.Intersection.Top.RightLane {
-		graph.AddEdge(top, right)
-	}
-	if data.Intersection.Top.StraightLane {
-		graph.AddEdge(top, bottom)
-	}
-	if data.Intersection.Top.LeftLane {
-		graph.AddEdge(top, left)
-	}
-	if data.Intersection.Top.Pedestrian == NORMAL {
-		graph.AddEdge(top, pedestrian)
-	}
-	if data.Intersection.Top.Pedestrian == WITH_ISLAND {
-		graph.AddEdge(top, pedestrian)
-		graph.AddEdge(top, pedestrianWithIsland)
-	}
-
-	//right Node
-	if data.Intersection.Right.LeftLane {
-		graph.AddEdge(right, top)
-	}
-	if data.Intersection.Right.StraightLane {
-		graph.AddEdge(right, left)
-	}
-	if data.Intersection.Right.LeftLane {
-		graph.AddEdge(right, bottom)
-	}
-	if data.Intersection.Right.Pedestrian == NORMAL {
-		graph.AddEdge(right, pedestrian)
-	}
-	if data.Intersection.Right.Pedestrian == WITH_ISLAND {
-		graph.AddEdge(right, pedestrian)
-		graph.AddEdge(right, pedestrianWithIsland)
-	}
-
-	//bottom Node
-	if data.Intersection.Buttom.RightLane {
-		graph.AddEdge(bottom, left)
-	}
-	if data.Intersection.Buttom.StraightLane {
-		graph.AddEdge(bottom, top)
-	}
-	if data.Intersection.Buttom.LeftLane {
-		graph.AddEdge(bottom, right)
-	}
-	if data.Intersection.Buttom.Pedestrian == NORMAL {
-		graph.AddEdge(bottom, pedestrian)
-	}
-	if data.Intersection.Buttom.Pedestrian == WITH_ISLAND {
-		graph.AddEdge(bottom, pedestrian)
-		graph.AddEdge(bottom, pedestrianWithIsland)
-	}
 
 	//left Node
 	if data.Intersection.Left.RightLane {
@@ -125,6 +68,61 @@ func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.Graph {
 		graph.AddEdge(left, pedestrianWithIsland)
 	}
 
-	fmt.Println("[DEBUG] buildGraphObjectFromJSON graphExport", graph)
+	//bottom Node
+	if data.Intersection.Buttom.RightLane {
+		graph.AddEdge(bottom, right)
+	}
+	if data.Intersection.Buttom.StraightLane {
+		graph.AddEdge(bottom, top)
+	}
+	if data.Intersection.Buttom.LeftLane {
+		graph.AddEdge(bottom, left)
+	}
+	if data.Intersection.Buttom.Pedestrian == NORMAL {
+		graph.AddEdge(bottom, pedestrian)
+	}
+	if data.Intersection.Buttom.Pedestrian == WITH_ISLAND {
+		graph.AddEdge(bottom, pedestrian)
+		graph.AddEdge(bottom, pedestrianWithIsland)
+	}
+
+	//right Node
+	if data.Intersection.Right.LeftLane {
+		graph.AddEdge(right, bottom)
+	}
+	if data.Intersection.Right.StraightLane {
+		graph.AddEdge(right, left)
+	}
+	if data.Intersection.Right.LeftLane {
+		graph.AddEdge(right, top)
+	}
+	if data.Intersection.Right.Pedestrian == NORMAL {
+		graph.AddEdge(right, pedestrian)
+	}
+	if data.Intersection.Right.Pedestrian == WITH_ISLAND {
+		graph.AddEdge(right, pedestrian)
+		graph.AddEdge(right, pedestrianWithIsland)
+	}
+
+	//Top Node
+	if data.Intersection.Top.RightLane {
+		graph.AddEdge(top, left)
+	}
+	if data.Intersection.Top.StraightLane {
+		graph.AddEdge(top, bottom)
+	}
+	if data.Intersection.Top.LeftLane {
+		graph.AddEdge(top, right)
+	}
+	if data.Intersection.Top.Pedestrian == NORMAL {
+		graph.AddEdge(top, pedestrian)
+	}
+	if data.Intersection.Top.Pedestrian == WITH_ISLAND {
+		graph.AddEdge(top, pedestrian)
+		graph.AddEdge(top, pedestrianWithIsland)
+	}
+
+
+	//fmt.Println("[DEBUG] buildGraphObjectFromJSON graphExport", graph)
 	return graph
 }

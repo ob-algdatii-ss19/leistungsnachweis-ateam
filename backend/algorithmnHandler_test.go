@@ -1,6 +1,7 @@
 package backend
 
 import (
+	"fmt"
 	"reflect"
 	"testing"
 
@@ -141,6 +142,69 @@ func Test_buildGraphObjectFromJSON(t *testing.T) {
 	//fmt.Println("[DEBUG] graph in Test", sutResult02)
 
 
+	sut03 := GuiRequestData{
+		Settings{Algorithm: BASIC_GREEDY},
+		Intersection{
+			Left: Intersection_part{
+				LeftLane:    false,
+				StraightLane: true ,
+				RightLane:     false,
+				Pedestrian:   OFF,
+			},
+			Buttom: Intersection_part{
+				LeftLane:    false,
+				StraightLane: false,
+				RightLane:     true,
+				Pedestrian:   OFF,
+			},
+			Right: Intersection_part{
+				LeftLane:    false,
+				StraightLane: false,
+				RightLane:     false,
+				Pedestrian:   NORMAL,
+			},
+			Top: Intersection_part{
+				LeftLane:    true,
+				StraightLane: false,
+				RightLane:     false,
+				Pedestrian:    OFF,
+			},
+		},
+	}
+	//starts with 1, not 0
+	sutResult03 := adjGraph.NewGraphAdjMat(6)
+
+	//left
+	//sutResult03.AddEdge(1, 2)
+	sutResult03.AddEdge(1, 3)
+	//sutResult03.AddEdge(1, 4)
+	//sutResult03.AddEdge(1, 5)
+	//sutResult03.AddEdge(1, 6)
+
+	//bottom
+	//sutResult03.AddEdge(2, 1)
+	sutResult03.AddEdge(2, 3)
+	//sutResult03.AddEdge(2, 4)
+	//sutResult03.AddEdge(2, 5)
+	//sutResult03.AddEdge(2, 6)
+
+	//right
+	//sutResult03.AddEdge(3, 1)
+	//sutResult03.AddEdge(3, 2)
+	//sutResult03.AddEdge(3, 4)
+	sutResult03.AddEdge(3, 5)
+	//sutResult03.AddEdge(3, 6)
+
+	//top
+	//sutResult03.AddEdge(4, 1)
+	//sutResult03.AddEdge(4, 2)
+	sutResult03.AddEdge(4, 3)
+	//sutResult03.AddEdge(4, 5)
+	//sutResult03.AddEdge(4, 6)
+
+	fmt.Println("[DEBUG] guidata3", buildGraphObjectFromJSON(sut03))
+	fmt.Println("[DEBUG] grap03h in Test", sutResult03)
+
 	type args struct {
 		data GuiRequestData
 	}
@@ -150,14 +214,19 @@ func Test_buildGraphObjectFromJSON(t *testing.T) {
 		want adjGraph.Graph
 	}{
 		{
-			"basic test for build graph object",
+			"first test: all ways, normal pedestrians",
 			args{sut01},
 			sutResult01,
 		},
 		{
-			"second basic test for build graph object",
+			"second test: all ways, pedestrians with islands",
 			args{sut02},
 			sutResult02,
+		},
+		{
+			"third test: some ways, 2 normal pedestrians, 2 pedestrians with island",
+			args{sut03},
+			sutResult03,
 		},
 	}
 	for _, tt := range tests {

@@ -69,3 +69,35 @@ func ExampleUGraphMat_UAdj_NoAdjNodes() {
 	// Output:
 	// []
 }
+
+func ExampleUGraphMat_UNumberOfNodes() {
+
+	g := NewUGraph(9)
+	edges := []Edge{
+		{1, 2},
+		{1, 3},
+		{1, 7},
+		{4, 6},
+		{5, 4},
+		{6, 1},
+		{6, 5},
+		{6, 6},
+		{7, 5},
+		{9, 8},
+	}
+	for _, edge := range edges {
+		g.UAddEdge(edge.from, edge.to)
+	}
+	fmt.Printf("%v\n", g.UNumberOfNodes())
+	// Output:
+	// 9
+}
+
+func ExampleUGraphMat_UNumberOfNodes_EmptyMatrix() {
+
+	g := NewUGraph(0)
+
+	fmt.Printf("%v\n", g.UNumberOfNodes())
+	// Output:
+	// 0
+}

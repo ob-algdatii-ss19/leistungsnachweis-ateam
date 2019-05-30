@@ -1,5 +1,11 @@
 package adjGraph
 
+import "testing"
+
+func TestMakeConflictGraphOutOfConnectionGraph(t *testing.T) {
+
+}
+
 ///*func TestMakeConflictGraphOutOfConnectionGraph(t *testing.T) {
 //	//Test1 : Nur Rechtsabbieger, keine Fußgänger
 //	//Input : O,C,G,K

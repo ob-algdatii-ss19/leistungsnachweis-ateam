@@ -12,28 +12,28 @@ func Test_buildGraphObjectFromJSON(t *testing.T) {
 	sut01 := GuiRequestData{
 		Settings{Algorithm: BASIC_GREEDY},
 		Intersection{
-			Top: Intersection_part{
-				RightLane:    true,
-				StraightLane: true,
-				LeftLane:     true,
-				Pedestrian:   NORMAL,
-			},
 			Left: Intersection_part{
-				RightLane:    true,
+				LeftLane:    true,
 				StraightLane: true,
-				LeftLane:     true,
+				RightLane:     true,
 				Pedestrian:   NORMAL,
 			},
 			Buttom: Intersection_part{
-				RightLane:    true,
+				LeftLane:    true,
 				StraightLane: true,
-				LeftLane:     true,
+				RightLane:     true,
 				Pedestrian:   NORMAL,
 			},
 			Right: Intersection_part{
-				RightLane:    true,
+				LeftLane:    true,
 				StraightLane: true,
-				LeftLane:     true,
+				RightLane:     true,
+				Pedestrian:   NORMAL,
+			},
+			Top: Intersection_part{
+				LeftLane:    true,
+				StraightLane: true,
+				RightLane:     true,
 				Pedestrian:   NORMAL,
 			},
 		},
@@ -42,28 +42,28 @@ func Test_buildGraphObjectFromJSON(t *testing.T) {
 	//starts with 1, not 0
 	sutResult01 := adjGraph.NewGraphAdjMat(6)
 
-	//top
+	//left
 	sutResult01.AddEdge(1, 2)
 	sutResult01.AddEdge(1, 3)
 	sutResult01.AddEdge(1, 4)
 	sutResult01.AddEdge(1, 5) //because Pedestrains
 
 
-	//left
+	//bottom
 	sutResult01.AddEdge(2, 1)
 	sutResult01.AddEdge(2, 3)
 	sutResult01.AddEdge(2, 4)
 	sutResult01.AddEdge(2, 5) //because Pedestrains
 
 
-	//bottom
+	//right
 	sutResult01.AddEdge(3, 1)
 	sutResult01.AddEdge(3, 2)
 	sutResult01.AddEdge(3, 4)
 	sutResult01.AddEdge(3, 5) //because Pedestrains
 
 
-	//right
+	//top
 	sutResult01.AddEdge(4, 1)
 	sutResult01.AddEdge(4, 2)
 	sutResult01.AddEdge(4, 3)
@@ -77,28 +77,28 @@ func Test_buildGraphObjectFromJSON(t *testing.T) {
 	sut02 := GuiRequestData{
 		Settings{Algorithm: BASIC_GREEDY},
 		Intersection{
-			Top: Intersection_part{
-				RightLane:    true,
-				StraightLane: true,
-				LeftLane:     true,
-				Pedestrian:   WITH_ISLAND,
-			},
 			Left: Intersection_part{
-				RightLane:    true,
+				LeftLane:    true,
 				StraightLane: true,
-				LeftLane:     true,
+				RightLane:     true,
 				Pedestrian:   WITH_ISLAND,
 			},
 			Buttom: Intersection_part{
-				RightLane:    true,
+				LeftLane:    true,
 				StraightLane: true,
-				LeftLane:     true,
+				RightLane:     true,
 				Pedestrian:   WITH_ISLAND,
 			},
 			Right: Intersection_part{
-				RightLane:    true,
+				LeftLane:    true,
 				StraightLane: true,
-				LeftLane:     true,
+				RightLane:     true,
+				Pedestrian:   WITH_ISLAND,
+			},
+			Top: Intersection_part{
+				LeftLane:    true,
+				StraightLane: true,
+				RightLane:     true,
 				Pedestrian:   WITH_ISLAND,
 			},
 		},
@@ -106,7 +106,7 @@ func Test_buildGraphObjectFromJSON(t *testing.T) {
 	//starts with 1, not 0
 	sutResult02 := adjGraph.NewGraphAdjMat(6)
 
-	//top
+	//left
 	sutResult02.AddEdge(1, 2)
 	sutResult02.AddEdge(1, 3)
 	sutResult02.AddEdge(1, 4)
@@ -114,7 +114,7 @@ func Test_buildGraphObjectFromJSON(t *testing.T) {
 	sutResult02.AddEdge(1, 6) //because Pedestrain Island
 
 
-	//left
+	//bottom
 	sutResult02.AddEdge(2, 1)
 	sutResult02.AddEdge(2, 3)
 	sutResult02.AddEdge(2, 4)
@@ -122,7 +122,7 @@ func Test_buildGraphObjectFromJSON(t *testing.T) {
 	sutResult02.AddEdge(2, 6) //because Pedestrain Island
 
 
-	//bottom
+	//right
 	sutResult02.AddEdge(3, 1)
 	sutResult02.AddEdge(3, 2)
 	sutResult02.AddEdge(3, 4)
@@ -130,7 +130,7 @@ func Test_buildGraphObjectFromJSON(t *testing.T) {
 	sutResult02.AddEdge(3, 6) //because Pedestrain Island
 
 
-	//right
+	//top
 	sutResult02.AddEdge(4, 1)
 	sutResult02.AddEdge(4, 2)
 	sutResult02.AddEdge(4, 3)

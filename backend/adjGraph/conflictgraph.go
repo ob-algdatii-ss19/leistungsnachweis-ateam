@@ -21,9 +21,9 @@ func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) UGraph {
 								conflictGraph.UAddEdge(Node(i+1), Node(j+1))
 							}
 						} else { //ohne Fu-g'nger Insel
-							//if Entries[i].from == Entries[j].to {
-							conflictGraph.UAddEdge(Node(i+1), Node(j+1))
-							//}
+							if Entries[i].from == Entries[j].to {
+								conflictGraph.UAddEdge(Node(i+1), Node(j+1))
+							}
 						}
 					}
 				} else if j%5 == 3 { //Prufung der Fussg'nger bei j
@@ -33,10 +33,10 @@ func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) UGraph {
 								conflictGraph.UAddEdge(Node(i+1), Node(j+1))
 							}
 						} else { //Ohne Fussgaengerinsel
-							//	if Entries[j].from == Entries[i].to {
-							conflictGraph.UAddEdge(Node(j+1), Node(i+1))
+							if Entries[j].from == Entries[i].to {
+								conflictGraph.UAddEdge(Node(j+1), Node(i+1))
+							}
 						}
-						//}
 					}
 				} else if i%5 == 4 { //Falls Fussgaengerinsel ueberhaupt vorhanden
 					if j%5 != 3 && j%5 != 4 { //Pruefung auf weiteren Fussgaenger- zwei Fussgaenger koennen zueinander nicht im Konflikt stehen

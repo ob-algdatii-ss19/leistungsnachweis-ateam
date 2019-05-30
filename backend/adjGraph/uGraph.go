@@ -5,6 +5,7 @@ type UGraph interface {
 	UAddEdge(from Node, to Node)
 	UEdges() []Edge
 	UAdj(n Node) []Node
+	UNumberOfNodes() int
 }
 
 type UGraphMat struct {
@@ -28,4 +29,8 @@ func (g UGraphMat) UEdges() []Edge {
 // all edges which are adjacent to Node n
 func (g UGraphMat) UAdj(n Node) []Node {
 	return g.GraphObject.Adj(n)
+}
+
+func (g UGraphMat) UNumberOfNodes() int {
+	return g.GraphObject.NumberOfNodes()
 }

@@ -12,13 +12,10 @@ Handle all calls to the different algorithmns
 func HandleAlgorithmCalls(receivedData GuiRequestData) JsonResponse {
 	fmt.Println("[INFO] Called algorithmHandler.go")
 
-	//graphObject := buildGraphObjectFromJSON(receivedData)
-
-	//TODO @SDouglas3 build intolerance graph here from graphObject.
-	// Outsource logic in separate function (for details see issue #21)
+	graphObject := adjGraph.MakeConflictGraphOutOfConnectionGraph(buildGraphObjectFromJSON(receivedData))
 
 	if receivedData.Settings.Algorithm == BASIC_GREEDY {
-		resultGraph := algorithms.BasicGreedy(nil)
+		resultGraph := algorithms.BasicGreedy(graphObject)
 		fmt.Println("[DEBUG] generated result graph with Basic Greedy Algorithm ", resultGraph)
 
 		return JsonResponse{true, resultGraph}
@@ -30,7 +27,7 @@ func HandleAlgorithmCalls(receivedData GuiRequestData) JsonResponse {
 /*
 Build a Graph-Object from the received JSON-Data
 */
-func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.Graph {
+func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.AdjMat {
 
 	//TODO @mike-la build graph object here (for details see issue #20)
 
@@ -48,7 +45,6 @@ func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.Graph {
 
 	var pedestrian adjGraph.Node = 5
 	var pedestrianWithIsland adjGraph.Node = 6
-
 
 	//left Node
 	if data.Intersection.Left.RightLane {
@@ -121,7 +117,6 @@ func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.Graph {
 		graph.AddEdge(top, pedestrian)
 		graph.AddEdge(top, pedestrianWithIsland)
 	}
-
 
 	//fmt.Println("[DEBUG] buildGraphObjectFromJSON graphExport", graph)
 	return graph

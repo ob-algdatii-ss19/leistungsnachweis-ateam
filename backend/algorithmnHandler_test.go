@@ -13,27 +13,27 @@ func Test_buildGraphObjectFromJSON(t *testing.T) {
 		Settings{Algorithm: BASIC_GREEDY},
 		Intersection{
 			Left: Intersection_part{
-				LeftLane:    true,
+				LeftLane:     true,
 				StraightLane: true,
-				RightLane:     true,
+				RightLane:    true,
 				Pedestrian:   NORMAL,
 			},
 			Buttom: Intersection_part{
-				LeftLane:    true,
+				LeftLane:     true,
 				StraightLane: true,
-				RightLane:     true,
+				RightLane:    true,
 				Pedestrian:   NORMAL,
 			},
 			Right: Intersection_part{
-				LeftLane:    true,
+				LeftLane:     true,
 				StraightLane: true,
-				RightLane:     true,
+				RightLane:    true,
 				Pedestrian:   NORMAL,
 			},
 			Top: Intersection_part{
-				LeftLane:    true,
+				LeftLane:     true,
 				StraightLane: true,
-				RightLane:     true,
+				RightLane:    true,
 				Pedestrian:   NORMAL,
 			},
 		},
@@ -48,13 +48,11 @@ func Test_buildGraphObjectFromJSON(t *testing.T) {
 	sutResult01.AddEdge(1, 4)
 	sutResult01.AddEdge(1, 5) //because Pedestrains
 
-
 	//bottom
 	sutResult01.AddEdge(2, 1)
 	sutResult01.AddEdge(2, 3)
 	sutResult01.AddEdge(2, 4)
 	sutResult01.AddEdge(2, 5) //because Pedestrains
-
 
 	//right
 	sutResult01.AddEdge(3, 1)
@@ -62,43 +60,39 @@ func Test_buildGraphObjectFromJSON(t *testing.T) {
 	sutResult01.AddEdge(3, 4)
 	sutResult01.AddEdge(3, 5) //because Pedestrains
 
-
 	//top
 	sutResult01.AddEdge(4, 1)
 	sutResult01.AddEdge(4, 2)
 	sutResult01.AddEdge(4, 3)
 	sutResult01.AddEdge(4, 5) //because Pedestrains
 
-
 	//fmt.Println("[DEBUG] graph in Test", sutResult01)
-
-
 
 	sut02 := GuiRequestData{
 		Settings{Algorithm: BASIC_GREEDY},
 		Intersection{
 			Left: Intersection_part{
-				LeftLane:    true,
+				LeftLane:     true,
 				StraightLane: true,
-				RightLane:     true,
+				RightLane:    true,
 				Pedestrian:   WITH_ISLAND,
 			},
 			Buttom: Intersection_part{
-				LeftLane:    true,
+				LeftLane:     true,
 				StraightLane: true,
-				RightLane:     true,
+				RightLane:    true,
 				Pedestrian:   WITH_ISLAND,
 			},
 			Right: Intersection_part{
-				LeftLane:    true,
+				LeftLane:     true,
 				StraightLane: true,
-				RightLane:     true,
+				RightLane:    true,
 				Pedestrian:   WITH_ISLAND,
 			},
 			Top: Intersection_part{
-				LeftLane:    true,
+				LeftLane:     true,
 				StraightLane: true,
-				RightLane:     true,
+				RightLane:    true,
 				Pedestrian:   WITH_ISLAND,
 			},
 		},
@@ -113,14 +107,12 @@ func Test_buildGraphObjectFromJSON(t *testing.T) {
 	sutResult02.AddEdge(1, 5) //because Pedestrains
 	sutResult02.AddEdge(1, 6) //because Pedestrain Island
 
-
 	//bottom
 	sutResult02.AddEdge(2, 1)
 	sutResult02.AddEdge(2, 3)
 	sutResult02.AddEdge(2, 4)
 	sutResult02.AddEdge(2, 5) //because Pedestrains
 	sutResult02.AddEdge(2, 6) //because Pedestrain Island
-
 
 	//right
 	sutResult02.AddEdge(3, 1)
@@ -129,7 +121,6 @@ func Test_buildGraphObjectFromJSON(t *testing.T) {
 	sutResult02.AddEdge(3, 5) //because Pedestrains
 	sutResult02.AddEdge(3, 6) //because Pedestrain Island
 
-
 	//top
 	sutResult02.AddEdge(4, 1)
 	sutResult02.AddEdge(4, 2)
@@ -137,36 +128,34 @@ func Test_buildGraphObjectFromJSON(t *testing.T) {
 	sutResult02.AddEdge(4, 5) //because Pedestrains
 	sutResult02.AddEdge(4, 6) //because Pedestrain Island
 
-
 	//fmt.Println("[DEBUG] graph in Test", sutResult02)
-
 
 	sut03 := GuiRequestData{
 		Settings{Algorithm: BASIC_GREEDY},
 		Intersection{
 			Left: Intersection_part{
-				LeftLane:    false,
-				StraightLane: true ,
-				RightLane:     false,
+				LeftLane:     false,
+				StraightLane: true,
+				RightLane:    false,
 				Pedestrian:   OFF,
 			},
 			Buttom: Intersection_part{
-				LeftLane:    false,
+				LeftLane:     false,
 				StraightLane: false,
-				RightLane:     true,
+				RightLane:    true,
 				Pedestrian:   OFF,
 			},
 			Right: Intersection_part{
-				LeftLane:    false,
+				LeftLane:     false,
 				StraightLane: false,
-				RightLane:     false,
+				RightLane:    false,
 				Pedestrian:   NORMAL,
 			},
 			Top: Intersection_part{
-				LeftLane:    true,
+				LeftLane:     true,
 				StraightLane: false,
-				RightLane:     false,
-				Pedestrian:    OFF,
+				RightLane:    false,
+				Pedestrian:   OFF,
 			},
 		},
 	}
@@ -232,6 +221,64 @@ func Test_buildGraphObjectFromJSON(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := buildGraphObjectFromJSON(tt.args.data); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("buildGraphObjectFromJSON() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_changeNodeNumbersToLetters(t *testing.T) {
+
+	type args struct {
+		resultGraph    [][]adjGraph.Node
+		trafficEntries []adjGraph.TrafficEntry
+	}
+
+	sutResultGraph01 := [][]adjGraph.Node{
+		{adjGraph.Node(1), adjGraph.Node(2), adjGraph.Node(3)},
+		{adjGraph.Node(4), adjGraph.Node(5)},
+		{adjGraph.Node(6)},
+		{adjGraph.Node(7), adjGraph.Node(8), adjGraph.Node(9)},
+		{adjGraph.Node(10), adjGraph.Node(11), adjGraph.Node(12)},
+	}
+
+	sutTrafficEntries01 := []adjGraph.TrafficEntry{
+		{adjGraph.ABC, adjGraph.MNO, true},
+		{adjGraph.ABC, adjGraph.IJK, true},
+		{adjGraph.ABC, adjGraph.EFG, true},
+		{adjGraph.EFG, adjGraph.ABC, true},
+		{adjGraph.EFG, adjGraph.MNO, true},
+		{adjGraph.EFG, adjGraph.IJK, true},
+		{adjGraph.IJK, adjGraph.EFG, true},
+		{adjGraph.IJK, adjGraph.ABC, true},
+		{adjGraph.IJK, adjGraph.MNO, true},
+		{adjGraph.MNO, adjGraph.IJK, true},
+		{adjGraph.MNO, adjGraph.EFG, true},
+		{adjGraph.MNO, adjGraph.ABC, true},
+	}
+
+	sut01 := args{sutResultGraph01, sutTrafficEntries01}
+
+	tests := []struct {
+		name string
+		args args
+		want [][]string
+	}{
+		{
+			"test convertion of all nodes to letters for the car lanes",
+			sut01,
+			[][]string{
+				{"A", "B", "C"},
+				{"E", "F"},
+				{"G"},
+				{"I", "J", "K"},
+				{"M", "N", "O"},
+			},
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := changeNodeNumbersToLetters(tt.args.resultGraph, tt.args.trafficEntries); !reflect.DeepEqual(got, tt.want) {
+				t.Errorf("changeNodeNumbersToLetters() = %v, want %v", got, tt.want)
 			}
 		})
 	}

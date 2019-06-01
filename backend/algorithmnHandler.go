@@ -6,6 +6,21 @@ import (
 	"github.com/ob-algdatii-ss19/leistungsnachweis-ateam/backend/algorithms"
 )
 
+var edgeNamesToNodeLetter = map[string]string{
+	string(adjGraph.ABC + "-" + adjGraph.MNO): "A",
+	string(adjGraph.ABC + "-" + adjGraph.IJK): "B",
+	string(adjGraph.ABC + "-" + adjGraph.EFG): "C",
+	string(adjGraph.EFG + "-" + adjGraph.ABC): "E",
+	string(adjGraph.EFG + "-" + adjGraph.MNO): "F",
+	string(adjGraph.EFG + "-" + adjGraph.IJK): "G",
+	string(adjGraph.IJK + "-" + adjGraph.EFG): "I",
+	string(adjGraph.IJK + "-" + adjGraph.ABC): "J",
+	string(adjGraph.IJK + "-" + adjGraph.MNO): "K",
+	string(adjGraph.MNO + "-" + adjGraph.IJK): "M",
+	string(adjGraph.MNO + "-" + adjGraph.EFG): "N",
+	string(adjGraph.MNO + "-" + adjGraph.ABC): "O",
+}
+
 /*
 Handle all calls to the different algorithmns
 */
@@ -15,13 +30,41 @@ func HandleAlgorithmCalls(receivedData GuiRequestData) JsonResponse {
 	graphObject := adjGraph.MakeConflictGraphOutOfConnectionGraph(buildGraphObjectFromJSON(receivedData))
 
 	if receivedData.Settings.Algorithm == BASIC_GREEDY {
-		resultGraph := algorithms.BasicGreedy(graphObject)
-		fmt.Println("[DEBUG] generated result graph with Basic Greedy Algorithm ", resultGraph)
+		resultGraphWithNodeNames := algorithms.BasicGreedy(graphObject)
+		fmt.Println("[DEBUG] generated result graph with Basic Greedy Algorithm ", resultGraphWithNodeNames)
 
-		return JsonResponse{true, resultGraph}
+		resultGraphWithLetters := changeNodeNumbersToLetters(resultGraphWithNodeNames, graphObject.Entries)
+
+		return JsonResponse{true, resultGraphWithLetters}
 	} else {
 		return JsonResponse{false, nil}
 	}
+}
+
+/*
+Change Node-Numbers in the Array with the traffic phases to capital letters.
+*/
+func changeNodeNumbersToLetters(resultGraph [][]adjGraph.Node, trafficEntries []adjGraph.TrafficEntry) [][]string {
+
+	allPhases := make([][]string, 0)
+
+	for _, nodeArray := range resultGraph {
+
+		trafficPhase := make([]string, 0)
+
+		for _, node := range nodeArray {
+
+			nodeLetter := edgeNamesToNodeLetter[string(trafficEntries[node-1].From)+"-"+string(trafficEntries[node-1].To)]
+
+			trafficPhase = append(trafficPhase, nodeLetter)
+
+		}
+
+		allPhases = append(allPhases, trafficPhase)
+
+	}
+
+	return allPhases
 }
 
 /*

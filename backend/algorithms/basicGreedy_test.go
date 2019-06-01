@@ -1,6 +1,7 @@
 package algorithms
 
 import (
+	"reflect"
 	"testing"
 
 	"github.com/ob-algdatii-ss19/leistungsnachweis-ateam/backend/adjGraph"
@@ -29,7 +30,7 @@ func TestBasicGreedy(t *testing.T) {
 	sutUGraphMat03.UAddEdge(4, 3)
 
 	type args struct {
-		graphData adjGraph.UGraph
+		argsData adjGraph.ReturnType
 	}
 
 	tests := []struct {
@@ -39,7 +40,7 @@ func TestBasicGreedy(t *testing.T) {
 	}{
 		{
 			"coloring simple graph",
-			args{sutUGraphMat},
+			args{adjGraph.ReturnType{nil, sutUGraphMat}},
 			[][]adjGraph.Node{
 				{adjGraph.Node(1), adjGraph.Node(4)},
 				{adjGraph.Node(2), adjGraph.Node(5)},
@@ -48,19 +49,19 @@ func TestBasicGreedy(t *testing.T) {
 		},
 		{
 			"coloring graph without edges",
-			args{sutUGraphMat01},
+			args{adjGraph.ReturnType{nil, sutUGraphMat01}},
 			[][]adjGraph.Node{
 				{adjGraph.Node(1), adjGraph.Node(2), adjGraph.Node(3), adjGraph.Node(4)},
 			},
 		},
 		{
 			"coloring empty graph",
-			args{sutUGraphMat02},
+			args{adjGraph.ReturnType{nil, sutUGraphMat02}},
 			[][]adjGraph.Node{},
 		},
 		{
 			"coloring graph with only different colors",
-			args{sutUGraphMat03},
+			args{adjGraph.ReturnType{nil, sutUGraphMat03}},
 			[][]adjGraph.Node{
 				{adjGraph.Node(1)},
 				{adjGraph.Node(2)},
@@ -71,9 +72,9 @@ func TestBasicGreedy(t *testing.T) {
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			/*if got := BasicGreedy(tt.args.graphData); !reflect.DeepEqual(got, tt.want) {
+			if got := BasicGreedy(tt.args.argsData); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("BasicGreedy() = %v, want %v", got, tt.want)
-			}*/
+			}
 		})
 	}
 }

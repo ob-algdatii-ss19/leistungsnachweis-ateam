@@ -144,6 +144,7 @@ fieldset {
     width: 350px;
     height: 100%;
     padding-left: 1em;
+    padding-right: 1em;
 }
 .nodes-pedestrians {
     list-style-type:none;

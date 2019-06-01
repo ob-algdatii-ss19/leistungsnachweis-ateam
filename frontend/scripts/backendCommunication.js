@@ -48,10 +48,10 @@ function generateNewGUI(responseData) {
             console.log("[INFO] redirect to " + redirectUrl);
 
             //replace html-body of intersection.html with content from result.html
-            document.body.innerHTML = this.responseText;
+            document.getElementById("intersection-settings").innerHTML = this.responseText;
 
             //insert JSON-Data
-            let jsonResult = document.createTextNode(JSON.stringify(responseData));
+            let jsonResult = document.createTextNode(JSON.stringify(responseData.TrafficLightPhases));
             document.getElementById("json-result").appendChild(jsonResult);
         }
     };

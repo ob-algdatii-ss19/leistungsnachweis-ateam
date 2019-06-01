@@ -3,34 +3,31 @@ package adjGraph
 import "testing"
 
 func TestMakeConflictGraphOutOfConnectionGraph(t *testing.T) {
+	//Test1 : Nur Rechtsabbieger, keine Fußgänger
+	//Input : O,C,G,K
 
+	wantedEdges1 := []Edge{
+		{4, 1},
+		{1, 2},
+		{2, 3},
+		{3, 4},
+	}
+
+	g := NewGraphAdjMat(6)
+	for _, edge := range wantedEdges1 {
+		g.AddEdge(edge.from, edge.to)
+	}
+
+	//	gotEdges := g.Edges()
+	m := MakeConflictGraphOutOfConnectionGraph(g)
+	gotEdges := m.UGraph.UEdges()
+
+	if len(gotEdges) != 0 {
+		t.Errorf("Rechtsabbieger sollten keinen Konflikt aufrufen")
+	}
 }
 
-///*func TestMakeConflictGraphOutOfConnectionGraph(t *testing.T) {
-//	//Test1 : Nur Rechtsabbieger, keine Fußgänger
-//	//Input : O,C,G,K
-//
-//	wantedEdges1 := []Edge{
-//		{4, 1},
-//		{1, 2},
-//		{2, 3},
-//		{3, 4},
-//	}
-//
-//	g := NewGraphAdjMat(6)
-//	for _, edge := range wantedEdges1 {
-//		g.AddEdge(edge.from, edge.to)
-//	}
-//
-//	//	gotEdges := g.Edges()
-//	m := MakeConflictGraphOutOfConnectionGraph(g)
-//	gotEdges := m.UEdges()
-//
-//	if len(gotEdges) != 0 {
-//		t.Errorf("Rechtsabbieger sollten keinen Konflikt aufrufen")
-//	}
-//}
-//
+/*
 //func TestMakeConflictGraphOutOfConnectionGraph2(t *testing.T) {
 //	//Test2 : Nur Linksabbieger, keine Fußgänger
 //	//Input : M,A,E,I

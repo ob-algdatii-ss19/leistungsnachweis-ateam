@@ -30,9 +30,9 @@ func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) ReturnType {
 							if Entries[i].from == Entries[j].to {
 								conflictGraph.UAddEdge(Node(i+1), Node(j+1))
 							}
-							/*if Entries[j].from == Entries[i].from{
-								conflictGraph.UAddEdge(Node(i+1),Node(j+1))
-							}*/
+							if Entries[i].from == Entries[j].from {
+								conflictGraph.UAddEdge(Node(i+1), Node(j+1))
+							}
 						}
 					}
 				} else if j%5 == 3 { //Prufung der Fussg'nger bei j
@@ -45,9 +45,9 @@ func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) ReturnType {
 							if Entries[j].from == Entries[i].to {
 								conflictGraph.UAddEdge(Node(j+1), Node(i+1))
 							}
-							/*							if Entries[i].from == Entries[j].from{
-														conflictGraph.UAddEdge(Node(i+1),Node(j+1))
-													}*/
+							if Entries[j].from == Entries[i].from {
+								conflictGraph.UAddEdge(Node(i+1), Node(j+1))
+							}
 
 						}
 					}

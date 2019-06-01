@@ -243,3 +243,74 @@ func TestMakeConflictGraphOutOfConnectionGraph7(t *testing.T) {
 		}
 	}
 }
+
+func ExampleMakeConflictGraphOutOfConnectionGraph8() {
+	//Test8 : no pedestrian, B and M are in conflict
+	// two lanes end at the same node
+	//Input : B, C, M
+	//Expected: conflict between ABC-IJK and MNO-IJK
+
+	args := []Edge{
+		{1, 2},
+		{1, 3},
+		{4, 3},
+	}
+
+	g := NewGraphAdjMat(6)
+	for _, edge := range args {
+		g.AddEdge(edge.from, edge.to)
+	}
+
+	m := MakeConflictGraphOutOfConnectionGraph(g)
+
+	fmt.Printf("%v\n", m.UGraph.UEdges())
+	// Output:
+	// [{2 18} {18 2}]
+}
+
+func ExampleMakeConflictGraphOutOfConnectionGraph9() {
+	//Test8 : no pedestrian, no conflicts
+	//Input : A, G, I, O
+	//Expected: no conflicts
+
+	args := []Edge{
+		{1, 4},
+		{4, 1},
+		{2, 3},
+		{3, 2},
+	}
+
+	g := NewGraphAdjMat(6)
+	for _, edge := range args {
+		g.AddEdge(edge.from, edge.to)
+	}
+
+	m := MakeConflictGraphOutOfConnectionGraph(g)
+
+	fmt.Printf("%v\n", m.UGraph.UEdges())
+	// Output:
+	// []
+}
+
+func ExampleMakeConflictGraphOutOfConnectionGraph10() {
+	//Test8 : no pedestrian, A and J are in conflict
+	// two lanes are crossing each other
+	//Input : A, J
+	//Expected: conflicts between ABC-MNO and IJK-ABC
+
+	args := []Edge{
+		{1, 4},
+		{3, 1},
+	}
+
+	g := NewGraphAdjMat(6)
+	for _, edge := range args {
+		g.AddEdge(edge.from, edge.to)
+	}
+
+	m := MakeConflictGraphOutOfConnectionGraph(g)
+
+	fmt.Printf("%v\n", m.UGraph.UEdges())
+	// Output:
+	// [{3 11} {11 3}]
+}

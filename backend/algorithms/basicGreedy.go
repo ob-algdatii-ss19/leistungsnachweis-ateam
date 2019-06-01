@@ -13,7 +13,9 @@ func BasicGreedy(returnType adjGraph.ReturnType) [][]adjGraph.Node {
 	fmt.Println("[INFO] Called BasicGreedy Algorithm")
 
 	graphData := returnType.UGraph
-	if graphData == nil {
+	trafficEntries := returnType.Entries
+
+	if graphData == nil || trafficEntries == nil {
 		return [][]adjGraph.Node{}
 	}
 
@@ -24,13 +26,15 @@ func BasicGreedy(returnType adjGraph.ReturnType) [][]adjGraph.Node {
 	//go through all nodes (vertices)
 	for i := 1; i <= numberOfNodes; i++ {
 
-		unavailableColors := getUsedColorsByAdjacentNodes(graphData, adjGraph.Node(i), coloredNodes)
+		//user selected the node via checkbox in the gui
+		if trafficEntries[i-1].IsTrue {
+			unavailableColors := getUsedColorsByAdjacentNodes(graphData, adjGraph.Node(i), coloredNodes)
 
-		lowestFreeColor := getLowestUnusedColorOfAdjacentNodes(unavailableColors)
+			lowestFreeColor := getLowestUnusedColorOfAdjacentNodes(unavailableColors)
 
-		coloredNodes[i] = lowestFreeColor
-		listOfColorsAndNodes[lowestFreeColor] = append(listOfColorsAndNodes[lowestFreeColor], adjGraph.Node(i))
-
+			coloredNodes[i] = lowestFreeColor
+			listOfColorsAndNodes[lowestFreeColor] = append(listOfColorsAndNodes[lowestFreeColor], adjGraph.Node(i))
+		}
 	}
 
 	return getTrimmedListOfColorsAndNodes(listOfColorsAndNodes)

@@ -83,14 +83,14 @@ func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.AdjMat {
 	}
 
 	//right Node
-	if data.Intersection.Right.LeftLane {
-		graph.AddEdge(right, bottom)
+	if data.Intersection.Right.RightLane {
+		graph.AddEdge(right, top)
 	}
 	if data.Intersection.Right.StraightLane {
 		graph.AddEdge(right, left)
 	}
 	if data.Intersection.Right.LeftLane {
-		graph.AddEdge(right, top)
+		graph.AddEdge(right, bottom)
 	}
 	if data.Intersection.Right.Pedestrian == NORMAL {
 		graph.AddEdge(right, pedestrian)

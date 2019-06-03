@@ -9,37 +9,13 @@ import (
 /*
 Calculate the optimization of the traffic lights with basic Greedy algorithm
 */
-/*func BasicGreedy(graphData adjGraph.UGraph) [][]adjGraph.Node {
-		fmt.Println("[INFO] Called BasicGreedy Algorithm")
-
-		if graphData == nil {
-		return [][]adjGraph.Node{}
-	}
-
-		numberOfNodes := graphData.UNumberOfNodes()
-		coloredNodes := make([]int, numberOfNodes+1)
-		listOfColorsAndNodes := make([][]adjGraph.Node, numberOfNodes+1)
-
-		//go through all nodes (vertices)
-		for i := 1; i <= numberOfNodes; i++ {
-
-		unavailableColors := getUsedColorsByAdjacentNodes(graphData, adjGraph.Node(i), coloredNodes)
-
-		lowestFreeColor := getLowestUnusedColorOfAdjacentNodes(unavailableColors)
-
-		coloredNodes[i] = lowestFreeColor
-		listOfColorsAndNodes[lowestFreeColor] = append(listOfColorsAndNodes[lowestFreeColor], adjGraph.Node(i))
-
-	}
-
-		return getTrimmedListOfColorsAndNodes(listOfColorsAndNodes)
-}*/
-
 func BasicGreedy(returnType adjGraph.ReturnType) [][]adjGraph.Node {
 	fmt.Println("[INFO] Called BasicGreedy Algorithm")
 
 	graphData := returnType.UGraph
-	if graphData == nil {
+	trafficEntries := returnType.Entries
+
+	if graphData == nil || trafficEntries == nil {
 		return [][]adjGraph.Node{}
 	}
 
@@ -50,13 +26,15 @@ func BasicGreedy(returnType adjGraph.ReturnType) [][]adjGraph.Node {
 	//go through all nodes (vertices)
 	for i := 1; i <= numberOfNodes; i++ {
 
-		unavailableColors := getUsedColorsByAdjacentNodes(graphData, adjGraph.Node(i), coloredNodes)
+		//user selected the node via checkbox in the gui
+		if trafficEntries[i-1].IsTrue {
+			unavailableColors := getUsedColorsByAdjacentNodes(graphData, adjGraph.Node(i), coloredNodes)
 
-		lowestFreeColor := getLowestUnusedColorOfAdjacentNodes(unavailableColors)
+			lowestFreeColor := getLowestUnusedColorOfAdjacentNodes(unavailableColors)
 
-		coloredNodes[i] = lowestFreeColor
-		listOfColorsAndNodes[lowestFreeColor] = append(listOfColorsAndNodes[lowestFreeColor], adjGraph.Node(i))
-
+			coloredNodes[i] = lowestFreeColor
+			listOfColorsAndNodes[lowestFreeColor] = append(listOfColorsAndNodes[lowestFreeColor], adjGraph.Node(i))
+		}
 	}
 
 	return getTrimmedListOfColorsAndNodes(listOfColorsAndNodes)

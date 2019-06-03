@@ -1,13 +1,11 @@
 package backend
 
-import "github.com/ob-algdatii-ss19/leistungsnachweis-ateam/backend/adjGraph"
-
 /**
 structs for JSON response
 */
 type JsonResponse struct {
 	ReceivedDataSuccessful bool
-	TrafficLightPhases     [][]adjGraph.Node
+	TrafficLightPhases     [][]string
 }
 
 /**

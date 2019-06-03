@@ -266,6 +266,10 @@ func TestMakeConflictGraphOutOfConnectionGraph_2_6(t *testing.T) {
 			t.Errorf("Wrong Node")
 		}
 	}
+
+	/*	for _,element := range gotEdges{
+		fmt.Println(element)
+	}*/
 }
 
 func TestMakeConflictGraphOutOfConnectionGraph_2_7(t *testing.T) {

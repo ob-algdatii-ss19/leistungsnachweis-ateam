@@ -86,7 +86,7 @@ func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) ReturnType {
 							}
 						}
 					}
-					if Entries[i].To == Entries[j].to {
+					if Entries[i].To == Entries[j].To {
 						conflictGraph.UAddEdge(Node(i+1), Node(j+1))
 					}
 				}

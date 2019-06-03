@@ -37,9 +37,9 @@ func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) ReturnType {
 							if Entries[i].From == Entries[j].To {
 								conflictGraph.UAddEdge(Node(i+1), Node(j+1))
 							}
-							/*if Entries[j].from == Entries[i].from{
-								conflictGraph.UAddEdge(Node(i+1),Node(j+1))
-							}*/
+							if Entries[i].From == Entries[j].From {
+								conflictGraph.UAddEdge(Node(i+1), Node(j+1))
+							}
 						}
 					}
 				} else if j%5 == 3 { //Prufung der Fussg'nger bei j
@@ -52,9 +52,9 @@ func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) ReturnType {
 							if Entries[j].From == Entries[i].To {
 								conflictGraph.UAddEdge(Node(j+1), Node(i+1))
 							}
-							/*							if Entries[i].from == Entries[j].from{
-														conflictGraph.UAddEdge(Node(i+1),Node(j+1))
-													}*/
+							if Entries[j].From == Entries[i].From {
+								conflictGraph.UAddEdge(Node(i+1), Node(j+1))
+							}
 
 						}
 					}
@@ -75,16 +75,19 @@ func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) ReturnType {
 						}
 					}
 				} else {
+
 					if i != 0 && j != 0 && i != 6 && j != 6 && i != 12 && j != 12 && i != 15 && j != 15 { //Abfangen der Rechtsabbieger
-						//if i != 1 && j != 1 && i != 7 && j != 7 && i != 13 && j != 13 && i != 16 && j != 16 { //Abfangen der Rechtsabbieger
+						//if !((i == 0 || i == 6 || i == 12 || i == 15) && (j == 0 || j == 6 || j == 12 || j == 15)) { //Zwei Rechtsabbieger stehen nicht im Konflikt
 						if !((i == 2 && j == 11) || (i == 5 && j == 17)) { //kein Linksabbieger Paar 2&11; 5&17
 							if Entries[i].From != Entries[j].From {
-								if Entries[i].To != Entries[j].To {
+								if !((Entries[i].From == Entries[j].To) && (Entries[i].To == Entries[j].From)) {
 									conflictGraph.UAddEdge(Node(i+1), Node(j+1))
-									//conflictGraph.AddEdge(Node(j),Node(i))  //der Graph ist ja Symmetrisch
 								}
 							}
 						}
+					}
+					if Entries[i].To == Entries[j].to {
+						conflictGraph.UAddEdge(Node(i+1), Node(j+1))
 					}
 				}
 			}
@@ -114,3 +117,19 @@ func makeList(matrix AdjMat) []TrafficEntry {
 	}
 	return Entries
 }
+
+/*func MakeCompatibilityGraph(conflictReturn ReturnType) ReturnType{
+	var compGraph UGraph = NewUGraph(20)
+	for i:=0;i< len(conflictReturn.Entries);i++{
+		for j:=i+1; j < len(conflictReturn.Entries) ; j++{
+			if conflictReturn.Entries[i].isTrue && conflictReturn.Entries[j].isTrue{
+				//if conflictReturn.UGraph[i+1][j+1] wenn es eine kante hat -> Kriegt keine Kante
+				//else kriegt Kante
+
+			}
+
+		}
+	}
+	tmp := ReturnType{conflictReturn.Entries, compGraph}
+	return tmp
+}*/

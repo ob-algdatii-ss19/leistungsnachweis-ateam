@@ -4,27 +4,32 @@ import (
 	"fmt"
 	"github.com/ob-algdatii-ss19/leistungsnachweis-ateam/backend/adjGraph"
 	"github.com/ob-algdatii-ss19/leistungsnachweis-ateam/backend/algorithms"
+	"strings"
 )
 
 var edgeNamesToNodeLetter = map[string]string{
 	string(adjGraph.ABC + "-" + adjGraph.MNO): "A",
 	string(adjGraph.ABC + "-" + adjGraph.IJK): "B",
 	string(adjGraph.ABC + "-" + adjGraph.EFG): "C",
+	string(adjGraph.ABC + "-" + adjGraph.P):   "D",
 	string(adjGraph.ABC + "-" + adjGraph.P1):  "D1",
 	string(adjGraph.ABC + "-" + adjGraph.P2):  "D2",
 	string(adjGraph.EFG + "-" + adjGraph.ABC): "E",
 	string(adjGraph.EFG + "-" + adjGraph.MNO): "F",
 	string(adjGraph.EFG + "-" + adjGraph.IJK): "G",
+	string(adjGraph.EFG + "-" + adjGraph.P):   "H",
 	string(adjGraph.EFG + "-" + adjGraph.P1):  "H1",
 	string(adjGraph.EFG + "-" + adjGraph.P2):  "H2",
 	string(adjGraph.IJK + "-" + adjGraph.EFG): "I",
 	string(adjGraph.IJK + "-" + adjGraph.ABC): "J",
 	string(adjGraph.IJK + "-" + adjGraph.MNO): "K",
+	string(adjGraph.IJK + "-" + adjGraph.P):   "L",
 	string(adjGraph.IJK + "-" + adjGraph.P1):  "L1",
 	string(adjGraph.IJK + "-" + adjGraph.P2):  "L2",
 	string(adjGraph.MNO + "-" + adjGraph.IJK): "M",
 	string(adjGraph.MNO + "-" + adjGraph.EFG): "N",
 	string(adjGraph.MNO + "-" + adjGraph.ABC): "O",
+	string(adjGraph.MNO + "-" + adjGraph.P):   "P",
 	string(adjGraph.MNO + "-" + adjGraph.P1):  "P1",
 	string(adjGraph.MNO + "-" + adjGraph.P2):  "P2",
 }
@@ -62,7 +67,25 @@ func changeNodeNumbersToLetters(resultGraph [][]adjGraph.Node, trafficEntries []
 
 		for _, node := range nodeArray {
 
-			nodeLetter := edgeNamesToNodeLetter[string(trafficEntries[node-1].From)+"-"+string(trafficEntries[node-1].To)]
+			toNodeName := string(trafficEntries[node-1].To)
+			p1IsSelected := toNodeName == "P1"
+
+			var p2IsSelected bool
+			if len(trafficEntries) > int(node) {
+				p2IsSelected = trafficEntries[node].IsTrue
+			}
+
+			var nodeLetter string
+
+			if p1IsSelected && !p2IsSelected {
+
+				//for pedestrian without island use letter without number
+				//e.g. if D1 is activated without D2, the frontend will get D as node-name
+				nodeLetter = edgeNamesToNodeLetter[string(trafficEntries[node-1].From)+"-"+strings.Split(toNodeName, "")[0]]
+
+			} else {
+				nodeLetter = edgeNamesToNodeLetter[string(trafficEntries[node-1].From)+"-"+string(trafficEntries[node-1].To)]
+			}
 
 			trafficPhase = append(trafficPhase, nodeLetter)
 

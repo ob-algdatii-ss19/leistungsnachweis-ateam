@@ -61,25 +61,31 @@ func getUsedColorsByAdjacentNodes(graphData adjGraph.UGraph, node adjGraph.Node,
 
 func getLowestUnusedColorOfAdjacentNodes(unavailableColors []int) int {
 
-	previousColor := 0
-	lowestFreeColor := -1
-	for _, color := range unavailableColors {
-		if color != previousColor+1 {
-			lowestFreeColor = previousColor + 1
-			break
-		}
-		previousColor = color
-	}
+	if len(unavailableColors) == 0 {
 
-	if lowestFreeColor == -1 {
-		if len(unavailableColors) != 0 {
+		return 1
+
+	} else {
+
+		sort.Ints(unavailableColors)
+
+		lowestFreeColor := -1
+		previousColor := 0
+		for _, color := range unavailableColors {
+			if color == previousColor+2 {
+				lowestFreeColor = previousColor + 1
+				break
+			}
+			previousColor = color
+		}
+
+		if lowestFreeColor == -1 {
 			lowestFreeColor = unavailableColors[len(unavailableColors)-1] + 1
-		} else {
-			lowestFreeColor = 1
 		}
+
+		return lowestFreeColor
 	}
 
-	return lowestFreeColor
 }
 
 func getTrimmedListOfColorsAndNodes(listOfColorsAndNodes [][]adjGraph.Node) [][]adjGraph.Node {

@@ -10,19 +10,27 @@ var edgeNamesToNodeLetter = map[string]string{
 	string(adjGraph.ABC + "-" + adjGraph.MNO): "A",
 	string(adjGraph.ABC + "-" + adjGraph.IJK): "B",
 	string(adjGraph.ABC + "-" + adjGraph.EFG): "C",
+	string(adjGraph.ABC + "-" + adjGraph.P1):  "D1",
+	string(adjGraph.ABC + "-" + adjGraph.P2):  "D2",
 	string(adjGraph.EFG + "-" + adjGraph.ABC): "E",
 	string(adjGraph.EFG + "-" + adjGraph.MNO): "F",
 	string(adjGraph.EFG + "-" + adjGraph.IJK): "G",
+	string(adjGraph.EFG + "-" + adjGraph.P1):  "H1",
+	string(adjGraph.EFG + "-" + adjGraph.P2):  "H2",
 	string(adjGraph.IJK + "-" + adjGraph.EFG): "I",
 	string(adjGraph.IJK + "-" + adjGraph.ABC): "J",
 	string(adjGraph.IJK + "-" + adjGraph.MNO): "K",
+	string(adjGraph.IJK + "-" + adjGraph.P1):  "L1",
+	string(adjGraph.IJK + "-" + adjGraph.P2):  "L2",
 	string(adjGraph.MNO + "-" + adjGraph.IJK): "M",
 	string(adjGraph.MNO + "-" + adjGraph.EFG): "N",
 	string(adjGraph.MNO + "-" + adjGraph.ABC): "O",
+	string(adjGraph.MNO + "-" + adjGraph.P1):  "P1",
+	string(adjGraph.MNO + "-" + adjGraph.P2):  "P2",
 }
 
 /*
-Handle all calls to the different algorithmns
+Handle all calls to the different algorithms
 */
 func HandleAlgorithmCalls(receivedData GuiRequestData) JsonResponse {
 	fmt.Println("[INFO] Called algorithmHandler.go")
@@ -71,8 +79,6 @@ func changeNodeNumbersToLetters(resultGraph [][]adjGraph.Node, trafficEntries []
 Build a Graph-Object from the received JSON-Data
 */
 func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.AdjMat {
-
-	//TODO @mike-la build graph object here (for details see issue #20)
 
 	var countNodes int = 6 // second last = with pedestrian, last: with island
 

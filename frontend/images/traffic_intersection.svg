@@ -527,7 +527,7 @@
             <line id="bottom-straight" fill="none" stroke="#00FF00" stroke-width="7" stroke-linejoin="round" stroke-miterlimit="10" x1="529.409" y1="720" x2="529.409" y2="12"/>
 	</g>
         <g id="tl-pedestrians">
-		<g id="tl-top">
+		<g id="tl-pedestrian-top">
 			<g id="tl-pedestrian-top-long">
 
 					<line fill="none" stroke="#FF00FF" stroke-width="7" stroke-linejoin="round" stroke-miterlimit="10" x1="323.356" y1="219.157" x2="456.909" y2="219.047"/>
@@ -541,7 +541,7 @@
                 <line fill="none" stroke="#FF00FF" stroke-width="7" stroke-linejoin="round" stroke-miterlimit="10" x1="507.909" y1="219.5" x2="576.909" y2="219.5"/>
 			</g>
 		</g>
-            <g id="tl-left">
+            <g id="tl-pedestrian-left">
 			<g id="tl-pedestrian-left-short">
 
 					<line fill="none" stroke="#FF00FF" stroke-width="7" stroke-linejoin="round" stroke-miterlimit="10" x1="219.359" y1="391.238" x2="219.304" y2="325"/>
@@ -555,7 +555,7 @@
                     <line fill="none" stroke="#FF00FF" stroke-width="7" stroke-linejoin="round" stroke-miterlimit="10" x1="219.409" y1="579" x2="219.409" y2="439"/>
 			</g>
 		</g>
-            <g id="tl-right">
+            <g id="tl-pedestrian-right">
 			<g id="tl-pedestrian-right-short">
 
 					<line fill="none" stroke="#FF00FF" stroke-width="7" stroke-linejoin="round" stroke-miterlimit="10" x1="686.409" y1="578" x2="686.409" y2="509"/>

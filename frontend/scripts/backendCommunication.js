@@ -53,6 +53,10 @@ function generateNewGUI(responseData) {
             //insert JSON-Data
             let jsonResult = document.createTextNode(JSON.stringify(responseData.TrafficLightPhases));
             document.getElementById("json-result").appendChild(jsonResult);
+
+            //add radio-boxes
+            let radioBoxesForm = createRadioBoxesFromTrafficLightPhases(responseData.TrafficLightPhases);
+            document.getElementById("traffic-light-radio-boxes").appendChild(radioBoxesForm);
         }
     };
     xhttp.open("GET", redirectUrl, true);
@@ -128,4 +132,47 @@ function pedestrianType(intersectionPart) {
     }
 
     return pedestrianType;
+}
+
+/**
+ * Create a div containing a form with a radio-box for each traffic phase
+ */
+function createRadioBoxesFromTrafficLightPhases(trafficLightPhasesArray) {
+
+    if (trafficLightPhasesArray.length > 0) {
+
+        let formElement = document.createElement("form");
+        formElement.appendChild(document.createTextNode("Traffic-Light-Phases:"));
+
+        let fieldsetElement = document.createElement("fieldset");
+
+
+        /**
+         * <input type="radio" class="trafficPhaseRadioBox" name="trafficPhaseRadioBox"
+         *      value="[i]" onclick="displayPhasesOnIntersection(this.value)">
+         * <label> [phase-Array] </label><br />
+         */
+        for (let i=0; i < trafficLightPhasesArray.length; i++) {
+            let inputElement = document.createElement("input");
+            inputElement.setAttribute('type', 'radio');
+            inputElement.setAttribute('class', 'trafficPhaseRadioBox');
+            inputElement.setAttribute('value', trafficLightPhasesArray[i]);
+            inputElement.setAttribute('name', 'trafficPhaseRadioBox');
+            inputElement.setAttribute('onclick', 'displayPhasesOnIntersection(this.value)');
+
+            let labelElement = document.createElement("label");
+            labelElement.appendChild(document.createTextNode(trafficLightPhasesArray[i]));
+
+            let breakElement = document.createElement("br");
+
+            fieldsetElement.appendChild(inputElement);
+            fieldsetElement.appendChild(labelElement);
+            fieldsetElement.appendChild(breakElement);
+        }
+
+        formElement.appendChild(fieldsetElement);
+
+        return formElement;
+    }
+
 }

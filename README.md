@@ -1,14 +1,40 @@
-# Optimization of Trafficlight-Circuits
+# Optimization of Trafficlight-Circuits [![Build Status](https://travis-ci.com/ob-algdatii-ss19/leistungsnachweis-ateam.svg?token=4zw9EzexndWUV9DTxZpz&branch=master)](https://travis-ci.com/ob-algdatii-ss19/leistungsnachweis-ateam)
 
-Group: ateam
+This webapp calculates the different non-conflicting traffic-light-phases of a given intersection.
 
-### Build status / Test-Coverage
+![Screenshot](docs/startscreen.png)
 
-develop:
-[![Build Status](https://travis-ci.com/ob-algdatii-ss19/leistungsnachweis-ateam.svg?token=4zw9EzexndWUV9DTxZpz&branch=develop)](https://travis-ci.com/ob-algdatii-ss19/leistungsnachweis-ateam)
+## Getting Started
 
-master:
-[![Build Status](https://travis-ci.com/ob-algdatii-ss19/leistungsnachweis-ateam.svg?token=4zw9EzexndWUV9DTxZpz&branch=master)](https://travis-ci.com/ob-algdatii-ss19/leistungsnachweis-ateam)
+### Prerequisites
+
+* requires the go-lang version 1.12 or greater
+
+If you haven´t installed go-lang yet, go to https://golang.org/dl/ and download the latest version.
+
+### Installing and Running
+
+```
+cd $HOME/go/src/github.com/ob-algdatii-ss19
+git clone https://github.com/ob-algdatii-ss19/leistungsnachweis-ateam.git
+cd leistungsnachweis-ateam
+go run main.go
+```
+
+* After running the app open it in your browser ```localhost:8080```
+* Select your lanes and an algorithm
+* Hit the "Evaluate"-Button
+* On the result page you can display all lanes of a traffic-light-phase by selecting a radio-box
+
+## Development
+
+### Build status
+
+develop: [![Build Status](https://travis-ci.com/ob-algdatii-ss19/leistungsnachweis-ateam.svg?token=4zw9EzexndWUV9DTxZpz&branch=develop)](https://travis-ci.com/ob-algdatii-ss19/leistungsnachweis-ateam)
+
+master: [![Build Status](https://travis-ci.com/ob-algdatii-ss19/leistungsnachweis-ateam.svg?token=4zw9EzexndWUV9DTxZpz&branch=master)](https://travis-ci.com/ob-algdatii-ss19/leistungsnachweis-ateam)
+
+### Runnig Tests and determine Test-Coverage
 
 Determine testcoverage on your local machine and display results in the browser:
 ```
@@ -24,29 +50,11 @@ The develop- and master-branch will be automatically deployed to heroku.
 
 [heroku-develop](https://leistungsnachweis-ateam-dev.herokuapp.com): ![Heroku](https://heroku-badge.herokuapp.com/?app=leistungsnachweis-ateam-dev)
 
-### Getting started
+### Debugging
 
-* download github-Projekt
-* run main-funcition in main.go
-* open webserver in your browser ```localhost:8080```
+* To see javascript logging, open the developertools in your browser. In the console you can find the logging output of the js-scripts.
+* The go webserver is also printing log-messages on the console
 
-*Hint:* To see javascript logging, open the developertools in your browser.
-In the console you can find the logging output of the js-scripts.
+### Authors
 
-
-### Project structure
-
-```
- |-- backend
- |   |-- adjGraph
- |   |-- algorithms
- |-- frontend (includes all the gui-things)
- |   |-- images  (svg image)
- |   |-- scripts (javascript files)
- |   |-- styles  (css files)
- |   |-- index.html
- |   |-- intersection.html
- |   |-- result.html
- |-- visualizeGraph (tool to display json graph in the browser)
- |-- main.go
-```
+Groupname: ateam

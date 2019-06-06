@@ -2,6 +2,8 @@
 layout: default
 ---
 
+**[Alogrithms](./algorithms.html) | [Architecture](./architecture.html)**
+
 # Optimization of Trafficlight-Circuits
 
 This webapp calculates the different non-conflicting traffic-light-phases of a given intersection.
@@ -12,6 +14,4 @@ Basic Greedy, Welsh Powell and Bron Kerbosch.
 On the result page the user can switch between the different traffic-light-phases.
 For each phase all lanes which have green are displayed.
 
-## Content
-
-* [Alogrithms](./algorithms.html)
+![startscreen](images/startscreen.png)

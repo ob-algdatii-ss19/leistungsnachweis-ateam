@@ -1,5 +1,4 @@
 theme: jekyll-theme-cayman
 title: Optimization of Trafficlight-Circuits
 description: "Documentation of the semester-project (Group: ateam)"
-
-show_downloads: true
+show_downloads: false

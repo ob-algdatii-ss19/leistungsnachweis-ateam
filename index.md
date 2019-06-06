@@ -2,7 +2,7 @@
 layout: default
 ---
 
-**[Alogrithms](./algorithms.html) | [Architecture](./architecture.html)**
+**[Alogrithms](./algorithms.html)** <code>|</code> **[Architecture](./architecture.html)**
 
 # Optimization of Trafficlight-Circuits
 

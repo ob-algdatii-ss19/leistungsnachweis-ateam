@@ -31,6 +31,10 @@ go run main.go
 * Hit the "Evaluate"-Button
 * On the result page you can display all lanes of a traffic-light-phase by selecting a radio-box
 
+## Documentation
+
+You can find a detailed documentation of the project on our github-page: https://ob-algdatii-ss19.github.io/leistungsnachweis-ateam/
+
 ## Development
 
 ### Build status

@@ -14,4 +14,4 @@ For each phase all lanes which have green are displayed.
 
 ## Content
 
-* [Alogrithms](./algorithms.html).
+* [Alogrithms](./algorithms.html)

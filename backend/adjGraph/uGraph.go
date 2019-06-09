@@ -6,10 +6,11 @@ type UGraph interface {
 	UEdges() []Edge
 	UAdj(n Node) []Node
 	UNumberOfNodes() int
+	GetMatrixEntryAtIndex(i int, j int) bool
 }
 
 type UGraphMat struct {
-	GraphObject Graph
+	GraphObject AdjMat
 }
 
 func NewUGraph(nodes int) UGraphMat {
@@ -26,11 +27,15 @@ func (g UGraphMat) UEdges() []Edge {
 	return g.GraphObject.Edges()
 }
 
-// all edges which are adjacent to Node n
+// all edges which are adjacent To Node n
 func (g UGraphMat) UAdj(n Node) []Node {
 	return g.GraphObject.Adj(n)
 }
 
 func (g UGraphMat) UNumberOfNodes() int {
 	return g.GraphObject.NumberOfNodes()
+}
+
+func (g UGraphMat) GetMatrixEntryAtIndex(i int, j int) bool {
+	return g.GraphObject[i][j]
 }

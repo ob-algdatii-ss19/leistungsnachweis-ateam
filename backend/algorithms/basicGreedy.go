@@ -35,10 +35,10 @@ Calculate the optimization of the traffic lights with basic Greedy algorithm
 		return getTrimmedListOfColorsAndNodes(listOfColorsAndNodes)
 }*/
 
-func BasicGreedy(returnType adjGraph.ReturnType) [][]adjGraph.Node {
+func BasicGreedy(returnType adjGraph.ConflictGraphPackage) [][]adjGraph.Node {
 	fmt.Println("[INFO] Called BasicGreedy Algorithm")
 
-	graphData := returnType.UGraph
+	graphData := returnType.ConflictGraph
 	if graphData == nil {
 		return [][]adjGraph.Node{}
 	}

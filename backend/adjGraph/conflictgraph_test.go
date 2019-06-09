@@ -24,7 +24,7 @@ func TestMakeConflictGraphOutOfConnectionGraph8(t *testing.T) {
 
 	m := MakeConflictGraphOutOfConnectionGraph(g)
 
-	fmt.Printf("%v\n", m.UGraph.UEdges())
+	fmt.Printf("%v\n", m.ConflictGraph.UEdges())
 	// Output:
 	// [{2 18} {18 2}]
 }
@@ -48,7 +48,7 @@ func ExampleMakeConflictGraphOutOfConnectionGraph9() {
 
 	m := MakeConflictGraphOutOfConnectionGraph(g)
 
-	fmt.Printf("%v\n", m.UGraph.UEdges())
+	fmt.Printf("%v\n", m.ConflictGraph.UEdges())
 	// Output:
 	// []
 }
@@ -71,7 +71,7 @@ func ExampleMakeConflictGraphOutOfConnectionGraph10() {
 
 	m := MakeConflictGraphOutOfConnectionGraph(g)
 
-	fmt.Printf("%v\n", m.UGraph.UEdges())
+	fmt.Printf("%v\n", m.ConflictGraph.UEdges())
 	// Output:
 	// [{3 11} {11 3}]
 }
@@ -94,7 +94,7 @@ func TestMakeConflictGraphOutOfConnectionGraph_2(t *testing.T) {
 
 	//	gotEdges := g.Edges()
 	m := MakeConflictGraphOutOfConnectionGraph(g)
-	gotEdges := m.UGraph.UEdges()
+	gotEdges := m.ConflictGraph.UEdges()
 
 	if len(gotEdges) != 0 {
 		t.Errorf("Rechtsabbieger sollten keinen Konflikt aufrufen")
@@ -119,7 +119,7 @@ func TestMakeConflictGraphOutOfConnectionGraph_2_2(t *testing.T) {
 
 	//	gotEdges := g.Edges()
 	m := MakeConflictGraphOutOfConnectionGraph(g)
-	gotEdges := m.UGraph.UEdges()
+	gotEdges := m.ConflictGraph.UEdges()
 
 	expected := []Edge{{3, 6},
 		{3, 18},
@@ -155,7 +155,7 @@ func TestMakeConflictGraphOutOfConnectionGraph_2_3(t *testing.T) {
 
 	//	gotEdges := g.Edges()
 	m := MakeConflictGraphOutOfConnectionGraph(g)
-	gotEdges := m.UGraph.UEdges()
+	gotEdges := m.ConflictGraph.UEdges()
 
 	expected := []Edge{{1, 12},
 		{2, 6},
@@ -198,7 +198,7 @@ func TestMakeConflictGraphOutOfConnectionGraph_2_5(t *testing.T) {
 
 	//	gotEdges := g.Edges()
 	m := MakeConflictGraphOutOfConnectionGraph(g)
-	gotEdges := m.UGraph.UEdges()
+	gotEdges := m.ConflictGraph.UEdges()
 
 	expected := []Edge{{2, 8},
 		{2, 17},
@@ -242,7 +242,7 @@ func TestMakeConflictGraphOutOfConnectionGraph_2_6(t *testing.T) {
 
 	//	gotEdges := g.Edges()
 	m := MakeConflictGraphOutOfConnectionGraph(g)
-	gotEdges := m.UGraph.UEdges()
+	gotEdges := m.ConflictGraph.UEdges()
 
 	expected := []Edge{{1, 4},
 		{1, 9},
@@ -298,7 +298,7 @@ func TestMakeConflictGraphOutOfConnectionGraph_2_7(t *testing.T) {
 
 	//	gotEdges := g.Edges()
 	m := MakeConflictGraphOutOfConnectionGraph(g)
-	gotEdges := m.UGraph.UEdges()
+	gotEdges := m.ConflictGraph.UEdges()
 
 	expected := []Edge{{1, 4},
 		{1, 10},
@@ -340,7 +340,7 @@ func TestMakeConflictGraphOutOfConnectionGraph4(t *testing.T) {
 
 	//	gotEdges := g.Edges()
 	m := MakeConflictGraphOutOfConnectionGraph(g)
-	gotEdges := m.UGraph.UEdges()
+	gotEdges := m.ConflictGraph.UEdges()
 
 	expected := []Edge{
 		{3, 17},

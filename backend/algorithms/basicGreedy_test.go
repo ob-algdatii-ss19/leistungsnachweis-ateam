@@ -1,9 +1,10 @@
 package algorithms
 
 import (
-	"github.com/ob-algdatii-ss19/leistungsnachweis-ateam/backend/adjGraph"
 	"reflect"
 	"testing"
+
+	"github.com/ob-algdatii-ss19/leistungsnachweis-ateam/backend/adjGraph"
 )
 
 func TestBasicGreedy(t *testing.T) {
@@ -114,6 +115,60 @@ func TestBasicGreedy(t *testing.T) {
 		t.Run(tt.name, func(t *testing.T) {
 			if got := BasicGreedy(tt.args.argsData); !reflect.DeepEqual(got, tt.want) {
 				t.Errorf("BasicGreedy() = %v, want %v", got, tt.want)
+			}
+		})
+	}
+}
+
+func Test_getLowestUnusedColorOfAdjacentNodes(t *testing.T) {
+	type args struct {
+		unavailableColors []int
+	}
+	tests := []struct {
+		name string
+		args args
+		want int
+	}{
+		{
+			"No lower number available",
+			args{[]int{1, 2, 3}},
+			4,
+		},
+		{
+			"First number is unused",
+			args{[]int{2, 3, 4}},
+			1,
+		},
+		{
+			"No numbers as input",
+			args{[]int{}},
+			1,
+		},
+		{
+			"Each number is the same. Only 4s",
+			args{[]int{4, 4, 4}},
+			1,
+		},
+		{
+			"Each number is the same. Only 2s",
+			args{[]int{2, 2, 2}},
+			1,
+		},
+		{
+			"Gap of one in the array",
+			args{[]int{1, 2, 4}},
+			3,
+		},
+		{
+			"Gap of two in the array",
+			args{[]int{1, 2, 2, 5, 5}},
+			3,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := getLowestUnusedColorOfAdjacentNodes(tt.args.unavailableColors); got != tt.want {
+				t.Errorf("getLowestUnusedColorOfAdjacentNodes() = %v, want %v", got, tt.want)
 			}
 		})
 	}

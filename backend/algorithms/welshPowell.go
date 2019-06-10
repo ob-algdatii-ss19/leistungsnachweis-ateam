@@ -10,7 +10,15 @@ Calculate the optimization of the traffic lights with basic Greedy algorithm
 */
 func WelshPowell(graphData adjGraph.UGraph) [][]adjGraph.Node {
 	fmt.Println("[INFO] Called welshPowell Algorithm")
+	if graphData == nil {
+		return [][]adjGraph.Node{}
+	}
 
+	numberOfNodes := graphData.UNumberOfNodes()
+	fmt.Println("azahl konten", numberOfNodes)
+
+	//var retGraphArray=graphToArray(graphData)
+	fmt.Println("retGraphArray", graphData)
 
 
 	return nil
@@ -35,6 +43,16 @@ func giveSameColor(graphData adjGraph.UGraph) [][]adjGraph.Node{
 
 }
 
+func graphToArray(graphData adjGraph.UGraph) [][]adjGraph.Node{
+	var retGraphArray [][]adjGraph.Node
+	//numberOfNodes := graphData.UNumberOfNodes()
+	for i := 0; i < 4; i++{
+		var node=graphData.UAdj(adjGraph.Node(i));
+		retGraphArray[i]=node;
+	}
+	return retGraphArray
+
+}
 
 //this function make the first step and order the nodes descending
 //node with most edges is first, with less edges is last
@@ -53,4 +71,11 @@ func sortNodesDescending (graphArray []adjGraph.Node) []adjGraph.Node{
 	}
 
 	return returnGraphArray
+}
+
+
+//returns the count aof edges in a node
+func countEdgesPerNode(node adjGraph.Node) int{
+	return 0
+
 }

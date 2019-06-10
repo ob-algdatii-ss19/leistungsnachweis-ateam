@@ -9,7 +9,7 @@ import (
 Calculate the optimization of the traffic lights with basic Greedy algorithm
 */
 
-var numberOfNodes int
+var numberOfNodes int =20 //20 only important for test!
 var countNodesPerStreet int =5;
 func WelshPowell(returnType adjGraph.ReturnType) [][]adjGraph.Node {
 	fmt.Println("[INFO] Called WelshPowell Algorithm")

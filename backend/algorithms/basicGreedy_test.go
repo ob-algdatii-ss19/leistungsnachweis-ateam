@@ -155,6 +155,11 @@ func Test_getLowestUnusedColorOfAdjacentNodes(t *testing.T) {
 			1,
 		},
 		{
+			"numbers are the doubled",
+			args{[]int{1, 1, 2, 2}},
+			3,
+		},
+		{
 			"Gap of one in the array",
 			args{[]int{1, 2, 4}},
 			3,

@@ -72,8 +72,19 @@ func giveSameColor(usedNodes []int) [][]adjGraph.Node{
 		}
 		//[0]=ABC, [1]=EFG, [2]=KJI, [3]=MNO
 
-		var actIndex int =i;
+		if(len(nodeGroupArray[i])==0){
+			fmt.Println("all 'bigger' indices already could drive");
+			return result
+		}
+		//calculate actIndex
+		var actIndex int =0;
+		for iTest := 1; iTest <= numberOfNodes/countNodesPerStreet; iTest++ {
+			if ((nodeGroupArray[i][0] <= countNodesPerStreet*iTest) &&(nodeGroupArray[i][0] > countNodesPerStreet*(iTest-1))) {
+				actIndex=iTest-1; //-1 because starts with 1
+			}
+		}
 
+		fmt.Println("actIndex", actIndex)
 
 			//actArr :=nodeGroupArray[i];
 		//l :=len(nodeGroupArray[i])
@@ -96,7 +107,7 @@ func giveSameColor(usedNodes []int) [][]adjGraph.Node{
 			}
 			//straight
 			if(actVal==2||actVal==8||actVal==11||actVal==17){
-				var ind =giveIndex(4, actIndex, 2) //right is adding 1
+				var ind =giveIndex(4, actIndex, 2) //straight is adding 2
 				if(streetsWithInsertions[ind]==false){
 					streetsWithInsertions[ind]=true;
 					innerArray=append(innerArray, adjGraph.Node(nodeGroupArray[i][j]))
@@ -106,7 +117,7 @@ func giveSameColor(usedNodes []int) [][]adjGraph.Node{
 			}
 			//left
 			if(actVal==3||actVal==6||actVal==12||actVal==18){
-				var ind =giveIndex(4, actIndex, 3) //right is adding 1
+				var ind =giveIndex(4, actIndex, 3) //left is adding 3
 				if(streetsWithInsertions[ind]==false){
 					streetsWithInsertions[ind]=true;
 					innerArray=append(innerArray, adjGraph.Node(nodeGroupArray[i][j]))
@@ -116,7 +127,7 @@ func giveSameColor(usedNodes []int) [][]adjGraph.Node{
 			}
 		}
 		//all for this street are finish now
-		fmt.Println("nach erster schleife",nodeGroupArray )
+		fmt.Println("nach erster schleife",nodeGroupArray , streetsWithInsertions)
 
 
 		//are there other streets which can drive simultaneously?
@@ -138,6 +149,7 @@ func giveSameColor(usedNodes []int) [][]adjGraph.Node{
 				//right
 				if(actVal==1||actVal==7||actVal==13||actVal==16){
 					var ind =giveIndex(4, actIndex, 1) //right is adding 1
+					fmt.Println("RIGHT inner, j, ind", nodeGroupArray[inner][j], ind, streetsWithInsertions[ind])
 					if(streetsWithInsertions[ind]==false){
 						streetsWithInsertions[ind]=true;
 						innerArray=append(innerArray, adjGraph.Node(nodeGroupArray[inner][j]))
@@ -148,7 +160,9 @@ func giveSameColor(usedNodes []int) [][]adjGraph.Node{
 				}
 				//straight
 				if(actVal==2||actVal==8||actVal==11||actVal==17){
-					var ind =giveIndex(4, actIndex, 2) //right is adding 1
+					var ind =giveIndex(4, actIndex, 2) //straight is adding 2
+					fmt.Println("STRIAGHT inner, j, ind", nodeGroupArray[inner][j], ind, streetsWithInsertions[ind])
+
 					if(streetsWithInsertions[ind]==false){
 						streetsWithInsertions[ind]=true;
 						innerArray=append(innerArray, adjGraph.Node(nodeGroupArray[inner][j]))
@@ -158,19 +172,20 @@ func giveSameColor(usedNodes []int) [][]adjGraph.Node{
 				}
 				//left
 				if(actVal==3||actVal==6||actVal==12||actVal==18){
-					var ind =giveIndex(4, actIndex, 3) //right is adding 1
+					var ind =giveIndex(4, actIndex, 3) //left is adding 3
+					fmt.Println("LEFT inner, j, ind", nodeGroupArray[inner][j], ind, streetsWithInsertions[ind])
 					if(streetsWithInsertions[ind]==false){
-						streetsWithInsertions[ind]=true;
+						streetsWithInsertions[ind]=true
 						innerArray=append(innerArray, adjGraph.Node(nodeGroupArray[inner][j]))
 						nodeGroupArray[inner]=remove(nodeGroupArray[inner], j)
 						j--;
 					}
 				}
+				fmt.Println("index array",actVal,nodeGroupArray )
+
 			}
-
-
-
 		}
+		fmt.Println("nach erstem Komplettdurchlauf",nodeGroupArray )
 
 
 

@@ -73,8 +73,14 @@ func giveSameColor(usedNodes []int) [][]adjGraph.Node{
 		//[0]=ABC, [1]=EFG, [2]=KJI, [3]=MNO
 
 		if(len(nodeGroupArray[i])==0){
+			/*for iTest := i; iTest < numberOfNodes/countNodesPerStreet; iTest++ { //fulltest, maybe another index has values
+				if(len(nodeGroupArray[iTest])>0){
+					i=iTest;
+					break
+				}
+			}*/
 			fmt.Println("all 'bigger' indices already could drive");
-			return result
+			continue
 		}
 		//calculate actIndex
 		var actIndex int =0;
@@ -139,6 +145,16 @@ func giveSameColor(usedNodes []int) [][]adjGraph.Node{
 		//iterate over all, when find possible street--> add this
 		for inner := i+1; inner < numberOfNodes/countNodesPerStreet; inner++ { //i+1 because all streets with smaller index already deleted
 			actIndex =inner;
+			if(len(nodeGroupArray[inner])>0){
+				for iTest := 1; iTest <= numberOfNodes/countNodesPerStreet; iTest++ {
+					if ((nodeGroupArray[inner][0] <= countNodesPerStreet*iTest) &&(nodeGroupArray[inner][0] > countNodesPerStreet*(iTest-1))) {
+						actIndex=iTest-1; //-1 because starts with 1
+					}
+				}
+			}
+
+
+
 
 			for j:= 0; j < len(nodeGroupArray[inner]); j++ {
 

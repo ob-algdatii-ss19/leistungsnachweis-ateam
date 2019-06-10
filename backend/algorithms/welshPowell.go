@@ -63,16 +63,137 @@ func giveSameColor(usedNodes []int) [][]adjGraph.Node{
 
 	for i := 0; i < numberOfNodes/countNodesPerStreet; i++ { //maximal count of traffic light phases is cound of streets
 		var innerArray []adjGraph.Node;
-		actArr :=nodeGroupArray[i];
-		for j:= 0; j < len(actArr); j++ {
 
-			innerArray=append(innerArray, adjGraph.Node(actArr[j]))
+
+		//in wich streets are cars drive in?
+		var streetsWithInsertions []bool
+		for k := 0; k < numberOfNodes/countNodesPerStreet; k++ { //maximal count of traffic light phases is cound of streets
+			streetsWithInsertions = append(streetsWithInsertions, false) //actul no insertions
 		}
+		//[0]=ABC, [1]=EFG, [2]=KJI, [3]=MNO
+
+		var actIndex int =i;
+
+
+			//actArr :=nodeGroupArray[i];
+		//l :=len(nodeGroupArray[i])
+		for j:= 0; j < len(nodeGroupArray[i]); j++ {
+
+
+
+			actVal :=nodeGroupArray[i][j]
+
+			//right
+			if(actVal==1||actVal==7||actVal==13||actVal==16){
+				var ind =giveIndex(4, actIndex, 1) //right is adding 1
+				if(streetsWithInsertions[ind]==false){
+					streetsWithInsertions[ind]=true;
+					innerArray=append(innerArray, adjGraph.Node(nodeGroupArray[i][j]))
+					nodeGroupArray[i]=remove(nodeGroupArray[i], j)
+					j--;
+				}
+
+			}
+			//straight
+			if(actVal==2||actVal==8||actVal==11||actVal==17){
+				var ind =giveIndex(4, actIndex, 2) //right is adding 1
+				if(streetsWithInsertions[ind]==false){
+					streetsWithInsertions[ind]=true;
+					innerArray=append(innerArray, adjGraph.Node(nodeGroupArray[i][j]))
+					nodeGroupArray[i]=remove(nodeGroupArray[i], j)
+					j--;
+				}
+			}
+			//left
+			if(actVal==3||actVal==6||actVal==12||actVal==18){
+				var ind =giveIndex(4, actIndex, 3) //right is adding 1
+				if(streetsWithInsertions[ind]==false){
+					streetsWithInsertions[ind]=true;
+					innerArray=append(innerArray, adjGraph.Node(nodeGroupArray[i][j]))
+					nodeGroupArray[i]=remove(nodeGroupArray[i], j)
+					j--;
+				}
+			}
+		}
+		//all for this street are finish now
+		fmt.Println("nach erster schleife",nodeGroupArray )
+
+
+		//are there other streets which can drive simultaneously?
+		//right: 1, 7, 13, 16
+		//straight: 2,8,11,17
+		//left: 3,6,12,18
+
+
+		//iterate over all, when find possible street--> add this
+		for inner := i+1; inner < numberOfNodes/countNodesPerStreet; inner++ { //i+1 because all streets with smaller index already deleted
+			actIndex =inner;
+
+			for j:= 0; j < len(nodeGroupArray[inner]); j++ {
+
+
+
+				actVal :=nodeGroupArray[inner][j]
+
+				//right
+				if(actVal==1||actVal==7||actVal==13||actVal==16){
+					var ind =giveIndex(4, actIndex, 1) //right is adding 1
+					if(streetsWithInsertions[ind]==false){
+						streetsWithInsertions[ind]=true;
+						innerArray=append(innerArray, adjGraph.Node(nodeGroupArray[inner][j]))
+						nodeGroupArray[inner]=remove(nodeGroupArray[inner], j)
+						j--;
+					}
+
+				}
+				//straight
+				if(actVal==2||actVal==8||actVal==11||actVal==17){
+					var ind =giveIndex(4, actIndex, 2) //right is adding 1
+					if(streetsWithInsertions[ind]==false){
+						streetsWithInsertions[ind]=true;
+						innerArray=append(innerArray, adjGraph.Node(nodeGroupArray[inner][j]))
+						nodeGroupArray[inner]=remove(nodeGroupArray[inner], j)
+						j--;
+					}
+				}
+				//left
+				if(actVal==3||actVal==6||actVal==12||actVal==18){
+					var ind =giveIndex(4, actIndex, 3) //right is adding 1
+					if(streetsWithInsertions[ind]==false){
+						streetsWithInsertions[ind]=true;
+						innerArray=append(innerArray, adjGraph.Node(nodeGroupArray[inner][j]))
+						nodeGroupArray[inner]=remove(nodeGroupArray[inner], j)
+						j--;
+					}
+				}
+			}
+
+
+
+		}
+
+
+
 		result = append(result, innerArray)
 	}
+	fmt.Println("node group array nach delete",nodeGroupArray )
+
 
 	return result
 
+}
+
+func remove(slice []int, s int) []int {
+	return append(slice[:s], slice[s+1:]...)
+}
+
+//returns the index, this edge has in the actual index (ABC, EFG, IJK, MNO)
+func giveIndex(arrayLenght int, actIndex int, adding int) int{
+	var retInt int=actIndex+adding;
+	if(retInt>=arrayLenght){
+		retInt=retInt-arrayLenght
+	}
+	return retInt
 }
 
 

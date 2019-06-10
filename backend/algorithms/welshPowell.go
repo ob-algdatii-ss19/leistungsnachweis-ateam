@@ -271,8 +271,3 @@ func sortNodesDescending (nodeGroupArray [][]int) [][]int{
 }
 
 
-//returns the count aof edges in a node
-func countEdgesPerNode(node adjGraph.Node) int{
-	return 0
-
-}

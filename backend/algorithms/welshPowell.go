@@ -10,7 +10,7 @@ Calculate the optimization of the traffic lights with basic Greedy algorithm
 */
 
 var numberOfNodes int
-
+var countNodesPerStreet int =5;
 func WelshPowell(returnType adjGraph.ReturnType) [][]adjGraph.Node {
 	fmt.Println("[INFO] Called WelshPowell Algorithm")
 
@@ -35,8 +35,7 @@ func WelshPowell(returnType adjGraph.ReturnType) [][]adjGraph.Node {
 	}
 
 	fmt.Println("end of welch powell", usedNodes)
-	giveSameColor(usedNodes)
-	return nil
+	return giveSameColor(usedNodes)
 }
 
 
@@ -55,11 +54,24 @@ func giveSameColor(usedNodes []int) [][]adjGraph.Node{
 	nodeGroupArray :=toNodeGroups(usedNodes)
 	fmt.Println("node group array",nodeGroupArray )
 
-	sortNodesDescending(nodeGroupArray)
+	nodeGroupArray=sortNodesDescending(nodeGroupArray)
 	fmt.Println("node group array SORTED",nodeGroupArray )
 
 
-	return nil
+	//now we have a 2dimensional Array, order by the first inner array hase the most nodes
+	result := make([][]adjGraph.Node, 0)
+
+	for i := 0; i < numberOfNodes/countNodesPerStreet; i++ { //maximal count of traffic light phases is cound of streets
+		var innerArray []adjGraph.Node;
+		actArr :=nodeGroupArray[i];
+		for j:= 0; j < len(actArr); j++ {
+
+			innerArray=append(innerArray, adjGraph.Node(actArr[j]))
+		}
+		result = append(result, innerArray)
+	}
+
+	return result
 
 }
 
@@ -67,7 +79,7 @@ func giveSameColor(usedNodes []int) [][]adjGraph.Node{
 
 //returns a 2 disemsional array with groups of node (out street)
 func toNodeGroups(usedNodes []int) [][]int{
-	var countNodesPerStreet int =5;
+
 	result := make([][]int, 0)
 
 	for i := 1; i <= numberOfNodes/countNodesPerStreet; i++ { //4 because we have 4 streets

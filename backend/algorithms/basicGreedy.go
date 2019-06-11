@@ -72,7 +72,7 @@ func getLowestUnusedColorOfAdjacentNodes(unavailableColors []int) int {
 		lowestFreeColor := -1
 		previousColor := 0
 		for _, color := range unavailableColors {
-			if color != previousColor+1 || (previousColor == 0 && color > 1) {
+			if (color != previousColor+1 && color > previousColor+1) || (previousColor == 0 && color > 1) {
 				lowestFreeColor = previousColor + 1
 				break
 			}

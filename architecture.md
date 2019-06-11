@@ -13,7 +13,7 @@ all his lanes and settings a js-script collects the current state of
 the intersection. For exchanging data between frontend and backend we chose JSON.
 The JSON-Object contains the all the lanes and the algorithm the user selected.
 
-```json
+```
 {
 	"Settings": {
 		"Algorithm": enum //BASIC_GREEDY=0, WELSH_POWELL=1, BRON_KERBOSCH=2

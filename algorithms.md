@@ -3,6 +3,10 @@ layout: default
 title: Algorithms
 ---
 
+**[Home](./)** **&#124;** **[Alogrithms](./algorithms.html)** **&#124;** **[Architecture](./architecture.html)**
+
+# Description of the algorithms
+
 For modeling the intersection in the backend with its traffic lanes and pedestrian crossings
 we used a conflict graph. Each node represents a lane on the intersection.
 If the cars of two lanes can´t drive at the same time, because their lanes
@@ -26,7 +30,9 @@ colored vertices adjacent to it. If all previously used colors
 appear on vertices adjacent to v, assign a new color to it.
 ```
 
-## Welsh Powell
+![basic greedy algorithm](images/basic-greedy-algorithm.png)
+
+# Welsh Powell
 
 Description of the algortihm.
 

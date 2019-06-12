@@ -3,7 +3,9 @@ layout: default
 title: Architecture
 ---
 
-# Description of the architecture and API.
+**[Home](./)** **&#124;** **[Alogrithms](./algorithms.html)** **&#124;** **[Architecture](./architecture.html)**
+
+# Description of the architecture and API
 
 ## Frontend
 
@@ -54,7 +56,16 @@ different traffic light phases via radio buttons.
 
 ## Backend
 
-Description of the backend and the API.
+The backend is divided in a ```viewHandler``` and a ```jsonInterfaceHandler```.
+The ```viewHandler``` delivers all the static files which are requested by the frontend (html-files, css-files and js-files).
+Requests to ```/json``` are handled by the ```jsonInterfaceHandler```. The ```algorithmHandler``` forwards the request
+to the corresponding graph algorithm.
+
+![architecture](images/architecture.png)
+
+JSON-Requests get a ```JsonResponse```-Object as response.
+The response contains a two-dimensional array.
+Each inner-array represents a traffic-light-phase with all the non-conflicting nodes.
 
 ```go
 type JsonResponse struct {

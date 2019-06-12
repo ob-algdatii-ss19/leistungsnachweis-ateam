@@ -32,7 +32,7 @@ appear on vertices adjacent to v, assign a new color to it.
 
 ![basic greedy algorithm](images/basic-greedy-algorithm.png)
 
-# Welsh Powell
+## Welsh Powell
 
 Description of the algortihm.
 

@@ -19,7 +19,7 @@ func TestMakeConflictGraphOutOfConnectionGraph8(t *testing.T) {
 
 	g := NewGraphAdjMat(6)
 	for _, edge := range args {
-		g.AddEdge(edge.from, edge.to)
+		g.AddEdge(edge.From, edge.To)
 	}
 
 	m := MakeConflictGraphOutOfConnectionGraph(g)
@@ -43,7 +43,7 @@ func ExampleMakeConflictGraphOutOfConnectionGraph9() {
 
 	g := NewGraphAdjMat(6)
 	for _, edge := range args {
-		g.AddEdge(edge.from, edge.to)
+		g.AddEdge(edge.From, edge.To)
 	}
 
 	m := MakeConflictGraphOutOfConnectionGraph(g)
@@ -66,7 +66,7 @@ func ExampleMakeConflictGraphOutOfConnectionGraph10() {
 
 	g := NewGraphAdjMat(6)
 	for _, edge := range args {
-		g.AddEdge(edge.from, edge.to)
+		g.AddEdge(edge.From, edge.To)
 	}
 
 	m := MakeConflictGraphOutOfConnectionGraph(g)
@@ -89,7 +89,7 @@ func TestMakeConflictGraphOutOfConnectionGraph_2(t *testing.T) {
 
 	g := NewGraphAdjMat(6)
 	for _, edge := range wantedEdges1 {
-		g.AddEdge(edge.from, edge.to)
+		g.AddEdge(edge.From, edge.To)
 	}
 
 	//	gotEdges := g.Edges()
@@ -114,7 +114,7 @@ func TestMakeConflictGraphOutOfConnectionGraph_2_2(t *testing.T) {
 
 	g := NewGraphAdjMat(6)
 	for _, edge := range wantedEdges1 {
-		g.AddEdge(edge.from, edge.to)
+		g.AddEdge(edge.From, edge.To)
 	}
 
 	//	gotEdges := g.Edges()
@@ -150,7 +150,7 @@ func TestMakeConflictGraphOutOfConnectionGraph_2_3(t *testing.T) {
 
 	g := NewGraphAdjMat(6)
 	for _, edge := range wantedEdges1 {
-		g.AddEdge(edge.from, edge.to)
+		g.AddEdge(edge.From, edge.To)
 	}
 
 	//	gotEdges := g.Edges()
@@ -193,7 +193,7 @@ func TestMakeConflictGraphOutOfConnectionGraph_2_5(t *testing.T) {
 
 	g := NewGraphAdjMat(6)
 	for _, edge := range wantedEdges1 {
-		g.AddEdge(edge.from, edge.to)
+		g.AddEdge(edge.From, edge.To)
 	}
 
 	//	gotEdges := g.Edges()
@@ -237,7 +237,7 @@ func TestMakeConflictGraphOutOfConnectionGraph_2_6(t *testing.T) {
 
 	g := NewGraphAdjMat(6)
 	for _, edge := range wantedEdges1 {
-		g.AddEdge(edge.from, edge.to)
+		g.AddEdge(edge.From, edge.To)
 	}
 
 	//	gotEdges := g.Edges()
@@ -293,7 +293,7 @@ func TestMakeConflictGraphOutOfConnectionGraph_2_7(t *testing.T) {
 
 	g := NewGraphAdjMat(6)
 	for _, edge := range wantedEdges1 {
-		g.AddEdge(edge.from, edge.to)
+		g.AddEdge(edge.From, edge.To)
 	}
 
 	//	gotEdges := g.Edges()
@@ -335,7 +335,7 @@ func TestMakeConflictGraphOutOfConnectionGraph4(t *testing.T) {
 
 	g := NewGraphAdjMat(6)
 	for _, edge := range wantedEdges1 {
-		g.AddEdge(edge.from, edge.to)
+		g.AddEdge(edge.From, edge.To)
 	}
 
 	//	gotEdges := g.Edges()

@@ -1,13 +1,16 @@
 package algorithms
 
 import (
+	"fmt"
 	"github.com/ob-algdatii-ss19/leistungsnachweis-ateam/backend/adjGraph"
 )
 
 type Clique []adjGraph.TrafficEntry
 
-func getAllMaxCliques(returnType adjGraph.ConflictGraphPackage) {
-	var listOfMaxClique []Clique = make([]Clique, 0)
+var listOfMaxClique []Clique = make([]Clique, 0)
+
+func getAllMaxCliques(returnType adjGraph.ConflictGraphPackage) []Clique {
+	listOfMaxClique = make([]Clique, 0)
 	var currentClique Clique = make([]adjGraph.TrafficEntry, 0)
 	var nextPossibleExpansion Clique = make([]adjGraph.TrafficEntry, 0)
 	var previousExpansion Clique = make([]adjGraph.TrafficEntry, 0)
@@ -17,17 +20,19 @@ func getAllMaxCliques(returnType adjGraph.ConflictGraphPackage) {
 			nextPossibleExpansion = append(nextPossibleExpansion, trafficentry)
 		}
 	}
-	nextMaxCliques(listOfMaxClique, currentClique, nextPossibleExpansion, previousExpansion, returnType)
-
+	/*listOfMaxClique = */ nextMaxCliques(currentClique, nextPossibleExpansion, previousExpansion, returnType)
+	return listOfMaxClique
 }
 
-func nextMaxCliques(listOfMaxClique []Clique, currentClique Clique, nextPossibleExpansion Clique, previousExpansion Clique, returnType adjGraph.ConflictGraphPackage) []Clique {
+func nextMaxCliques(currentClique Clique, nextPossibleExpansion Clique, previousExpansion Clique, returnType adjGraph.ConflictGraphPackage) /* []Clique */ {
 
 	if oneOfPIsNeighborOfThemAll(nextPossibleExpansion, previousExpansion, returnType) {
-
+		fmt.Println("one is neighbor of them all")
 		//Ende dieses Rekursionsbranches
 	} else {
-		for _, elementOfN := range nextPossibleExpansion {
+		length := len(nextPossibleExpansion)
+		for i := 0; i < length; i++ {
+			elementOfN := nextPossibleExpansion[0]
 			//newNextPossibleExpansion := remove(nextPossibleExpansion,index) aus meiner Sicht nicht unbedingt notwendig
 			currentClique2 := append(currentClique, elementOfN)
 			nN := getAllNeighbors(elementOfN, nextPossibleExpansion, returnType)
@@ -35,13 +40,12 @@ func nextMaxCliques(listOfMaxClique []Clique, currentClique Clique, nextPossible
 			if len(nN) == 0 && len(pN) == 0 {
 				listOfMaxClique = append(listOfMaxClique, currentClique2)
 			} else {
-				nextMaxCliques(listOfMaxClique, currentClique2, nN, pN, returnType)
+				nextMaxCliques(currentClique2, nN, pN, returnType)
 			}
 			previousExpansion = append(previousExpansion, elementOfN)
+			nextPossibleExpansion = nextPossibleExpansion[1:]
 		}
 	}
-
-	return listOfMaxClique
 }
 
 func getAllNeighbors(element adjGraph.TrafficEntry, clique Clique, returnType adjGraph.ConflictGraphPackage) Clique {
@@ -56,20 +60,19 @@ func getAllNeighbors(element adjGraph.TrafficEntry, clique Clique, returnType ad
 	return neighbors
 }
 
-func remove(s Clique, index int) Clique {
-	s[index] = s[len(s)-1]
-	return s[:len(s)-1]
-}
-
 func oneOfPIsNeighborOfThemAll(N Clique, P Clique, returnType adjGraph.ConflictGraphPackage) bool {
 	var pIsNeighborOfThemAll bool = true
-	for _, element := range N {
-		indexElementN := adjGraph.GetIndexInConflictGraph(returnType, element)
-		indexElementP := adjGraph.GetIndexInConflictGraph(returnType, P[0])
-		if !returnType.ConflictGraph.GetMatrixEntryAtIndex(indexElementN, indexElementP) {
-			pIsNeighborOfThemAll = false
-			break
+	if len(P) != 0 {
+		for _, element := range N {
+			indexElementN := adjGraph.GetIndexInConflictGraph(returnType, element)
+			indexElementP := adjGraph.GetIndexInConflictGraph(returnType, P[0])
+			if !returnType.ConflictGraph.GetMatrixEntryAtIndex(indexElementN, indexElementP) {
+				pIsNeighborOfThemAll = false
+				break
+			}
 		}
+	} else {
+		pIsNeighborOfThemAll = false
 	}
 	return pIsNeighborOfThemAll
 }

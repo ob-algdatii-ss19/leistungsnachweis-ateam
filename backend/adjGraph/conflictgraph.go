@@ -21,11 +21,11 @@ func GetIndexInConflictGraph(graphPackage ConflictGraphPackage, entry TrafficEnt
 			break
 		}
 	}
-	return rightIndex
+	return rightIndex + 1
 }
 
 func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) ConflictGraphPackage {
-	var Entries []TrafficEntry = makeList(connectionGraph)
+	var Entries []TrafficEntry = MakeList(connectionGraph)
 	var conflictGraph UGraph = NewUGraph(20)
 	for i := 0; i < 20; i++ {
 		for j := i + 1; j < 20; j++ {
@@ -100,7 +100,7 @@ func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) ConflictGraph
 	return tmp
 }
 
-func makeList(matrix AdjMat) []TrafficEntry {
+func MakeList(matrix AdjMat) []TrafficEntry {
 	//var Entries []TrafficEntry
 	var Entries = make([]TrafficEntry, 20)
 	var everyNode = [6]string{"ABC", "EFG", "IJK", "MNO", "P1", "P2"}
@@ -122,12 +122,12 @@ func makeList(matrix AdjMat) []TrafficEntry {
 }
 
 func MakeCompatibilityGraph(conflictReturn ConflictGraphPackage) ConflictGraphPackage {
-	var compGraph UGraph = NewUGraph(20)
+	var compGraph UGraphMat = NewUGraph(20)
 	for i := 0; i < len(conflictReturn.Entries); i++ {
 		for j := i + 1; j < len(conflictReturn.Entries); j++ {
 			if conflictReturn.Entries[i].ChosenByUser && conflictReturn.Entries[j].ChosenByUser {
-				if !conflictReturn.ConflictGraph.GetMatrixEntryAtIndex(i, j) { //wenn es eine kante hat -> Kriegt keine Kante
-					compGraph.UAddEdge(Node(i), Node(j))
+				if !conflictReturn.ConflictGraph.GetMatrixEntryAtIndex(i+1, j+1) { //wenn es eine kante hat -> Kriegt keine Kante
+					compGraph.UAddEdge(Node(i+1), Node(j+1))
 				}
 			}
 		}

@@ -19,7 +19,7 @@ func ExampleUGraphMat_UAddEdge() {
 		{9, 8},
 	}
 	for _, edge := range edges {
-		g.UAddEdge(edge.from, edge.to)
+		g.UAddEdge(edge.From, edge.To)
 	}
 	fmt.Printf("%v\n", g.UEdges())
 	// Output:
@@ -41,7 +41,7 @@ func ExampleUGraphMat_UAdj() {
 		{9, 8},
 	}
 	for _, edge := range edges {
-		g.UAddEdge(edge.from, edge.to)
+		g.UAddEdge(edge.From, edge.To)
 	}
 	fmt.Printf("%v\n", g.UAdj(1))
 	// Output:
@@ -63,7 +63,7 @@ func ExampleUGraphMat_UAdj_NoAdjNodes() {
 		{9, 8},
 	}
 	for _, edge := range edges {
-		g.UAddEdge(edge.from, edge.to)
+		g.UAddEdge(edge.From, edge.To)
 	}
 	fmt.Printf("%v\n", g.UAdj(0))
 	// Output:
@@ -86,7 +86,7 @@ func ExampleUGraphMat_UNumberOfNodes() {
 		{9, 8},
 	}
 	for _, edge := range edges {
-		g.UAddEdge(edge.from, edge.to)
+		g.UAddEdge(edge.From, edge.To)
 	}
 	fmt.Printf("%v\n", g.UNumberOfNodes())
 	// Output:

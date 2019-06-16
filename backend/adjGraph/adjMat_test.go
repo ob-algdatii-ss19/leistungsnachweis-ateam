@@ -21,7 +21,7 @@ func TestAdjMat(t *testing.T) {
 
 	g := NewGraphAdjMat(9)
 	for _, edge := range wantedEdges {
-		g.AddEdge(edge.from, edge.to)
+		g.AddEdge(edge.From, edge.To)
 	}
 
 	gotEdges := g.Edges()
@@ -29,7 +29,7 @@ func TestAdjMat(t *testing.T) {
 outerWanted:
 	for _, wanted := range wantedEdges {
 		for _, got := range gotEdges {
-			if wanted.from == got.from && wanted.to == got.to {
+			if wanted.From == got.From && wanted.To == got.To {
 				continue outerWanted
 			}
 		}
@@ -39,7 +39,7 @@ outerWanted:
 outerGot:
 	for _, got := range gotEdges {
 		for _, wanted := range wantedEdges {
-			if wanted.from == got.from && wanted.to == got.to {
+			if wanted.From == got.From && wanted.To == got.To {
 				continue outerGot
 			}
 		}
@@ -69,7 +69,7 @@ func mkExampleGraph(g Graph) {
 		{9, 8},
 	}
 	for _, edge := range edges {
-		g.AddEdge(edge.from, edge.to)
+		g.AddEdge(edge.From, edge.To)
 	}
 }
 
@@ -88,7 +88,7 @@ func ExampleGraphAdjMat_Adj() {
 		{9, 8},
 	}
 	for _, edge := range edges {
-		g.AddEdge(edge.from, edge.to)
+		g.AddEdge(edge.From, edge.To)
 	}
 	fmt.Printf("%v\n", g.Adj(1))
 	// Output:
@@ -115,7 +115,7 @@ func benchmarkHelper(b *testing.B, g Graph) {
 	}
 
 	for _, edge := range edges {
-		g.AddEdge(edge.from, edge.to)
+		g.AddEdge(edge.From, edge.To)
 	}
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
@@ -131,7 +131,7 @@ func TestAdjMat_NumberOfNodes(t *testing.T) {
 		{1, 4},
 	}
 	for _, edge := range edges {
-		sut.AddEdge(edge.from, edge.to)
+		sut.AddEdge(edge.From, edge.To)
 	}
 
 	tests := []struct {

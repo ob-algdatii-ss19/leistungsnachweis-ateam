@@ -271,3 +271,6 @@ func sortNodesDescending (nodeGroupArray [][]int) [][]int{
 }
 
 
+//siehe http://mrsleblancsmath.pbworks.com/w/file/fetch/46119304/vertex%20coloring%20algorithm.pdf]
+//Konfliktgraph
+//drüber nicht erforderlich, siehe ugraph::UAdj

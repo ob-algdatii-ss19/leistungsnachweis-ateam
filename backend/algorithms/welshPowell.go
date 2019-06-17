@@ -6,7 +6,7 @@ import (
 )
 
 /*
-Calculate the optimization of the traffic lights with basic Greedy algorithm
+Calculate the optimization of the traffic lights with WelshPowell algorithm
 */
 
 var numberOfNodes int =20 //20 only important for test!

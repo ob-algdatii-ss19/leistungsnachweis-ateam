@@ -17,19 +17,28 @@ func WelshPowell(returnType adjGraph.ReturnType) [][]adjGraph.Node {
 		return [][]adjGraph.Node{}
 	}
 
+	println("vor sortierung");
 	for i := 0; i < len(graphArray); i++ {
-		println("outputArray:", graphArray[i][0])
+		print("outputArray:", graphArray[i][0])
 		for j := 1; j < len(graphArray[i]); j++ {
-			print(graphArray[i][j])
+			print(" ",graphArray[i][j])
 			print(" ")
 		}
-		println();
 		println();
 	}
 
 
-	//graphData=sortNodesDescending(graphData)
-	//println("sortiert::", graphArray)
+	graphArray=sortNodesDescending(graphArray)
+
+	println("NACH sortierung");
+	for i := 0; i < len(graphArray); i++ {
+		print("outputArray:", graphArray[i][0])
+		for j := 1; j < len(graphArray[i]); j++ {
+			print(" ",graphArray[i][j])
+			print(" ")
+		}
+		println();
+	}
 
 
 
@@ -85,25 +94,24 @@ func getAllConflictsOfThisNode(n adjGraph.Node, conGraph adjGraph.UGraph) []int{
 
 //this function make the first step and order the nodes descending
 //node with most edges is first, with less edges is last
-/*func sortNodesDescending (conGraph adjGraph.UGraph) adjGraph.UGraph{
-	var numberOfNodes = conGraph.UNumberOfNodes()
+func sortNodesDescending (nodeConflArray [][]int) [][]int{
+	var result = nodeConflArray
 
-	for i := 0; i < numberOfNodes; i++ {
-		for j := i+1; j < numberOfNodes; j++ {
-			if(getCountOfEdges(adjGraph.Node(j), conGraph)>getCountOfEdges(adjGraph.Node(i), conGraph)){
-				println("im swap i", adjGraph.Node(i), getCountOfEdges(adjGraph.Node(i), conGraph))
-				println("im swap j", adjGraph.Node(j), getCountOfEdges(adjGraph.Node(j), conGraph))
-				println()
-				//swap
-				/*var tmp =adjGraph.Node(i)
-				adjGraph.Node(i) =adjGraph.Node(j)
-				adjGraph.Node(j) = tmp
+	for i := 0; i < len(result); i++{
+		//actElementOuter :=result[i];
+		for j := (i+1); j <  len(result); j++{
+			//actElementInner :=result[j];
+			if(len(result[j])>len(result[i])){ //swap
+				var tmp=result[j]
+				result[j]=result[i];
+				result[i]=tmp;
+
 			}
 		}
-
 	}
-	return conGraph
-}*/
+
+	return result
+}
 
 
 

@@ -1,7 +1,6 @@
 package algorithms
 
 import (
-	"fmt"
 	"reflect"
 	"testing"
 )
@@ -119,61 +118,6 @@ func TestWelshPowell(t *testing.T) {
 	}
 }*/
 
-
-func TestToNodeGroups(t *testing.T) {
-
-	arg := make([]int, 0)
-	arg = append(arg, 1)
-	arg = append(arg, 3)
-	arg = append(arg, 7)
-	arg = append(arg, 11)
-	arg = append(arg, 12)
-	arg = append(arg, 16)
-
-
-	fmt.Println("TestToNodeGroups",arg)
-
-
-	wanted := make([][]int, 0)
-	var innerArray1 []int;
-	innerArray1 = append(innerArray1, 1)
-	innerArray1 = append(innerArray1, 3)
-	wanted = append(wanted, innerArray1)
-
-	var innerArray2 []int;
-	innerArray2 = append(innerArray2, 7)
-	wanted = append(wanted, innerArray2)
-
-	var innerArray3 []int;
-	innerArray3 = append(innerArray3, 11)
-	innerArray3 = append(innerArray3, 12)
-	wanted = append(wanted, innerArray3)
-
-	var innerArray4 []int;
-	innerArray4 = append(innerArray4, 16)
-	wanted = append(wanted, innerArray4)
-
-
-
-	tests := []struct {
-		name string
-		args []int
-		want [][]int
-	}{
-		{
-			"first test:",
-			arg,
-			wanted,
-		},
-	}
-	for _, tt := range tests {
-		t.Run(tt.name, func(t *testing.T) {
-			if got := toNodeGroups(tt.args); !reflect.DeepEqual(got, tt.want) {
-				t.Errorf("toNodeGroups() = %v, want %v", got, tt.want)
-			}
-		})
-	}
-}
 
 func TestSortNodesDescending(t *testing.T) {
 	result := make([][]int, 0)

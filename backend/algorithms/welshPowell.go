@@ -40,6 +40,17 @@ func WelshPowell(returnType adjGraph.ReturnType) [][]adjGraph.Node {
 		println();
 	}
 
+	var coloredArray [][]int=giveColoredArray(graphArray)
+
+	println("Färbung");
+	for i := 0; i < len(coloredArray); i++ {
+		print("outputArray:", coloredArray[i][0])
+		for j := 1; j < len(coloredArray[i]); j++ {
+			print(" ",coloredArray[i][j])
+			print(" ")
+		}
+		println();
+	}
 
 
 	return nil
@@ -111,6 +122,88 @@ func sortNodesDescending (nodeConflArray [][]int) [][]int{
 	}
 
 	return result
+}
+
+
+//this function
+func giveColoredArray(nodeConflArray [][]int) [][]int{
+
+	var coloredArray [][]int
+
+	var usedNodes []int =getUsedNodes(nodeConflArray)
+	
+	for i := 0; i < len(nodeConflArray); i++{
+
+		var usedNodesThisRound=usedNodes; //which Nodes are possible? (when conflict in this round, delete element)
+
+		//loop for all conflicts of the actual node
+		for j := 0; j <  len(nodeConflArray[i]); j++{
+
+			//loop over nodes with smaller weighting as actual node
+			for k := i+1; k <  len(nodeConflArray[i]); j++{
+				if(indexOf(nodeConflArray[i][0], usedNodesThisRound)>=0){
+					continue; // this node is already in another phase
+				}
+
+				//is it possible, that this node can drive at same time a other node?
+
+				//loop for all nodes in the actual compare-node
+				for l := 0; l <  len(nodeConflArray[k]); l++{
+					if(nodeConflArray[i][j] == nodeConflArray[k][l]){
+						usedNodesThisRound=findAndRemove(k,usedNodesThisRound) //this node cannot drive at same time
+						break; //so end this loop
+					}
+				}
+			}
+		}
+
+
+		//delete this node, because this street cannot drive anymore
+		for i := 0; i < len(nodeConflArray); i++ {
+			usedNodes=findAndRemove(usedNodesThisRound[i],usedNodes)
+		}
+
+		//add all nodes with same color
+		coloredArray=append(coloredArray, usedNodesThisRound)
+	}
+
+	println("in Färbung", len(coloredArray))
+	return coloredArray
+}
+
+//returna all used nodes
+//is always index 0 in nodeConflArray
+func getUsedNodes(nodeConflArray [][]int)[]int{
+	var usedNodes []int
+	for i := 0; i < len(nodeConflArray); i++{
+		usedNodes=append(usedNodes, nodeConflArray[i][0])
+	}
+	return usedNodes
+}
+
+
+//array help functions
+
+//find element and delete this
+func findAndRemove(element int, data []int) []int{
+	var pos int=indexOf(element, data)
+	if(pos<0){
+		return data
+	}
+	return remove(data, pos)
+}
+
+
+func indexOf(element int, data []int) (int) {
+	for k, v := range data {
+		if element == v {
+			return k
+		}
+	}
+	return -1    //not found.
+}
+func remove(slice []int, s int) []int {
+	return append(slice[:s], slice[s+1:]...)
 }
 
 

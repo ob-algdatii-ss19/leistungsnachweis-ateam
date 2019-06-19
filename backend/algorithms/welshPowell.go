@@ -17,11 +17,14 @@ func WelshPowell(returnType adjGraph.ReturnType) [][]adjGraph.Node {
 		return [][]adjGraph.Node{}
 	}
 
-	for i := 1; i <= len(graphArray); i++ {
-		println("outputArray:", i)
-		for j := 1; j <= len(graphArray[i]); j++ {
+	for i := 0; i < len(graphArray); i++ {
+		println("outputArray:", graphArray[i][0])
+		for j := 1; j < len(graphArray[i]); j++ {
 			print(graphArray[i][j])
+			print(" ")
 		}
+		println();
+		println();
 	}
 
 
@@ -62,9 +65,11 @@ func graphTo2DimensionalArray(conGraph adjGraph.ReturnType) [][]int{
 	return returnArray
 }
 
+//first row in every column is actual node
 func getAllConflictsOfThisNode(n adjGraph.Node, conGraph adjGraph.UGraph) []int{
 	retArr := make([]int, 0)
 
+	retArr = append(retArr, int(n))
 	adjacentNodes := conGraph.UAdj(n)
 	for i := 0; i < len(adjacentNodes); i++ {
 		nodeNumber := adjacentNodes[i]

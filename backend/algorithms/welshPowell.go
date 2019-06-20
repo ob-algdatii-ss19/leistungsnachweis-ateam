@@ -153,8 +153,20 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 				if(nodeConflArray[i][j] == nodeConflArray[k][0]){
 					continue; // this node cannot find in this part of array
 				}else{
-					//usedNodesThisRound=findAndRemove(nodeConflArray[k][0],usedNodesThisRound) //this nodes are not allowed at same time //ÄNERUNG!
-					break;
+					print("delete:",i,j,k,nodeConflArray[k][0])
+					//print("length", len(usedNodesThisRound) )
+					var altL int=len(usedNodesThisRound);
+					usedNodesThisRound=findAndRemove(nodeConflArray[k][0],usedNodesThisRound) //this nodes are not allowed at same time //ÄNERUNG!
+					//print("length", len(usedNodesThisRound) )
+					var neuL int=len(usedNodesThisRound);
+					if(neuL<altL){
+						print("   gelöscht")
+					}
+					println()
+
+					//println();
+
+					//break;
 				}
 
 				/*
@@ -187,9 +199,25 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 		}
 
 		//delete this node, because this street cannot drive anymore
+		print("usedNodes")
+		for x := 0; x < len(usedNodes); x++ {
+			print(" ",usedNodes[x])
+			print(" ")
+		}
+		println()
+		print("usedNodesThisRound")
 		for x := 0; x < len(usedNodesThisRound); x++ {
+			print(" ",usedNodesThisRound[x])
+			print(" ")
 			usedNodes=findAndRemove(usedNodesThisRound[x],usedNodes)
 		}
+		println();
+		print("usedNodes")
+		for x := 0; x < len(usedNodes); x++ {
+			print(" ",usedNodes[x])
+			print(" ")
+		}
+		println();
 
 		//add all nodes with same color
 		coloredArray=append(coloredArray, usedNodesThisRound)
@@ -215,6 +243,7 @@ func getUsedNodes(nodeConflArray [][]int) []int{
 //find element and delete this
 func findAndRemove(element int, data []int) []int{
 	var pos int=indexOf(element, data)
+	//print("pos", pos)
 	if(pos<0){
 		return data
 	}

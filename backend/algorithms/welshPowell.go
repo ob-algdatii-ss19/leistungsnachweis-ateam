@@ -42,7 +42,7 @@ func WelshPowell(returnType adjGraph.ReturnType) [][]adjGraph.Node {
 
 	var coloredArray [][]int=giveColoredArray(graphArray)
 
-	println("Färbung");
+	/*println("Färbung");
 	for i := 0; i < len(coloredArray); i++ {
 		print("outputArray:", coloredArray[i][0])
 		for j := 1; j < len(coloredArray[i]); j++ {
@@ -50,7 +50,7 @@ func WelshPowell(returnType adjGraph.ReturnType) [][]adjGraph.Node {
 			print(" ")
 		}
 		println();
-	}
+	}*/
 
 
 	return intArrayToNodeArray(coloredArray)
@@ -131,11 +131,11 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 	var coloredArray [][]int;// = make([][]int, 0,0)
 
 	var usedNodes []int =getUsedNodes(nodeConflArray)
-	for j := 0; j < len(usedNodes); j++ {
+	/*for j := 0; j < len(usedNodes); j++ {
 		print(" ",usedNodes[j])
 		print(" ")
 	}
-	println("")
+	println("")*/
 
 	for i := 0; i < len(nodeConflArray); i++{
 
@@ -151,27 +151,27 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 		//loop for all conflicts of the actual node
 		for j := 0; j <  len(nodeConflArray[i]); j++{
 
-			print("usedNodes")
+			/*print("usedNodes")
 			for x := 0; x < len(usedNodes); x++ {
 				print(" ",usedNodes[x])
 				print(" ")
 			}
-			println()
+			println()*/
 			//loop over nodes with smaller weighting as actual node
 			for k := i+1; k <  len(nodeConflArray[i]); k++{
 				if(nodeConflArray[i][j] == nodeConflArray[k][0]){
-					print("delete:",i,j,k,nodeConflArray[k][0])
+					/*print("delete:",i,j,k,nodeConflArray[k][0])
 					//print("length", len(usedNodesThisRound) )
 					var altL int=len(usedNodesThisRound);
 					print("BEVOR")
 					for x := 0; x < len(usedNodesThisRound); x++ {
 						print(" ",usedNodesThisRound[x])
 						print(" ")
-					}
+					}*/
 
 					usedNodesThisRound=findAndRemove(nodeConflArray[k][0],usedNodesThisRound) //this nodes are not allowed at same time //ÄNERUNG!
 
-					print("DANACH")
+					/*print("DANACH")
 					for x := 0; x < len(usedNodesThisRound); x++ {
 						print(" ",usedNodesThisRound[x])
 						print(" ")
@@ -180,7 +180,7 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 					if(neuL<altL){
 						print("   gelöscht")
 					}
-					println()
+					println()*/
 					break;
 				}else{
 					continue; // this node cannot find in this part of array
@@ -193,7 +193,7 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 		}
 
 		//delete this node, because this street cannot drive anymore
-		println()
+		/*println()
 		print("DANACH")
 		for x := 0; x < len(usedNodesThisRound); x++ {
 			print(" ",usedNodesThisRound[x])
@@ -207,25 +207,25 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 		}
 		println()
 
-		print("usedNodesThisRound")
+		print("usedNodesThisRound")*/
 		for x := 0; x < len(usedNodesThisRound); x++ {
-			print(" ",usedNodesThisRound[x])
-			print(" ")
+			//print(" ",usedNodesThisRound[x])
+			//print(" ")
 			var searcInt =usedNodesThisRound[x];
 			usedNodes=findAndRemove(searcInt,usedNodes)
 		}
 
-		println();
+		/*println();
 		print("usedNodes AFTER")
 		for x := 0; x < len(usedNodes); x++ {
 			print(" ",usedNodes[x])
 			print(" ")
 		}
-		println()
+		println()*/
 
 		//add all nodes with same color
 		coloredArray=append(coloredArray, usedNodesThisRound)
-		println("Färbung");
+		/*println("Färbung");
 		for x := 0; x < len(coloredArray); x++ {
 			print("outputArray:", coloredArray[x][0])
 			for y := 1; y < len(coloredArray[x]); y++ {
@@ -233,10 +233,10 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 				print(" ")
 			}
 			println();
-		}
+		}*/
 	}
 
-	println("in Färbung", len(coloredArray))
+	//println("in Färbung", len(coloredArray))
 	return coloredArray
 }
 
@@ -289,8 +289,9 @@ func intArrayToNodeArray(intConflArray [][]int) [][]adjGraph.Node{
 			var n adjGraph.Node=adjGraph.Node(actInnerIntArray[j])
 			actInnerNodeArray = append(actInnerNodeArray, n)
 		}
-		nodeConflArray = append(nodeConflArray, actInnerNodeArray)
-
+		if(len(actInnerNodeArray)>0){ //insert no empty elements
+			nodeConflArray = append(nodeConflArray, actInnerNodeArray)
+		}
 	}
 
 	return nodeConflArray

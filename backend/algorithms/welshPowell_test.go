@@ -7,6 +7,7 @@ import (
 )
 
 func TestWelshPowell(t *testing.T) {
+	TestSortNodesDescending(t)
 
 	sutUGraphMat := adjGraph.NewUGraph(18)
 	sutTrafficEntries := []adjGraph.TrafficEntry{
@@ -44,7 +45,7 @@ func TestWelshPowell(t *testing.T) {
 		want [][]adjGraph.Node
 	}{
 		{
-			"coloring simple graph",
+			"only right",
 			args{adjGraph.ReturnType{sutTrafficEntries, sutUGraphMat}},
 			[][]adjGraph.Node{
 				{adjGraph.Node(1), adjGraph.Node(7), adjGraph.Node(13), adjGraph.Node(16)},
@@ -98,7 +99,7 @@ func TestSortNodesDescending(t *testing.T) {
 		want [][]int
 	}{
 		{
-			"first test:",
+			"test sorting:",
 			result,
 			wanted,
 		},

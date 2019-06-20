@@ -53,7 +53,7 @@ func WelshPowell(returnType adjGraph.ReturnType) [][]adjGraph.Node {
 	}
 
 
-	return nil
+	return intArrayToNodeArray(coloredArray)
 }
 
 func graphTo2DimensionalArray(conGraph adjGraph.ReturnType) [][]int{
@@ -128,7 +128,7 @@ func sortNodesDescending (nodeConflArray [][]int) [][]int{
 //this function
 func giveColoredArray(nodeConflArray [][]int) [][]int{
 
-	var coloredArray [][]int = make([][]int, 0,0)
+	var coloredArray [][]int;// = make([][]int, 0,0)
 
 	var usedNodes []int =getUsedNodes(nodeConflArray)
 	for j := 0; j < len(usedNodes); j++ {
@@ -143,55 +143,49 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 			break;
 		}
 
-		var usedNodesThisRound=usedNodes; //which Nodes are possible? (when conflict in this round, delete element)
+		//copy is very important, when usedNodesThisRound=usedNodes, usedNodes will changes
+		usedNodesThisRound := make([]int, len(usedNodes))//which Nodes are possible? (when conflict in this round, delete element)
+		copy(usedNodesThisRound, usedNodes)
+
 
 		//loop for all conflicts of the actual node
 		for j := 0; j <  len(nodeConflArray[i]); j++{
 
+			print("usedNodes")
+			for x := 0; x < len(usedNodes); x++ {
+				print(" ",usedNodes[x])
+				print(" ")
+			}
+			println()
 			//loop over nodes with smaller weighting as actual node
 			for k := i+1; k <  len(nodeConflArray[i]); k++{
 				if(nodeConflArray[i][j] == nodeConflArray[k][0]){
-					continue; // this node cannot find in this part of array
-				}else{
 					print("delete:",i,j,k,nodeConflArray[k][0])
 					//print("length", len(usedNodesThisRound) )
 					var altL int=len(usedNodesThisRound);
+					print("BEVOR")
+					for x := 0; x < len(usedNodesThisRound); x++ {
+						print(" ",usedNodesThisRound[x])
+						print(" ")
+					}
+
 					usedNodesThisRound=findAndRemove(nodeConflArray[k][0],usedNodesThisRound) //this nodes are not allowed at same time //ÄNERUNG!
-					//print("length", len(usedNodesThisRound) )
+
+					print("DANACH")
+					for x := 0; x < len(usedNodesThisRound); x++ {
+						print(" ",usedNodesThisRound[x])
+						print(" ")
+					}
 					var neuL int=len(usedNodesThisRound);
 					if(neuL<altL){
 						print("   gelöscht")
 					}
 					println()
-
-					//println();
-
-					//break;
-				}
-
-				/*
-
-				//is it possible, that this node can drive at same time aother node?
-
-				//loop for all nodes in the actual compare-node
-				for l := 0; l <  len(nodeConflArray[k]); l++{
-					if(nodeConflArray[i][j] == nodeConflArray[k][l]){
-						usedNodesThisRound=findAndRemove(nodeConflArray[k][l],usedNodesThisRound) //this nodes are not allowed at same time //ÄNERUNG!
-						break; //so end this loop
-					}
-				}
-
-				print("usedNodesThisRound", usedNodesThisRound)
-					for j := 1; j < len(usedNodesThisRound); j++ {
-						print(" ",usedNodesThisRound[i])
-						print(" ")
-					}
-					println();
-
-
-				if(len(usedNodesThisRound)==0){ //all deleted this round
 					break;
-				} */
+				}else{
+					continue; // this node cannot find in this part of array
+				}
+
 				if(len(usedNodesThisRound)==0){ //all deleted this round
 					break;
 				}
@@ -199,28 +193,47 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 		}
 
 		//delete this node, because this street cannot drive anymore
+		println()
+		print("DANACH")
+		for x := 0; x < len(usedNodesThisRound); x++ {
+			print(" ",usedNodesThisRound[x])
+			print(" ")
+		}
+
 		print("usedNodes")
 		for x := 0; x < len(usedNodes); x++ {
 			print(" ",usedNodes[x])
 			print(" ")
 		}
 		println()
+
 		print("usedNodesThisRound")
 		for x := 0; x < len(usedNodesThisRound); x++ {
 			print(" ",usedNodesThisRound[x])
 			print(" ")
-			usedNodes=findAndRemove(usedNodesThisRound[x],usedNodes)
+			var searcInt =usedNodesThisRound[x];
+			usedNodes=findAndRemove(searcInt,usedNodes)
 		}
+
 		println();
-		print("usedNodes")
+		print("usedNodes AFTER")
 		for x := 0; x < len(usedNodes); x++ {
 			print(" ",usedNodes[x])
 			print(" ")
 		}
-		println();
+		println()
 
 		//add all nodes with same color
 		coloredArray=append(coloredArray, usedNodesThisRound)
+		println("Färbung");
+		for x := 0; x < len(coloredArray); x++ {
+			print("outputArray:", coloredArray[x][0])
+			for y := 1; y < len(coloredArray[x]); y++ {
+				print(" ",coloredArray[x][y])
+				print(" ")
+			}
+			println();
+		}
 	}
 
 	println("in Färbung", len(coloredArray))
@@ -263,6 +276,25 @@ func remove(slice []int, s int) []int {
 	return append(slice[:s], slice[s+1:]...)
 }
 
+
+
+func intArrayToNodeArray(intConflArray [][]int) [][]adjGraph.Node{
+	var nodeConflArray [][]adjGraph.Node
+
+	for i := 0; i < len(intConflArray); i++{
+		var actInnerIntArray=intConflArray[i]
+		var actInnerNodeArray []adjGraph.Node
+
+		for j := 0; j < len(intConflArray[i]); j++{
+			var n adjGraph.Node=adjGraph.Node(actInnerIntArray[j])
+			actInnerNodeArray = append(actInnerNodeArray, n)
+		}
+		nodeConflArray = append(nodeConflArray, actInnerNodeArray)
+
+	}
+
+	return nodeConflArray
+}
 
 
 //siehe http://mrsleblancsmath.pbworks.com/w/file/fetch/46119304/vertex%20coloring%20algorithm.pdf]

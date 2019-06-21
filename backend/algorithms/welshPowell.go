@@ -152,7 +152,7 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 
 
 			//loop over nodes with smaller weighting as actual node
-			for k := i+1; k <  len(nodeConflArray[i]); k++{
+			for k := i+1; k <  len(nodeConflArray); k++{
 				if(nodeConflArray[i][j] == nodeConflArray[k][0]){
 
 					usedNodesThisRound=findAndRemove(nodeConflArray[k][0],usedNodesThisRound) //this nodes are not allowed at same time //ÄNERUNG!

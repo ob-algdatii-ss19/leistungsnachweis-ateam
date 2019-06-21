@@ -80,7 +80,6 @@ func graphTo2DimensionalArray(conGraph adjGraph.ReturnType) [][]int{
 		}
 	}
 
-	//println("getAllConflicts",returnArray )
 
 	return returnArray
 }
@@ -150,37 +149,13 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 
 		//loop for all conflicts of the actual node
 		for j := 0; j <  len(nodeConflArray[i]); j++{
-
-			/*print("usedNodes")
-			for x := 0; x < len(usedNodes); x++ {
-				print(" ",usedNodes[x])
-				print(" ")
-			}
-			println()*/
+			
 			//loop over nodes with smaller weighting as actual node
 			for k := i+1; k <  len(nodeConflArray[i]); k++{
 				if(nodeConflArray[i][j] == nodeConflArray[k][0]){
-					/*print("delete:",i,j,k,nodeConflArray[k][0])
-					//print("length", len(usedNodesThisRound) )
-					var altL int=len(usedNodesThisRound);
-					print("BEVOR")
-					for x := 0; x < len(usedNodesThisRound); x++ {
-						print(" ",usedNodesThisRound[x])
-						print(" ")
-					}*/
 
 					usedNodesThisRound=findAndRemove(nodeConflArray[k][0],usedNodesThisRound) //this nodes are not allowed at same time //ÄNERUNG!
 
-					/*print("DANACH")
-					for x := 0; x < len(usedNodesThisRound); x++ {
-						print(" ",usedNodesThisRound[x])
-						print(" ")
-					}
-					var neuL int=len(usedNodesThisRound);
-					if(neuL<altL){
-						print("   gelöscht")
-					}
-					println()*/
 					break;
 				}else{
 					continue; // this node cannot find in this part of array
@@ -192,22 +167,6 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 			}
 		}
 
-		//delete this node, because this street cannot drive anymore
-		/*println()
-		print("DANACH")
-		for x := 0; x < len(usedNodesThisRound); x++ {
-			print(" ",usedNodesThisRound[x])
-			print(" ")
-		}
-
-		print("usedNodes")
-		for x := 0; x < len(usedNodes); x++ {
-			print(" ",usedNodes[x])
-			print(" ")
-		}
-		println()
-
-		print("usedNodesThisRound")*/
 		for x := 0; x < len(usedNodesThisRound); x++ {
 			//print(" ",usedNodesThisRound[x])
 			//print(" ")
@@ -215,25 +174,10 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 			usedNodes=findAndRemove(searcInt,usedNodes)
 		}
 
-		/*println();
-		print("usedNodes AFTER")
-		for x := 0; x < len(usedNodes); x++ {
-			print(" ",usedNodes[x])
-			print(" ")
-		}
-		println()*/
 
 		//add all nodes with same color
 		coloredArray=append(coloredArray, usedNodesThisRound)
-		/*println("Färbung");
-		for x := 0; x < len(coloredArray); x++ {
-			print("outputArray:", coloredArray[x][0])
-			for y := 1; y < len(coloredArray[x]); y++ {
-				print(" ",coloredArray[x][y])
-				print(" ")
-			}
-			println();
-		}*/
+
 	}
 
 	//println("in Färbung", len(coloredArray))

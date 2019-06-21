@@ -80,6 +80,8 @@ func graphTo2DimensionalArray(conGraph adjGraph.ReturnType) [][]int{
 		}
 	}
 
+	//println("getAllConflicts",returnArray )
+
 	return returnArray
 }
 
@@ -156,14 +158,29 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 			}
 			println()*/
 			//loop over nodes with smaller weighting as actual node
-			for k := 0; k <  len(nodeConflArray); k++{
+			for k := i+1; k <  len(nodeConflArray[i]); k++{
 				if(nodeConflArray[i][j] == nodeConflArray[k][0]){
+					/*print("delete:",i,j,k,nodeConflArray[k][0])
+					//print("length", len(usedNodesThisRound) )
+					var altL int=len(usedNodesThisRound);
+					print("BEVOR")
+					for x := 0; x < len(usedNodesThisRound); x++ {
+						print(" ",usedNodesThisRound[x])
+						print(" ")
+					}*/
 
 					usedNodesThisRound=findAndRemove(nodeConflArray[k][0],usedNodesThisRound) //this nodes are not allowed at same time //ÄNERUNG!
-					print("Konflikt bei ",nodeConflArray[i][0])
-					print("   ",nodeConflArray[k][0] )
-					println();
 
+					/*print("DANACH")
+					for x := 0; x < len(usedNodesThisRound); x++ {
+						print(" ",usedNodesThisRound[x])
+						print(" ")
+					}
+					var neuL int=len(usedNodesThisRound);
+					if(neuL<altL){
+						print("   gelöscht")
+					}
+					println()*/
 					break;
 				}else{
 					continue; // this node cannot find in this part of array

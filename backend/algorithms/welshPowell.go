@@ -146,10 +146,8 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 		usedNodesThisRound := make([]int, len(usedNodes))//which Nodes are possible? (when conflict in this round, delete element)
 		copy(usedNodesThisRound, usedNodes)
 
-
 		//loop for all conflicts of the actual node
 		for j := 0; j <  len(nodeConflArray[i]); j++{
-
 
 			//loop over nodes with smaller weighting as actual node
 			for k := i+1; k <  len(nodeConflArray); k++{
@@ -174,7 +172,6 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 			var searcInt =usedNodesThisRound[x];
 			usedNodes=findAndRemove(searcInt,usedNodes)
 		}
-
 
 		//add all nodes with same color
 		coloredArray=append(coloredArray, usedNodesThisRound)

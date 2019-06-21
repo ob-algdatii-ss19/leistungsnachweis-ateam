@@ -160,7 +160,9 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 				if(nodeConflArray[i][j] == nodeConflArray[k][0]){
 
 					usedNodesThisRound=findAndRemove(nodeConflArray[k][0],usedNodesThisRound) //this nodes are not allowed at same time //ÄNERUNG!
-					print("Konflikt bei ",nodeConflArray[i][0],nodeConflArray[k][0] )
+					print("Konflikt bei ",nodeConflArray[i][0])
+					print("   ",nodeConflArray[k][0] )
+					println();
 
 					break;
 				}else{

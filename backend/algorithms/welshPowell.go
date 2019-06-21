@@ -149,7 +149,8 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 
 		//loop for all conflicts of the actual node
 		for j := 0; j <  len(nodeConflArray[i]); j++{
-			
+
+
 			//loop over nodes with smaller weighting as actual node
 			for k := i+1; k <  len(nodeConflArray[i]); k++{
 				if(nodeConflArray[i][j] == nodeConflArray[k][0]){

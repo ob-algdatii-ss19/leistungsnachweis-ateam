@@ -4,10 +4,38 @@ import (
 	"fmt"
 	"github.com/ob-algdatii-ss19/leistungsnachweis-ateam/backend/adjGraph"
 	"github.com/ob-algdatii-ss19/leistungsnachweis-ateam/backend/algorithms"
+	"strings"
 )
 
+var edgeNamesToNodeLetter = map[string]string{
+	string(adjGraph.ABC + "-" + adjGraph.MNO): "A",
+	string(adjGraph.ABC + "-" + adjGraph.IJK): "B",
+	string(adjGraph.ABC + "-" + adjGraph.EFG): "C",
+	string(adjGraph.ABC + "-" + adjGraph.P):   "D",
+	string(adjGraph.ABC + "-" + adjGraph.P1):  "D1",
+	string(adjGraph.ABC + "-" + adjGraph.P2):  "D2",
+	string(adjGraph.EFG + "-" + adjGraph.ABC): "E",
+	string(adjGraph.EFG + "-" + adjGraph.MNO): "F",
+	string(adjGraph.EFG + "-" + adjGraph.IJK): "G",
+	string(adjGraph.EFG + "-" + adjGraph.P):   "H",
+	string(adjGraph.EFG + "-" + adjGraph.P1):  "H1",
+	string(adjGraph.EFG + "-" + adjGraph.P2):  "H2",
+	string(adjGraph.IJK + "-" + adjGraph.EFG): "I",
+	string(adjGraph.IJK + "-" + adjGraph.ABC): "J",
+	string(adjGraph.IJK + "-" + adjGraph.MNO): "K",
+	string(adjGraph.IJK + "-" + adjGraph.P):   "L",
+	string(adjGraph.IJK + "-" + adjGraph.P1):  "L1",
+	string(adjGraph.IJK + "-" + adjGraph.P2):  "L2",
+	string(adjGraph.MNO + "-" + adjGraph.IJK): "M",
+	string(adjGraph.MNO + "-" + adjGraph.EFG): "N",
+	string(adjGraph.MNO + "-" + adjGraph.ABC): "O",
+	string(adjGraph.MNO + "-" + adjGraph.P):   "P",
+	string(adjGraph.MNO + "-" + adjGraph.P1):  "P1",
+	string(adjGraph.MNO + "-" + adjGraph.P2):  "P2",
+}
+
 /*
-Handle all calls to the different algorithmns
+Handle all calls to the different algorithms
 */
 func HandleAlgorithmCalls(receivedData GuiRequestData) JsonResponse {
 	fmt.Println("[INFO] Called algorithmHandler.go")
@@ -15,21 +43,65 @@ func HandleAlgorithmCalls(receivedData GuiRequestData) JsonResponse {
 	graphObject := adjGraph.MakeConflictGraphOutOfConnectionGraph(buildGraphObjectFromJSON(receivedData))
 
 	if receivedData.Settings.Algorithm == BASIC_GREEDY {
-		resultGraph := algorithms.BasicGreedy(graphObject)
-		fmt.Println("[DEBUG] generated result graph with Basic Greedy Algorithm ", resultGraph)
+		resultGraphWithNodeNames := algorithms.BasicGreedy(graphObject)
+		fmt.Println("[DEBUG] generated result graph with Basic Greedy Algorithm ", resultGraphWithNodeNames)
 
-		return JsonResponse{true, resultGraph}
+		resultGraphWithLetters := changeNodeNumbersToLetters(resultGraphWithNodeNames, graphObject.Entries)
+
+		return JsonResponse{true, resultGraphWithLetters}
 	} else {
 		return JsonResponse{false, nil}
 	}
 }
 
 /*
+Change Node-Numbers in the Array with the traffic phases to capital letters.
+*/
+func changeNodeNumbersToLetters(resultGraph [][]adjGraph.Node, trafficEntries []adjGraph.TrafficEntry) [][]string {
+
+	allPhases := make([][]string, 0)
+
+	for _, nodeArray := range resultGraph {
+
+		trafficPhase := make([]string, 0)
+
+		for _, node := range nodeArray {
+
+			toNodeName := string(trafficEntries[node-1].To)
+			p1IsSelected := toNodeName == "P1"
+
+			var p2IsSelected bool
+			if len(trafficEntries) > int(node) {
+				p2IsSelected = trafficEntries[node].IsTrue
+			}
+
+			var nodeLetter string
+
+			if p1IsSelected && !p2IsSelected {
+
+				//for pedestrian without island use letter without number
+				//e.g. if D1 is activated without D2, the frontend will get D as node-name
+				nodeLetter = edgeNamesToNodeLetter[string(trafficEntries[node-1].From)+"-"+strings.Split(toNodeName, "")[0]]
+
+			} else {
+				nodeLetter = edgeNamesToNodeLetter[string(trafficEntries[node-1].From)+"-"+string(trafficEntries[node-1].To)]
+			}
+
+			trafficPhase = append(trafficPhase, nodeLetter)
+
+		}
+
+		allPhases = append(allPhases, trafficPhase)
+
+	}
+
+	return allPhases
+}
+
+/*
 Build a Graph-Object from the received JSON-Data
 */
 func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.AdjMat {
-
-	//TODO @mike-la build graph object here (for details see issue #20)
 
 	var countNodes int = 6 // second last = with pedestrian, last: with island
 
@@ -83,14 +155,14 @@ func buildGraphObjectFromJSON(data GuiRequestData) adjGraph.AdjMat {
 	}
 
 	//right Node
-	if data.Intersection.Right.LeftLane {
-		graph.AddEdge(right, bottom)
+	if data.Intersection.Right.RightLane {
+		graph.AddEdge(right, top)
 	}
 	if data.Intersection.Right.StraightLane {
 		graph.AddEdge(right, left)
 	}
 	if data.Intersection.Right.LeftLane {
-		graph.AddEdge(right, top)
+		graph.AddEdge(right, bottom)
 	}
 	if data.Intersection.Right.Pedestrian == NORMAL {
 		graph.AddEdge(right, pedestrian)

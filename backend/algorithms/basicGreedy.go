@@ -9,37 +9,13 @@ import (
 /*
 Calculate the optimization of the traffic lights with basic Greedy algorithm
 */
-/*func BasicGreedy(graphData adjGraph.UGraph) [][]adjGraph.Node {
-		fmt.Println("[INFO] Called BasicGreedy Algorithm")
-
-		if graphData == nil {
-		return [][]adjGraph.Node{}
-	}
-
-		numberOfNodes := graphData.UNumberOfNodes()
-		coloredNodes := make([]int, numberOfNodes+1)
-		listOfColorsAndNodes := make([][]adjGraph.Node, numberOfNodes+1)
-
-		//go through all nodes (vertices)
-		for i := 1; i <= numberOfNodes; i++ {
-
-		unavailableColors := getUsedColorsByAdjacentNodes(graphData, adjGraph.Node(i), coloredNodes)
-
-		lowestFreeColor := getLowestUnusedColorOfAdjacentNodes(unavailableColors)
-
-		coloredNodes[i] = lowestFreeColor
-		listOfColorsAndNodes[lowestFreeColor] = append(listOfColorsAndNodes[lowestFreeColor], adjGraph.Node(i))
-
-	}
-
-		return getTrimmedListOfColorsAndNodes(listOfColorsAndNodes)
-}*/
-
-func BasicGreedy(returnType adjGraph.ConflictGraphPackage) [][]adjGraph.Node {
+func BasicGreedy(returnType adjGraph.ReturnType) [][]adjGraph.Node {
 	fmt.Println("[INFO] Called BasicGreedy Algorithm")
 
-	graphData := returnType.ConflictGraph
-	if graphData == nil {
+	graphData := returnType.UGraph
+	trafficEntries := returnType.Entries
+
+	if graphData == nil || trafficEntries == nil {
 		return [][]adjGraph.Node{}
 	}
 
@@ -50,13 +26,15 @@ func BasicGreedy(returnType adjGraph.ConflictGraphPackage) [][]adjGraph.Node {
 	//go through all nodes (vertices)
 	for i := 1; i <= numberOfNodes; i++ {
 
-		unavailableColors := getUsedColorsByAdjacentNodes(graphData, adjGraph.Node(i), coloredNodes)
+		//user selected the node via checkbox in the gui
+		if trafficEntries[i-1].IsTrue {
+			unavailableColors := getUsedColorsByAdjacentNodes(graphData, adjGraph.Node(i), coloredNodes)
 
-		lowestFreeColor := getLowestUnusedColorOfAdjacentNodes(unavailableColors)
+			lowestFreeColor := getLowestUnusedColorOfAdjacentNodes(unavailableColors)
 
-		coloredNodes[i] = lowestFreeColor
-		listOfColorsAndNodes[lowestFreeColor] = append(listOfColorsAndNodes[lowestFreeColor], adjGraph.Node(i))
-
+			coloredNodes[i] = lowestFreeColor
+			listOfColorsAndNodes[lowestFreeColor] = append(listOfColorsAndNodes[lowestFreeColor], adjGraph.Node(i))
+		}
 	}
 
 	return getTrimmedListOfColorsAndNodes(listOfColorsAndNodes)
@@ -83,25 +61,31 @@ func getUsedColorsByAdjacentNodes(graphData adjGraph.UGraph, node adjGraph.Node,
 
 func getLowestUnusedColorOfAdjacentNodes(unavailableColors []int) int {
 
-	previousColor := 0
-	lowestFreeColor := -1
-	for _, color := range unavailableColors {
-		if color != previousColor+1 {
-			lowestFreeColor = previousColor + 1
-			break
-		}
-		previousColor = color
-	}
+	if len(unavailableColors) == 0 {
 
-	if lowestFreeColor == -1 {
-		if len(unavailableColors) != 0 {
+		return 1
+
+	} else {
+
+		sort.Ints(unavailableColors)
+
+		lowestFreeColor := -1
+		previousColor := 0
+		for _, color := range unavailableColors {
+			if (color != previousColor+1 && color > previousColor+1) || (previousColor == 0 && color > 1) {
+				lowestFreeColor = previousColor + 1
+				break
+			}
+			previousColor = color
+		}
+
+		if lowestFreeColor == -1 {
 			lowestFreeColor = unavailableColors[len(unavailableColors)-1] + 1
-		} else {
-			lowestFreeColor = 1
 		}
+
+		return lowestFreeColor
 	}
 
-	return lowestFreeColor
 }
 
 func getTrimmedListOfColorsAndNodes(listOfColorsAndNodes [][]adjGraph.Node) [][]adjGraph.Node {

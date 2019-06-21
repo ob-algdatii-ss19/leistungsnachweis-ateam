@@ -24,8 +24,16 @@ func GetIndexInConflictGraph(graphPackage ConflictGraphPackage, entry TrafficEnt
 	return rightIndex + 1
 }
 
+const ABC = "ABC"
+const EFG = "EFG"
+const IJK = "IJK"
+const MNO = "MNO"
+const P = "P"
+const P1 = "P1"
+const P2 = "P2"
+
 func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) ConflictGraphPackage {
-	var Entries []TrafficEntry = MakeList(connectionGraph)
+	var Entries []TrafficEntry = makeList(connectionGraph)
 	var conflictGraph UGraph = NewUGraph(20)
 	for i := 0; i < 20; i++ {
 		for j := i + 1; j < 20; j++ {
@@ -100,11 +108,11 @@ func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) ConflictGraph
 	return tmp
 }
 
-func MakeList(matrix AdjMat) []TrafficEntry {
-	//var Entries []TrafficEntry
+func makeList(matrix AdjMat) []TrafficEntry {
+	//var Entries []trafficEntry
 	var Entries = make([]TrafficEntry, 20)
-	var everyNode = [6]string{"ABC", "EFG", "IJK", "MNO", "P1", "P2"}
-	//Entries[0] = TrafficEntry{"ABC","EFG",false}
+	var everyNode = [6]string{ABC, EFG, IJK, MNO, P1, P2}
+	//Entries[0] = trafficEntry{"ABC","EFG",false}
 	var counter = 0
 	for i := 1; i <= len(everyNode)-2; i++ {
 		for j := 1; j <= len(everyNode); j++ {
@@ -113,7 +121,6 @@ func MakeList(matrix AdjMat) []TrafficEntry {
 				var isEdge = matrix[i][j]
 				//fmt.Println("inserted in Matrix")
 				Entries[counter] = TrafficEntry{nodeName(everyNode[i-1]), nodeName(everyNode[j-1]), isEdge}
-				//fmt.Println("inserted in Entriy list")
 				counter++
 			}
 		}
@@ -130,6 +137,7 @@ func MakeCompatibilityGraph(conflictReturn ConflictGraphPackage) ConflictGraphPa
 					compGraph.UAddEdge(Node(i+1), Node(j+1))
 				}
 			}
+
 		}
 	}
 	tmp := ConflictGraphPackage{conflictReturn.Entries, compGraph}

@@ -49,7 +49,14 @@ func HandleAlgorithmCalls(receivedData GuiRequestData) JsonResponse {
 		resultGraphWithLetters := changeNodeNumbersToLetters(resultGraphWithNodeNames, graphObject.Entries)
 
 		return JsonResponse{true, resultGraphWithLetters}
-	} else {
+	} else if receivedData.Settings.Algorithm == WELSH_POWELL {
+		resultGraphWithNodeNames := algorithms.WelshPowell(graphObject)
+		fmt.Println("[DEBUG]generated result graph with Welsh Powell Algorithm", resultGraphWithNodeNames)
+
+		resultGraphWithLetters := changeNodeNumbersToLetters(resultGraphWithNodeNames, graphObject.Entries)
+
+		return JsonResponse{true, resultGraphWithLetters}
+	}else {
 		return JsonResponse{false, nil}
 	}
 }

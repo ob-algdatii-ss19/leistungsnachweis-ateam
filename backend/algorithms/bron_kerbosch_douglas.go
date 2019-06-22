@@ -37,10 +37,21 @@ func translateResult(clique []Clique, returnType adjGraph.ConflictGraphPackage) 
 
 func getMininmalMaxCliques(graphPackage adjGraph.ConflictGraphPackage, listOfMaxCliques []Clique) []Clique {
 
-	if !isOptimal(listOfMaxCliques, graphPackage) {
-		copyUserinputList := make([]adjGraph.TrafficEntry, len(graphPackage.Entries))
-		copy(copyUserinputList, graphPackage.Entries)
-		finalList := make([]Clique, 0)
+	optimal := isOptimal(listOfMaxCliques, graphPackage)
+
+	if optimal {
+		return listOfMaxCliques
+	}
+	copyUserinputList := make([]adjGraph.TrafficEntry, len(graphPackage.Entries))
+	copy(copyUserinputList, graphPackage.Entries)
+	for _, elementt := range graphPackage.Entries {
+		if !elementt.ChosenByUser {
+			copyUserinputList, _ = removeItemOfClique(copyUserinputList, elementt)
+		}
+	}
+	finalList := make([]Clique, 0)
+
+	for !optimal {
 		largestIndex := -1
 		length := -1
 		//find largest Clique
@@ -55,28 +66,30 @@ func getMininmalMaxCliques(graphPackage adjGraph.ConflictGraphPackage, listOfMax
 		for _, elementLargestClique := range listOfMaxCliques[largestIndex] {
 			copyUserinputList, _ = removeItemOfClique(copyUserinputList, elementLargestClique)
 		}
-		for _, elementt := range graphPackage.Entries {
-			if !elementt.ChosenByUser {
-				copyUserinputList, _ = removeItemOfClique(copyUserinputList, elementt)
+
+		isOwnClique := true
+		for _, element := range copyUserinputList {
+			isOwnClique = IsNeighborOfThemAll(copyUserinputList, element, graphPackage)
+			if !isOwnClique {
+				break
 			}
 		}
-		try1 := copyUserinputList[len(copyUserinputList)-1]
-		tmp := make([]adjGraph.TrafficEntry, 0)
-		tmp = append(tmp, try1)
-		copyUserinputList, _ = removeItemOfClique(copyUserinputList, try1)
-		isOwnClique := oneOfPIsNeighborOfThemAll(tmp, copyUserinputList, graphPackage)
-		copyUserinputList = append(copyUserinputList, try1)
 		if isOwnClique {
 			finalList = append(finalList, copyUserinputList)
-			return finalList
+			//return finalList
 		} else {
-			newList := bronkerbIterative(make([]adjGraph.TrafficEntry, 0), copyUserinputList, make([]adjGraph.TrafficEntry, 0), graphPackage, make([]Clique, 0))
-			newList = append(newList, finalList[0])
-			return newList
+			//newList := getMininmalMaxCliques(graphPackage,bronkerbIterative(make([]adjGraph.TrafficEntry, 0),copyUserinputList,make([]adjGraph.TrafficEntry, 0),graphPackage,make([]Clique, 0)))
+			listOfMaxCliques = bronkerbIterative(make([]adjGraph.TrafficEntry, 0), copyUserinputList, make([]adjGraph.TrafficEntry, 0), graphPackage, make([]Clique, 0))
+			//newList = append(newList, finalList[0])
+			//return newList
 		}
-	} else {
-		return listOfMaxCliques
+		newGraphPackage := adjGraph.ConflictGraphPackage{copyUserinputList, graphPackage.ConflictGraph}
+		optimal = isOptimal(listOfMaxCliques, newGraphPackage)
 	}
+	for _, elementList := range listOfMaxCliques {
+		finalList = append(finalList, elementList)
+	}
+	return finalList
 }
 
 func isOptimal(listMax []Clique, graphPackage adjGraph.ConflictGraphPackage) bool {
@@ -185,19 +198,16 @@ func getAllNeighbors(element adjGraph.TrafficEntry, clique Clique, returnType ad
 	return neighbors
 }
 
-func oneOfPIsNeighborOfThemAll(N Clique, P Clique, returnType adjGraph.ConflictGraphPackage) bool {
+func IsNeighborOfThemAll(N Clique, entry adjGraph.TrafficEntry, returnType adjGraph.ConflictGraphPackage) bool {
 	var pIsNeighborOfThemAll bool = true
-	if len(P) != 0 {
-		for _, element := range N {
-			indexElementN := adjGraph.GetIndexInConflictGraph(returnType, element)
-			indexElementP := adjGraph.GetIndexInConflictGraph(returnType, P[0])
-			if !returnType.ConflictGraph.GetMatrixEntryAtIndex(indexElementN, indexElementP) {
-				pIsNeighborOfThemAll = false
-				break
-			}
+	for _, element := range N {
+		indexElementN := adjGraph.GetIndexInConflictGraph(returnType, element)
+		indexElementP := adjGraph.GetIndexInConflictGraph(returnType, entry)
+		if !returnType.ConflictGraph.GetMatrixEntryAtIndex(indexElementN, indexElementP) {
+			pIsNeighborOfThemAll = false
+			break
 		}
-	} else {
-		pIsNeighborOfThemAll = false
 	}
+
 	return pIsNeighborOfThemAll
 }

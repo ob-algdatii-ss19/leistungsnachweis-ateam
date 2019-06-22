@@ -14,6 +14,13 @@ cross each other, the conflict graph has an edge between this to nodes.
 
 By coloring the graph it is possible to retrieve all nodes which can drive at the same time.
 With Basic Greedy and Welsh Powell we selected two algorithms to color the conflict graph.
+Bron Kerbosch is using cliques to retrieve the traffic light phases from a compatibility graph.
+
+The following sections describe the algorithms more detailed:
+
+* [Basic Greedy](#basic-greedy)
+* [Welsh Powell](#welsh-powell)
+* [Bron Kerbosch](#bron-kerbosch)
 
 ## Basic Greedy
 

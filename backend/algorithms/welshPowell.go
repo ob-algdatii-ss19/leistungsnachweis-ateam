@@ -52,6 +52,7 @@ func WelshPowell(returnType adjGraph.ReturnType) [][]adjGraph.Node {
 		println();
 	} */
 
+	//coloredArray=groupColoredArray(coloredArray,graphArray)
 
 	return intArrayToNodeArray(coloredArray)
 }
@@ -181,7 +182,7 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 		for x := 0; x < len(usedNodesThisRound); x++ {
 			var indexIn2DimArray=findIndexIn2DimArray(usedNodesThisRound[x], nodeConflArray)
 
-			//all conflicts of htis node
+			//all conflicts of this node
 			for y := 1; y < len(nodeConflArray[indexIn2DimArray]); y++ {
 				for z := y+1; z <  len(nodeConflArray); z++ {
 					if (nodeConflArray[indexIn2DimArray][y] == nodeConflArray[z][0]) {
@@ -190,7 +191,6 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 				}
 			}
 		}
-
 
 
 		for x := 0; x < len(usedNodesThisRound); x++ {
@@ -221,6 +221,65 @@ func getUsedNodes(nodeConflArray [][]int) []int{
 	}
 	return usedNodes
 }
+
+
+
+//just to optimize
+//try to put together traffic light phases, which have no conflict
+func groupColoredArray(coloredArray [][]int, nodeConflArray [][]int) [][]int{
+	newColoredArray := make([][]int, len(coloredArray))//which Nodes are possible? (when conflict in this round, delete element)
+	copy(newColoredArray, coloredArray)
+
+
+	for first := 0; first < len(newColoredArray); first++ {
+		if(len(newColoredArray[first])>=4){ //4 is maximal count of edges at same time
+			continue
+		}
+
+
+		for firstSub := 0; firstSub < len(newColoredArray[first]); firstSub++ {
+			var indexIn2DimArray=findIndexIn2DimArray(newColoredArray[first][firstSub], nodeConflArray)
+
+			for sec := first+ 1; sec < len(newColoredArray); sec++ {
+				var hasConflicts=false;
+				for secSub := 0; secSub < len(newColoredArray[sec]); secSub++ {
+
+					//now compare all conflicts of firstIndex
+					for c := 0; c < len(newColoredArray[firstSub]); c++ {
+						if nodeConflArray[indexIn2DimArray][c] == newColoredArray[sec][secSub]{
+							hasConflicts=true
+						}
+					}
+				}
+
+				//if no conflicts, this mean, when can put togehter this phases
+
+				if(!hasConflicts){ //add element of second to first
+					var innerArray []int =newColoredArray[first]
+					print("inner Array output");
+					for a := 0; a < len(newColoredArray[first]); a++ {
+						print(" ", newColoredArray[first][a])
+					}
+					println()
+
+
+					for a := 0; a < len(newColoredArray[sec]); a++ {
+						innerArray=append(innerArray,newColoredArray[sec][a])
+					}
+					newColoredArray[first]=innerArray
+				}
+			}
+		}
+
+
+
+	}
+
+
+	return newColoredArray;
+}
+
+
 
 
 //array help functions
@@ -280,6 +339,8 @@ func intArrayToNodeArray(intConflArray [][]int) [][]adjGraph.Node{
 
 	return nodeConflArray
 }
+
+
 
 
 //siehe http://mrsleblancsmath.pbworks.com/w/file/fetch/46119304/vertex%20coloring%20algorithm.pdf]

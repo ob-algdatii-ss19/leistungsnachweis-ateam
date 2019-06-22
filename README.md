@@ -1,69 +1,33 @@
-# Optimization of Trafficlight-Circuits [![Build Status](https://travis-ci.com/ob-algdatii-ss19/leistungsnachweis-ateam.svg?token=4zw9EzexndWUV9DTxZpz&branch=master)](https://travis-ci.com/ob-algdatii-ss19/leistungsnachweis-ateam)
+# GitHub-Page for documentation
 
-This webapp calculates the different non-conflicting traffic-light-phases of a given intersection.
+GitHub deploys the content of this branch ```gh-pages``` automatically
+to the GitHub-Page: https://ob-algdatii-ss19.github.io/leistungsnachweis-ateam/
 
-The user can create an individual intersection by selecting lanes via checkbox.
-For calculating the traffic-light-phases the app offers three different algorithms: Basic Greedy, Welsh Powell and Bron Kerbosch.
-On the result page the user can switch between the different traffic-light-phases.
-For each phase all lanes which have green are displayed.
+## Usage
 
-![Screenshot](docs/startscreen.png)
+With each push to the branch ```gh-pages``` GitHub automatically generates a new GitHub-Page.
 
-## Getting Started
+### Configuration
 
-### Prerequisites
+The configuration like title or theme can be done in the file ```_config.yml```
 
-* requires the go-lang version 1.12 or greater
+### Create a sub-page
 
-If you haven´t installed go-lang yet, go to https://golang.org/dl/ and download the latest version.
-
-### Installing and Running
+To create a subpage you need to create a new markdown file.
+At the top of file you need to add:
 
 ```
-cd $HOME/go/src/github.com/ob-algdatii-ss19
-git clone https://github.com/ob-algdatii-ss19/leistungsnachweis-ateam.git
-cd leistungsnachweis-ateam
-go run main.go
+---
+layout: default
+title: [title of the]
+description: [description is optionally]
+---
 ```
 
-* After running the app open it in your browser ```localhost:8080```
-* Select your lanes and an algorithm
-* Hit the "Evaluate"-Button
-* On the result page you can display all lanes of a traffic-light-phase by selecting a radio-box
+To switch between the pages you can easily add the standard markdown links.
+The file ending needs to be replaced with ```.html```.
 
-## Documentation
+### Styling
 
-You can find a detailed documentation of the project on our github-page: https://ob-algdatii-ss19.github.io/leistungsnachweis-ateam/
-
-## Development
-
-### Build status
-
-develop: [![Build Status](https://travis-ci.com/ob-algdatii-ss19/leistungsnachweis-ateam.svg?token=4zw9EzexndWUV9DTxZpz&branch=develop)](https://travis-ci.com/ob-algdatii-ss19/leistungsnachweis-ateam)
-
-master: [![Build Status](https://travis-ci.com/ob-algdatii-ss19/leistungsnachweis-ateam.svg?token=4zw9EzexndWUV9DTxZpz&branch=master)](https://travis-ci.com/ob-algdatii-ss19/leistungsnachweis-ateam)
-
-### Runnig Tests and determine Test-Coverage
-
-Determine testcoverage on your local machine and display results in the browser:
-```
-go test ./... -v -coverpkg=./... -coverprofile=cover.out
-go tool cover -html=cover.out
-```
-
-### Heroku
-
-The develop- and master-branch will be automatically deployed to heroku.
-
-[heroku-master](https://leistungsnachweis-ateam.herokuapp.com): ![Heroku](https://heroku-badge.herokuapp.com/?app=leistungsnachweis-ateam)
-
-[heroku-develop](https://leistungsnachweis-ateam-dev.herokuapp.com): ![Heroku](https://heroku-badge.herokuapp.com/?app=leistungsnachweis-ateam-dev)
-
-### Debugging
-
-* To see javascript logging, open the developertools in your browser. In the console you can find the logging output of the js-scripts.
-* The go webserver is also printing log-messages on the console
-
-### Authors
-
-Groupname: ateam
+For styling your page, e.g. create tables or insert images you can have
+a look at https://guides.github.com/features/mastering-markdown/.

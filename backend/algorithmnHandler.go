@@ -50,7 +50,10 @@ func HandleAlgorithmCalls(receivedData GuiRequestData) JsonResponse {
 
 		return JsonResponse{true, resultGraphWithLetters}
 	} else if receivedData.Settings.Algorithm == BRON_KERBOSCH {
-		resultGraphWithNodeNames := algorithms.GetMaxCliques(graphObject)
+
+		compGraph := adjGraph.MakeCompatibilityGraph(graphObject)
+
+		resultGraphWithNodeNames := algorithms.GetMaxCliques(compGraph)
 		fmt.Println("[DEBUG] generated result graph with Bron Kerbosch Algorithm ", resultGraphWithNodeNames)
 
 		resultGraphWithLetters := changeNodeNumbersToLetters(resultGraphWithNodeNames, graphObject.Entries)

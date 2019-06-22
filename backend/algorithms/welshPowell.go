@@ -51,9 +51,7 @@ func WelshPowell(returnType adjGraph.ReturnType) [][]adjGraph.Node {
 		}
 		println();
 	} */
-
-	//coloredArray=groupColoredArray(coloredArray,graphArray)
-
+	
 	return intArrayToNodeArray(coloredArray)
 }
 
@@ -156,18 +154,6 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 
 					usedNodesThisRound=findAndRemove(nodeConflArray[k][0],usedNodesThisRound) //this nodes are not allowed at same time
 
-
-					//ALS FUNKTION!!!
-
-
-					//loop over nodes of the founded
-					/*for l := k+1; k <  len(nodeConflArray); l++ {
-						if (nodeConflArray[k][0] == nodeConflArray[l][0]) {
-							usedNodesThisRound=findAndRemove(nodeConflArray[l][0],usedNodesThisRound) //this nodes are not allowed at same time
-						}
-					*/
-
-					//break;
 				}else{
 					continue; // this node cannot find in this part of array
 				}
@@ -193,6 +179,7 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 		}
 
 
+
 		for x := 0; x < len(usedNodesThisRound); x++ {
 			//print(" ",usedNodesThisRound[x])
 			//print(" ")
@@ -200,8 +187,44 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 			usedNodes=findAndRemove(searcInt,usedNodes)
 		}
 
+
+		//try to group with other phase
+		var added bool=false; //added something?
+		for colored := 0; colored < len(coloredArray); colored++{
+			var hasConflict bool=false;
+			for coloredSub := 0; coloredSub < len(coloredArray[colored]); coloredSub++{ //to compare with all nodes, belongs a phase
+				var indexIn2DimArray=findIndexIn2DimArray(coloredArray[colored][coloredSub], nodeConflArray)
+				for y := 1; y < len(nodeConflArray[indexIn2DimArray]); y++ {
+					for z := y+1; z <  len(nodeConflArray); z++ {
+						for useInThisRound := 0; useInThisRound <  len(usedNodesThisRound); useInThisRound++ {
+							var useInThisRoundVal=usedNodesThisRound[useInThisRound]
+							if (nodeConflArray[indexIn2DimArray][y] == useInThisRoundVal) {
+								hasConflict=true;
+							}
+						}
+					}
+				}
+			}
+
+			if(!hasConflict){
+				var innerAr=coloredArray[colored]
+				for useInThisRound := 0; useInThisRound <  len(usedNodesThisRound); useInThisRound++ {
+					var useInThisRoundVal = usedNodesThisRound[useInThisRound]
+					innerAr = append(innerAr, useInThisRoundVal)
+				}
+				coloredArray[colored]=innerAr
+
+				added=true
+			}
+
+		}
+
+		if(!added){ //only, when usedNodesThisRound not added at other index
+			coloredArray=append(coloredArray, usedNodesThisRound)
+		}
+
 		//add all nodes with same color
-		coloredArray=append(coloredArray, usedNodesThisRound)
+
 
 	}
 
@@ -221,65 +244,6 @@ func getUsedNodes(nodeConflArray [][]int) []int{
 	}
 	return usedNodes
 }
-
-
-
-//just to optimize
-//try to put together traffic light phases, which have no conflict
-func groupColoredArray(coloredArray [][]int, nodeConflArray [][]int) [][]int{
-	newColoredArray := make([][]int, len(coloredArray))//which Nodes are possible? (when conflict in this round, delete element)
-	copy(newColoredArray, coloredArray)
-
-
-	for first := 0; first < len(newColoredArray); first++ {
-		if(len(newColoredArray[first])>=4){ //4 is maximal count of edges at same time
-			continue
-		}
-
-
-		for firstSub := 0; firstSub < len(newColoredArray[first]); firstSub++ {
-			var indexIn2DimArray=findIndexIn2DimArray(newColoredArray[first][firstSub], nodeConflArray)
-
-			for sec := first+ 1; sec < len(newColoredArray); sec++ {
-				var hasConflicts=false;
-				for secSub := 0; secSub < len(newColoredArray[sec]); secSub++ {
-
-					//now compare all conflicts of firstIndex
-					for c := 0; c < len(newColoredArray[firstSub]); c++ {
-						if nodeConflArray[indexIn2DimArray][c] == newColoredArray[sec][secSub]{
-							hasConflicts=true
-						}
-					}
-				}
-
-				//if no conflicts, this mean, when can put togehter this phases
-
-				if(!hasConflicts){ //add element of second to first
-					var innerArray []int =newColoredArray[first]
-					print("inner Array output");
-					for a := 0; a < len(newColoredArray[first]); a++ {
-						print(" ", newColoredArray[first][a])
-					}
-					println()
-
-
-					for a := 0; a < len(newColoredArray[sec]); a++ {
-						innerArray=append(innerArray,newColoredArray[sec][a])
-					}
-					newColoredArray[first]=innerArray
-				}
-			}
-		}
-
-
-
-	}
-
-
-	return newColoredArray;
-}
-
-
 
 
 //array help functions

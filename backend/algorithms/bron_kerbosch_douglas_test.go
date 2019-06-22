@@ -29,7 +29,10 @@ func ExampleGetMaxClique() {
 		}
 		fmt.Println("")
 	}
-	//Output: {ABC EFG true}{EFG IJK true}{IJK MNO true}{MNO ABC true}
+	//Output: 1
+	//7
+	//13
+	//16
 }
 
 func ExampleGetMaxClique2() {
@@ -52,12 +55,15 @@ func ExampleGetMaxClique2() {
 	toTest := GetMaxCliques(compGraph)
 	for _, index := range toTest {
 		for _, element := range index {
-			fmt.Print(element)
+			fmt.Println(element)
 		}
 		fmt.Println("")
 	}
-	//Output: {ABC MNO true}{IJK EFG true}
-	//{EFG ABC true}{MNO IJK true}
+	//Output: 3
+	//12
+	//
+	//6
+	//18
 }
 
 func ExampleGetMaxClique3() {
@@ -81,16 +87,22 @@ func ExampleGetMaxClique3() {
 	graph := adjGraph.MakeConflictGraphOutOfConnectionGraph(g)
 	compGraph := adjGraph.MakeCompatibilityGraph(graph)
 
-	//Output: {ABC EFG true}{EFG IJK true}{IJK MNO true}{MNO ABC true}
-	//{ABC P1 true}{EFG P1 true}{IJK P1 true}{MNO P1 true}
-
 	toTest := GetMaxCliques(compGraph)
 	for _, index := range toTest {
 		for _, element := range index {
-			fmt.Print(element)
+			fmt.Println(element)
 		}
 		fmt.Println("")
 	}
+	//Output: 1
+	//7
+	//13
+	//16
+	//
+	//4
+	//9
+	//14
+	//19
 }
 
 func TestGetMaxClique4(t *testing.T) {
@@ -111,12 +123,13 @@ func TestGetMaxClique4(t *testing.T) {
 	toTest := GetMaxCliques(compGraph)
 	for _, index := range toTest {
 		for _, element := range index {
-			fmt.Print(element)
+			fmt.Println(element)
 		}
 		fmt.Println("")
 	}
-	//Output: {ABC MNO true}
-	//{MNO EFG true}
+	//Output: 3
+	//
+	//17
 }
 
 func ExampleGetMaxClique5() {
@@ -139,13 +152,16 @@ func ExampleGetMaxClique5() {
 	toTest := GetMaxCliques(compGraph)
 	for _, index := range toTest {
 		for _, element := range index {
-			fmt.Print(element)
+			fmt.Println(element)
 		}
 		fmt.Println("")
 	}
 	//Output:
-	//{ABC IJK true}{IJK ABC true}
-	//{EFG MNO true}{MNO EFG true}
+	//2
+	//11
+	//
+	//8
+	//17
 }
 
 func ExampleGetMaxClique6() {
@@ -176,18 +192,28 @@ func ExampleGetMaxClique6() {
 	toTest := GetMaxCliques(compGraph)
 	for _, index := range toTest {
 		for _, element := range index {
-			fmt.Print(element)
+			fmt.Println(element)
 		}
 		fmt.Println("")
 	}
 	//Output:
-	//{ABC P1 true}{ABC P2 true}{EFG P1 true}{EFG P2 true}{IJK P1 true}{IJK P2 true}{MNO P1 true}{MNO P2 true}
-	//{ABC EFG true}{EFG IJK true}{IJK MNO true}{MNO ABC true}
+	//4
+	//5
+	//9
+	//10
+	//14
+	//15
+	//19
+	//20
+	//
+	//1
+	//7
+	//13
+	//16
 }
 
 func ExampleGetMaxClique7() {
-	//Test2 : Nur Linksabbieger, Fußgänger Ohne Insel
-	//Input : M,A,E,I
+	//Test7 : Linksabbieger, Fußgänger Ohne Insel
 
 	args := []adjGraph.Edge{
 		{4, 3},
@@ -209,11 +235,19 @@ func ExampleGetMaxClique7() {
 	toTest := GetMaxCliques(compGraph)
 	for _, index := range toTest {
 		for _, element := range index {
-			fmt.Print(element)
+			fmt.Println(element)
 		}
 		fmt.Println("")
 	}
-	//Output: {ABC MNO true}{IJK EFG true}
-	//{EFG ABC true}{MNO IJK true}
-	//{ABC P1 true}{EFG P1 true}{IJK P1 true}{MNO P1 true}
+	//Output:
+	//3
+	//12
+	//
+	//6
+	//18
+	//
+	//4
+	//9
+	//14
+	//19
 }

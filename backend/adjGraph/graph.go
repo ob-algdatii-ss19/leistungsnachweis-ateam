@@ -5,8 +5,8 @@ package adjGraph
 type Node int
 
 type Edge struct {
-	from Node
-	to   Node
+	From Node
+	To   Node
 }
 
 type Graph interface {

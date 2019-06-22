@@ -1,17 +1,27 @@
 package adjGraph
 
 type nodeName string
-type ConflictGraph UGraph
 
 type TrafficEntry struct {
-	From   nodeName
-	To     nodeName
-	IsTrue bool
+	From         nodeName
+	To           nodeName
+	ChosenByUser bool
 }
 
-type ReturnType struct {
-	Entries []TrafficEntry
-	UGraph  ConflictGraph
+type ConflictGraphPackage struct {
+	Entries       []TrafficEntry
+	ConflictGraph UGraph
+}
+
+func GetIndexInConflictGraph(graphPackage ConflictGraphPackage, entry TrafficEntry) int {
+	rightIndex := -1
+	for index, element := range graphPackage.Entries {
+		if entry.To == element.To && entry.From == element.From {
+			rightIndex = index
+			break
+		}
+	}
+	return rightIndex + 1
 }
 
 const ABC = "ABC"
@@ -22,15 +32,15 @@ const P = "P"
 const P1 = "P1"
 const P2 = "P2"
 
-func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) ReturnType {
+func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) ConflictGraphPackage {
 	var Entries []TrafficEntry = makeList(connectionGraph)
 	var conflictGraph UGraph = NewUGraph(20)
 	for i := 0; i < 20; i++ {
 		for j := i + 1; j < 20; j++ {
-			if Entries[i].IsTrue && Entries[j].IsTrue {
+			if Entries[i].ChosenByUser && Entries[j].ChosenByUser {
 				if i%5 == 3 { //Pruefung auf Fu-g'nger bei i
 					if j%5 != 3 && j%5 != 4 { //Pruefung auf weiteren Fussgaenger- zwei Fussgaenger koennen zueinander nicht im Konflikt stehen
-						if Entries[i+1].IsTrue { //mit Fussgaengerinsel
+						if Entries[i+1].ChosenByUser { //mit Fussgaengerinsel
 							if Entries[i].From == Entries[j].From {
 								conflictGraph.UAddEdge(Node(i+1), Node(j+1))
 							}
@@ -45,7 +55,7 @@ func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) ReturnType {
 					}
 				} else if j%5 == 3 { //Prufung der Fussg'nger bei j
 					if i%5 != 3 && i%5 != 4 { //Pruefung auf weiteren Fussgaenger- zwei Fussgaenger koennen zueinander nicht im Konflikt stehen
-						if Entries[j+1].IsTrue { //mit Fussgaengerinsel
+						if Entries[j+1].ChosenByUser { //mit Fussgaengerinsel
 							if Entries[i].From == Entries[j].From {
 								conflictGraph.UAddEdge(Node(i+1), Node(j+1))
 							}
@@ -61,7 +71,7 @@ func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) ReturnType {
 					}
 				} else if i%5 == 4 { //Falls Fussgaengerinsel ueberhaupt vorhanden
 					if j%5 != 3 && j%5 != 4 { //Pruefung auf weiteren Fussgaenger- zwei Fussgaenger koennen zueinander nicht im Konflikt stehen
-						if Entries[i].IsTrue { //Falls Fussgaengerinsel ueberhaupt vorhanden
+						if Entries[i].ChosenByUser { //Falls Fussgaengerinsel ueberhaupt vorhanden
 							if Entries[i].From == Entries[j].To {
 								conflictGraph.UAddEdge(Node(i+1), Node(j+1))
 							}
@@ -69,7 +79,7 @@ func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) ReturnType {
 					}
 				} else if j%5 == 4 { //Falls Fussgaengerinsel ueberhaupt vorhanden
 					if i%5 != 3 && i%5 != 4 { //Pruefung auf weiteren Fussgaenger- zwei Fussgaenger koennen zueinander nicht im Konflikt stehen
-						if Entries[j].IsTrue {
+						if Entries[j].ChosenByUser {
 							if Entries[j].From == Entries[i].To {
 								conflictGraph.UAddEdge(Node(i+1), Node(j+1))
 							}
@@ -94,7 +104,7 @@ func MakeConflictGraphOutOfConnectionGraph(connectionGraph AdjMat) ReturnType {
 			}
 		}
 	}
-	tmp := ReturnType{Entries, conflictGraph}
+	tmp := ConflictGraphPackage{Entries, conflictGraph}
 	return tmp
 }
 
@@ -111,7 +121,6 @@ func makeList(matrix AdjMat) []TrafficEntry {
 				var isEdge = matrix[i][j]
 				//fmt.Println("inserted in Matrix")
 				Entries[counter] = TrafficEntry{nodeName(everyNode[i-1]), nodeName(everyNode[j-1]), isEdge}
-				//fmt.Println("inserted in Entriy list")
 				counter++
 			}
 		}
@@ -119,18 +128,18 @@ func makeList(matrix AdjMat) []TrafficEntry {
 	return Entries
 }
 
-/*func MakeCompatibilityGraph(conflictReturn ReturnType) ReturnType{
-	var compGraph UGraph = NewUGraph(20)
-	for i:=0;i< len(conflictReturn.Entries);i++{
-		for j:=i+1; j < len(conflictReturn.Entries) ; j++{
-			if conflictReturn.Entries[i].isTrue && conflictReturn.Entries[j].isTrue{
-				//if conflictReturn.UGraph[i+1][j+1] wenn es eine kante hat -> Kriegt keine Kante
-				//else kriegt Kante
-
+func MakeCompatibilityGraph(conflictReturn ConflictGraphPackage) ConflictGraphPackage {
+	var compGraph UGraphMat = NewUGraph(20)
+	for i := 0; i < len(conflictReturn.Entries); i++ {
+		for j := i + 1; j < len(conflictReturn.Entries); j++ {
+			if conflictReturn.Entries[i].ChosenByUser && conflictReturn.Entries[j].ChosenByUser {
+				if !conflictReturn.ConflictGraph.GetMatrixEntryAtIndex(i+1, j+1) { //wenn es eine kante hat -> Kriegt keine Kante
+					compGraph.UAddEdge(Node(i+1), Node(j+1))
+				}
 			}
 
 		}
 	}
-	tmp := ReturnType{conflictReturn.Entries, compGraph}
+	tmp := ConflictGraphPackage{conflictReturn.Entries, compGraph}
 	return tmp
-}*/
+}

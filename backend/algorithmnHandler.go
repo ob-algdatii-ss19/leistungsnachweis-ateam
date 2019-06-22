@@ -49,14 +49,24 @@ func HandleAlgorithmCalls(receivedData GuiRequestData) JsonResponse {
 		resultGraphWithLetters := changeNodeNumbersToLetters(resultGraphWithNodeNames, graphObject.Entries)
 
 		return JsonResponse{true, resultGraphWithLetters}
-	} else if receivedData.Settings.Algorithm == WELSH_POWELL {
+	}  else if receivedData.Settings.Algorithm == WELSH_POWELL {
 		resultGraphWithNodeNames := algorithms.WelshPowell(graphObject)
 		fmt.Println("[DEBUG]generated result graph with Welsh Powell Algorithm", resultGraphWithNodeNames)
 
 		resultGraphWithLetters := changeNodeNumbersToLetters(resultGraphWithNodeNames, graphObject.Entries)
 
 		return JsonResponse{true, resultGraphWithLetters}
-	}else {
+	} else if receivedData.Settings.Algorithm == BRON_KERBOSCH {
+
+		compGraph := adjGraph.MakeCompatibilityGraph(graphObject)
+
+		resultGraphWithNodeNames := algorithms.GetMaxCliques(compGraph)
+		fmt.Println("[DEBUG] generated result graph with Bron Kerbosch Algorithm ", resultGraphWithNodeNames)
+
+		resultGraphWithLetters := changeNodeNumbersToLetters(resultGraphWithNodeNames, graphObject.Entries)
+
+		return JsonResponse{true, resultGraphWithLetters}
+	} else {
 		return JsonResponse{false, nil}
 	}
 }
@@ -79,7 +89,7 @@ func changeNodeNumbersToLetters(resultGraph [][]adjGraph.Node, trafficEntries []
 
 			var p2IsSelected bool
 			if len(trafficEntries) > int(node) {
-				p2IsSelected = trafficEntries[node].IsTrue
+				p2IsSelected = trafficEntries[node].ChosenByUser
 			}
 
 			var nodeLetter string

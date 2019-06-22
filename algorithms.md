@@ -42,6 +42,13 @@ appear on vertices adjacent to v, assign a new color to it.
 ## Welsh Powell
 
 Description of the algortihm.
+
+```
+1. Order the nodes by conflict graph descending by count of edges
+2. Color first vertex (most edges) with first color.
+3. Pass through all other nodes. When this node has no conflict with other nodes with same color, color this node in same color
+4. Repeat this with all other nodes pending all nodes have colors
+```
 ![welsh_powell algorithm](images/welsh-powell-algorithm.png)
 source: https://www.youtube.com/watch?v=CQIW2mLfG04
 

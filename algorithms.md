@@ -42,6 +42,8 @@ appear on vertices adjacent to v, assign a new color to it.
 ## Welsh Powell
 
 Description of the algortihm.
+![welsh_powell algorithm](images/welsh-powell-algorithm.png)
+source: https://www.youtube.com/watch?v=CQIW2mLfG04
 
 ## Bron Kerbosch
 

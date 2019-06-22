@@ -10,27 +10,22 @@ func ExampleGetMaxClique() {
 	//Test Number 1
 	//Nur Rechtsabbieger, keine Fussgaenger, eine Phase
 
-	args := []adjGraph.Edge{}
-	graph := adjGraph.NewUGraph(20)
-	for _, edge := range args {
-		graph.UAddEdge(edge.From, edge.To)
-	}
-	argsForEntries := []adjGraph.Edge{{4, 1},
+	args := []adjGraph.Edge{
+		{4, 1},
 		{1, 2},
 		{2, 3},
 		{3, 4}}
 	g := adjGraph.NewGraphAdjMat(6)
-	for _, edge := range argsForEntries {
+	for _, edge := range args {
 		g.AddEdge(edge.From, edge.To)
 	}
-	entryList := adjGraph.MakeList(g)
-	packageC := adjGraph.ConflictGraphPackage{entryList, graph}
-	compGraph := adjGraph.MakeCompatibilityGraph(packageC)
+	graph := adjGraph.MakeConflictGraphOutOfConnectionGraph(g)
+	compGraph := adjGraph.MakeCompatibilityGraph(graph)
 
-	toTest := getMaxCliques(compGraph)
+	toTest := GetMaxCliques(compGraph)
 	for _, index := range toTest {
 		for _, element := range index {
-			fmt.Print(element)
+			fmt.Println(element)
 		}
 		fmt.Println("")
 	}
@@ -54,7 +49,7 @@ func ExampleGetMaxClique2() {
 	graph := adjGraph.MakeConflictGraphOutOfConnectionGraph(g)
 	compGraph := adjGraph.MakeCompatibilityGraph(graph)
 
-	toTest := getMaxCliques(compGraph)
+	toTest := GetMaxCliques(compGraph)
 	for _, index := range toTest {
 		for _, element := range index {
 			fmt.Print(element)
@@ -89,7 +84,7 @@ func ExampleGetMaxClique3() {
 	//Output: {ABC EFG true}{EFG IJK true}{IJK MNO true}{MNO ABC true}
 	//{ABC P1 true}{EFG P1 true}{IJK P1 true}{MNO P1 true}
 
-	toTest := getMaxCliques(compGraph)
+	toTest := GetMaxCliques(compGraph)
 	for _, index := range toTest {
 		for _, element := range index {
 			fmt.Print(element)
@@ -113,7 +108,7 @@ func TestGetMaxClique4(t *testing.T) {
 	graph := adjGraph.MakeConflictGraphOutOfConnectionGraph(g)
 	compGraph := adjGraph.MakeCompatibilityGraph(graph)
 
-	toTest := getMaxCliques(compGraph)
+	toTest := GetMaxCliques(compGraph)
 	for _, index := range toTest {
 		for _, element := range index {
 			fmt.Print(element)
@@ -141,7 +136,7 @@ func ExampleGetMaxClique5() {
 	graph := adjGraph.MakeConflictGraphOutOfConnectionGraph(g)
 	compGraph := adjGraph.MakeCompatibilityGraph(graph)
 
-	toTest := getMaxCliques(compGraph)
+	toTest := GetMaxCliques(compGraph)
 	for _, index := range toTest {
 		for _, element := range index {
 			fmt.Print(element)
@@ -178,7 +173,7 @@ func ExampleGetMaxClique6() {
 	graph := adjGraph.MakeConflictGraphOutOfConnectionGraph(g)
 	compGraph := adjGraph.MakeCompatibilityGraph(graph)
 
-	toTest := getMaxCliques(compGraph)
+	toTest := GetMaxCliques(compGraph)
 	for _, index := range toTest {
 		for _, element := range index {
 			fmt.Print(element)
@@ -211,7 +206,7 @@ func ExampleGetMaxClique7() {
 	graph := adjGraph.MakeConflictGraphOutOfConnectionGraph(g)
 	compGraph := adjGraph.MakeCompatibilityGraph(graph)
 
-	toTest := getMaxCliques(compGraph)
+	toTest := GetMaxCliques(compGraph)
 	for _, index := range toTest {
 		for _, element := range index {
 			fmt.Print(element)

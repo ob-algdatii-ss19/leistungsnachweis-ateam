@@ -9,10 +9,10 @@ import (
 /*
 Calculate the optimization of the traffic lights with basic Greedy algorithm
 */
-func BasicGreedy(returnType adjGraph.ReturnType) [][]adjGraph.Node {
+func BasicGreedy(returnType adjGraph.ConflictGraphPackage) [][]adjGraph.Node {
 	fmt.Println("[INFO] Called BasicGreedy Algorithm")
 
-	graphData := returnType.UGraph
+	graphData := returnType.ConflictGraph
 	trafficEntries := returnType.Entries
 
 	if graphData == nil || trafficEntries == nil {
@@ -27,7 +27,7 @@ func BasicGreedy(returnType adjGraph.ReturnType) [][]adjGraph.Node {
 	for i := 1; i <= numberOfNodes; i++ {
 
 		//user selected the node via checkbox in the gui
-		if trafficEntries[i-1].IsTrue {
+		if trafficEntries[i-1].ChosenByUser {
 			unavailableColors := getUsedColorsByAdjacentNodes(graphData, adjGraph.Node(i), coloredNodes)
 
 			lowestFreeColor := getLowestUnusedColorOfAdjacentNodes(unavailableColors)

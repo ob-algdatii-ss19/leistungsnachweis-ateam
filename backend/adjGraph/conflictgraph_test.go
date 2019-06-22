@@ -353,3 +353,31 @@ func TestMakeConflictGraphOutOfConnectionGraph4(t *testing.T) {
 		}
 	}
 }
+
+func TestMakeConflictGraphOutOfConnectionGraph11(t *testing.T) {
+	//Ein Linksabbieger und ein Geradeausfahrer -  die Spuren Kreuzen sich
+	// A, N
+
+	wantedEdges1 := []Edge{
+		{1, 4},
+		{4, 2},
+	}
+
+	g := NewGraphAdjMat(6)
+	for _, edge := range wantedEdges1 {
+		g.AddEdge(edge.From, edge.To)
+	}
+	m := MakeConflictGraphOutOfConnectionGraph(g)
+	gotEdges := m.ConflictGraph.UEdges()
+
+	expected := []Edge{
+		{3, 17},
+		{17, 3},
+	}
+
+	for index, element := range gotEdges {
+		if expected[index] != element {
+			t.Errorf("Wrong Node")
+		}
+	}
+}

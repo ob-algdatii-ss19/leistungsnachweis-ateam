@@ -6,7 +6,7 @@ import (
 
 type Clique []adjGraph.TrafficEntry
 
-func getMaxCliques(returnType adjGraph.ConflictGraphPackage) []Clique {
+func GetMaxCliques(returnType adjGraph.ConflictGraphPackage) [][]adjGraph.Node {
 	listOfMaxClique := make([]Clique, 0)
 	var currentClique Clique = make([]adjGraph.TrafficEntry, 0)
 	var nextPossibleExpansion Clique = make([]adjGraph.TrafficEntry, 0)
@@ -19,7 +19,20 @@ func getMaxCliques(returnType adjGraph.ConflictGraphPackage) []Clique {
 	}
 	listOfMaxClique = bronkerbIterative(currentClique, nextPossibleExpansion, previousExpansion, returnType, listOfMaxClique)
 	listOfMaxClique = getMininmalMaxCliques(returnType, listOfMaxClique)
-	return listOfMaxClique
+	maxNodes := translateResult(listOfMaxClique, returnType)
+	return maxNodes
+}
+
+func translateResult(clique []Clique, returnType adjGraph.ConflictGraphPackage) [][]adjGraph.Node {
+	result_nodes := make([][]adjGraph.Node, 0)
+	for index, element := range clique {
+		result_nodes = append(result_nodes, make([]adjGraph.Node, 0))
+		for _, clique_element := range element {
+			nodeInt := adjGraph.GetIndexInConflictGraph(returnType, clique_element)
+			result_nodes[index] = append(result_nodes[index], adjGraph.Node(nodeInt))
+		}
+	}
+	return result_nodes
 }
 
 func getMininmalMaxCliques(graphPackage adjGraph.ConflictGraphPackage, listOfMaxCliques []Clique) []Clique {

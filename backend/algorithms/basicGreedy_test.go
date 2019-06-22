@@ -66,7 +66,7 @@ func TestBasicGreedy(t *testing.T) {
 	}
 
 	type args struct {
-		argsData adjGraph.ReturnType
+		argsData adjGraph.ConflictGraphPackage
 	}
 
 	tests := []struct {
@@ -76,7 +76,7 @@ func TestBasicGreedy(t *testing.T) {
 	}{
 		{
 			"coloring simple graph",
-			args{adjGraph.ReturnType{sutTrafficEntries, sutUGraphMat}},
+			args{adjGraph.ConflictGraphPackage{sutTrafficEntries, sutUGraphMat}},
 			[][]adjGraph.Node{
 				{adjGraph.Node(1), adjGraph.Node(4)},
 				{adjGraph.Node(2), adjGraph.Node(5)},
@@ -85,24 +85,24 @@ func TestBasicGreedy(t *testing.T) {
 		},
 		{
 			"coloring graph without edges",
-			args{adjGraph.ReturnType{sutTrafficEntries01, sutUGraphMat01}},
+			args{adjGraph.ConflictGraphPackage{sutTrafficEntries01, sutUGraphMat01}},
 			[][]adjGraph.Node{
 				{adjGraph.Node(3), adjGraph.Node(6), adjGraph.Node(9), adjGraph.Node(12)},
 			},
 		},
 		{
 			"coloring empty graph",
-			args{adjGraph.ReturnType{sutTrafficEntries02, sutUGraphMat02}},
+			args{adjGraph.ConflictGraphPackage{sutTrafficEntries02, sutUGraphMat02}},
 			[][]adjGraph.Node{},
 		},
 		{
 			"handling nil objects",
-			args{adjGraph.ReturnType{}},
+			args{adjGraph.ConflictGraphPackage{}},
 			[][]adjGraph.Node{},
 		},
 		{
 			"coloring graph with only different colors",
-			args{adjGraph.ReturnType{sutTrafficEntries03, sutUGraphMat03}},
+			args{adjGraph.ConflictGraphPackage{sutTrafficEntries03, sutUGraphMat03}},
 			[][]adjGraph.Node{
 				{adjGraph.Node(1)},
 				{adjGraph.Node(2)},

@@ -27,30 +27,9 @@ func WelshPowell(returnType adjGraph.ReturnType) [][]adjGraph.Node {
 		println();
 	}
 
-
 	graphArray=sortNodesDescending(graphArray)
 
-	/*println("NACH sortierung");
-	for i := 0; i < len(graphArray); i++ {
-		print("outputArray:", graphArray[i][0])
-		for j := 1; j < len(graphArray[i]); j++ {
-			print(" ",graphArray[i][j])
-			print(" ")
-		}
-		println();
-	}*/
-
 	var coloredArray [][]int=giveColoredArray(graphArray)
-
-	/*println("Färbung");
-	for i := 0; i < len(coloredArray); i++ {
-		print("outputArray:", coloredArray[i][0])
-		for j := 1; j < len(coloredArray[i]); j++ {
-			print(" ",coloredArray[i][j])
-			print(" ")
-		}
-		println();
-	} */
 
 	return intArrayToNodeArray(coloredArray)
 }
@@ -64,7 +43,6 @@ func graphTo2DimensionalArray(conGraph adjGraph.ReturnType) [][]int{
 	}
 
 	var numberOfNodes = graphData.UNumberOfNodes()
-	//var usedNodes []int
 
 	var returnArray [][] int
 
@@ -93,10 +71,6 @@ func getAllConflictsOfThisNode(n adjGraph.Node, conGraph adjGraph.UGraph) []int{
 		nodeNumber := adjacentNodes[i]
 		retArr = append(retArr, int(nodeNumber))
 	}
-
-
-	//println("getAllConflictsOfThisNode",retArr )
-
 
 	return retArr
 }
@@ -179,10 +153,7 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 		}
 
 
-
 		for x := 0; x < len(usedNodesThisRound); x++ {
-			//print(" ",usedNodesThisRound[x])
-			//print(" ")
 			var searcInt =usedNodesThisRound[x];
 			usedNodes=findAndRemove(searcInt,usedNodes)
 		}
@@ -224,8 +195,6 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 		}
 
 		//add all nodes with same color
-
-
 	}
 
 	//println("in Färbung", len(coloredArray))
@@ -233,9 +202,7 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 }
 
 
-
-
-//returna all used nodes
+//return all used nodes
 //is always index 0 in nodeConflArray
 func getUsedNodes(nodeConflArray [][]int) []int{
 	usedNodes := make([]int, 0)
@@ -244,6 +211,8 @@ func getUsedNodes(nodeConflArray [][]int) []int{
 	}
 	return usedNodes
 }
+
+
 
 
 //array help functions
@@ -303,13 +272,3 @@ func intArrayToNodeArray(intConflArray [][]int) [][]adjGraph.Node{
 
 	return nodeConflArray
 }
-
-
-
-
-//siehe http://mrsleblancsmath.pbworks.com/w/file/fetch/46119304/vertex%20coloring%20algorithm.pdf]
-//Konfliktgraph
-//drüber iterieren nicht erforderlich, siehe ugraph::UAdj
-//Knoten mit meisten Konflikten fahren zuerst
-//keine Gruppen bilden!!!
-//dann siehe Video, nur AEHNLICH zu basic greedy

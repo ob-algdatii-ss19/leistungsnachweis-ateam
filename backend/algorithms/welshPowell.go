@@ -17,7 +17,7 @@ func WelshPowell(returnType adjGraph.ReturnType) [][]adjGraph.Node {
 		return [][]adjGraph.Node{}
 	}
 
-	/*println("vor sortierung");
+	println("vor sortierung");
 	for i := 0; i < len(graphArray); i++ {
 		print("outputArray:", graphArray[i][0])
 		for j := 1; j < len(graphArray[i]); j++ {
@@ -25,7 +25,7 @@ func WelshPowell(returnType adjGraph.ReturnType) [][]adjGraph.Node {
 			print(" ")
 		}
 		println();
-	}*/
+	}
 
 
 	graphArray=sortNodesDescending(graphArray)
@@ -50,7 +50,7 @@ func WelshPowell(returnType adjGraph.ReturnType) [][]adjGraph.Node {
 			print(" ")
 		}
 		println();
-	}*/
+	} */
 
 
 	return intArrayToNodeArray(coloredArray)
@@ -153,9 +153,20 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 			for k := i+1; k <  len(nodeConflArray); k++{
 				if(nodeConflArray[i][j] == nodeConflArray[k][0]){
 
-					usedNodesThisRound=findAndRemove(nodeConflArray[k][0],usedNodesThisRound) //this nodes are not allowed at same time //ÄNERUNG!
+					usedNodesThisRound=findAndRemove(nodeConflArray[k][0],usedNodesThisRound) //this nodes are not allowed at same time
 
-					break;
+
+					//ALS FUNKTION!!!
+
+
+					//loop over nodes of the founded
+					/*for l := k+1; k <  len(nodeConflArray); l++ {
+						if (nodeConflArray[k][0] == nodeConflArray[l][0]) {
+							usedNodesThisRound=findAndRemove(nodeConflArray[l][0],usedNodesThisRound) //this nodes are not allowed at same time
+						}
+					*/
+
+					//break;
 				}else{
 					continue; // this node cannot find in this part of array
 				}
@@ -165,6 +176,22 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 				}
 			}
 		}
+
+		//now delete Nodes, wich depends at subnode
+		for x := 0; x < len(usedNodesThisRound); x++ {
+			var indexIn2DimArray=findIndexIn2DimArray(usedNodesThisRound[x], nodeConflArray)
+
+			//all conflicts of htis node
+			for y := 1; y < len(nodeConflArray[indexIn2DimArray]); y++ {
+				for z := y+1; z <  len(nodeConflArray); z++ {
+					if (nodeConflArray[indexIn2DimArray][y] == nodeConflArray[z][0]) {
+						usedNodesThisRound=findAndRemove(nodeConflArray[z][0],usedNodesThisRound) //this nodes are not allowed at same time
+					}
+				}
+			}
+		}
+
+
 
 		for x := 0; x < len(usedNodesThisRound); x++ {
 			//print(" ",usedNodesThisRound[x])
@@ -181,6 +208,9 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 	//println("in Färbung", len(coloredArray))
 	return coloredArray
 }
+
+
+
 
 //returna all used nodes
 //is always index 0 in nodeConflArray
@@ -214,6 +244,18 @@ func indexOf(element int, data []int) (int) {
 	}
 	return -1    //not found.
 }
+
+
+func findIndexIn2DimArray(element int, data [][]int) int{
+	for i := 0; i < len(data); i++{
+		if(data[i][0] ==element){
+			return i;
+		}
+	}
+	return -1
+}
+
+
 func remove(slice []int, s int) []int {
 	return append(slice[:s], slice[s+1:]...)
 }

@@ -51,7 +51,7 @@ func WelshPowell(returnType adjGraph.ReturnType) [][]adjGraph.Node {
 		}
 		println();
 	} */
-	
+
 	return intArrayToNodeArray(coloredArray)
 }
 
@@ -170,7 +170,7 @@ func giveColoredArray(nodeConflArray [][]int) [][]int{
 
 			//all conflicts of this node
 			for y := 1; y < len(nodeConflArray[indexIn2DimArray]); y++ {
-				for z := y+1; z <  len(nodeConflArray); z++ {
+				for z := y; z <  len(nodeConflArray); z++ {
 					if (nodeConflArray[indexIn2DimArray][y] == nodeConflArray[z][0]) {
 						usedNodesThisRound=findAndRemove(nodeConflArray[z][0],usedNodesThisRound) //this nodes are not allowed at same time
 					}

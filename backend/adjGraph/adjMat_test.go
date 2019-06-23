@@ -21,7 +21,7 @@ func TestAdjMat(t *testing.T) {
 
 	g := NewGraphAdjMat(9)
 	for _, edge := range wantedEdges {
-		g.AddEdge(edge.from, edge.to)
+		g.AddEdge(edge.From, edge.To)
 	}
 
 	gotEdges := g.Edges()
@@ -29,7 +29,7 @@ func TestAdjMat(t *testing.T) {
 outerWanted:
 	for _, wanted := range wantedEdges {
 		for _, got := range gotEdges {
-			if wanted.from == got.from && wanted.to == got.to {
+			if wanted.From == got.From && wanted.To == got.To {
 				continue outerWanted
 			}
 		}
@@ -39,7 +39,7 @@ outerWanted:
 outerGot:
 	for _, got := range gotEdges {
 		for _, wanted := range wantedEdges {
-			if wanted.from == got.from && wanted.to == got.to {
+			if wanted.From == got.From && wanted.To == got.To {
 				continue outerGot
 			}
 		}
@@ -69,8 +69,30 @@ func mkExampleGraph(g Graph) {
 		{9, 8},
 	}
 	for _, edge := range edges {
-		g.AddEdge(edge.from, edge.to)
+		g.AddEdge(edge.From, edge.To)
 	}
+}
+
+func ExampleGraphAdjMat_Adj() {
+	g := NewGraphAdjMat(9)
+	edges := []Edge{
+		{1, 2},
+		{1, 3},
+		{1, 7},
+		{4, 6},
+		{5, 4},
+		{6, 1},
+		{6, 5},
+		{6, 6},
+		{7, 5},
+		{9, 8},
+	}
+	for _, edge := range edges {
+		g.AddEdge(edge.From, edge.To)
+	}
+	fmt.Printf("%v\n", g.Adj(1))
+	// Output:
+	// [2 3 7]
 }
 
 func BenchmarkAdjMatEdges(b *testing.B) {
@@ -93,10 +115,46 @@ func benchmarkHelper(b *testing.B, g Graph) {
 	}
 
 	for _, edge := range edges {
-		g.AddEdge(edge.from, edge.to)
+		g.AddEdge(edge.From, edge.To)
 	}
 	b.ResetTimer()
 	for i := 0; i < b.N; i++ {
 		g.Edges()
+	}
+}
+
+func TestAdjMat_NumberOfNodes(t *testing.T) {
+
+	sut := NewGraphAdjMat(4)
+	edges := []Edge{
+		{1, 2},
+		{1, 4},
+	}
+	for _, edge := range edges {
+		sut.AddEdge(edge.From, edge.To)
+	}
+
+	tests := []struct {
+		name string
+		g    AdjMat
+		want int
+	}{
+		{
+			name: "test number of nodes",
+			g:    sut,
+			want: 4,
+		},
+		{
+			name: "test number of nodes: with empty matrix",
+			g:    NewGraphAdjMat(0),
+			want: 0,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			if got := tt.g.NumberOfNodes(); got != tt.want {
+				t.Errorf("AdjMat.NumberOfNodes() = %v, want %v", got, tt.want)
+			}
+		})
 	}
 }

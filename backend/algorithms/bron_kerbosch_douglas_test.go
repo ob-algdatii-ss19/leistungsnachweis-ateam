@@ -318,7 +318,6 @@ func ExampleGetMaxClique8() {
 
 func ExampleGetMaxClique9() {
 	//Test9
-
 	args := []adjGraph.Edge{
 		{1, 2},
 		{1, 3},

@@ -70,8 +70,8 @@ Example:
 
 ![Bron Kerbosch Algorithmus](images/BronKerboschExample.JPG)
 
-Quelle: http://kontext.fraunhofer.de/haenelt/kurs/folien/Haenelt_Clique.pdf   
-   
+Source: http://kontext.fraunhofer.de/haenelt/kurs/folien/Haenelt_Clique.pdf   
+  
 ```
 Bron_Kerbosch(list next_possible_expansions, list<node> current_list, list already_tested)
     if current_list.isempty() and already_tested.isempty():

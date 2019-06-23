@@ -315,3 +315,50 @@ func ExampleGetMaxClique8() {
 	//17
 	//18
 }
+
+func ExampleGetMaxClique9() {
+	//Test9
+	args := []adjGraph.Edge{
+		{1, 2},
+		{1, 3},
+		{1, 5},
+		{1, 6},
+		{2, 1},
+		{2, 3},
+		{2, 5},
+		{2, 6},
+		{3, 1},
+		{3, 2},
+		{3, 5},
+		{3, 6},
+	}
+	g := adjGraph.NewGraphAdjMat(6)
+	for _, edge := range args {
+		g.AddEdge(edge.From, edge.To)
+	}
+	graph := adjGraph.MakeConflictGraphOutOfConnectionGraph(g)
+	compGraph := adjGraph.MakeCompatibilityGraph(graph)
+
+	toTest := GetMaxCliques(compGraph)
+	for _, index := range toTest {
+		for _, element := range index {
+			fmt.Println(element)
+		}
+		fmt.Println("")
+	}
+	//Output:4
+	//5
+	//9
+	//10
+	//14
+	//15
+	//
+	//1
+	//2
+	//11
+	//
+	//6
+	//7
+	//
+	//12
+}

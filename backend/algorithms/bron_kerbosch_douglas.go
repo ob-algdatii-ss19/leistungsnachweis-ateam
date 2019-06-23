@@ -99,6 +99,9 @@ func isOptimal(listMax []Clique, graphPackage adjGraph.ConflictGraphPackage) boo
 	for _, elementOuter := range listMax {
 		for _, elementInner := range elementOuter {
 			toTest, optimal = removeItemOfClique(toTest, elementInner)
+			if !optimal {
+				return optimal
+			}
 		}
 	}
 	for _, elementIdeal := range toTest {

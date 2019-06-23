@@ -3,7 +3,7 @@ layout: default
 title: Algorithms
 ---
 
-**[Home](./)** **&#124;** **[Alogrithms](./algorithms.html)** **&#124;** **[Architecture](./architecture.html)**
+**[Home](./)** **&#124;** **[Algorithms](./algorithms.html)** **&#124;** **[Architecture](./architecture.html)**
 
 # Description of the algorithms
 
